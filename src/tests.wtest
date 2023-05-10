@@ -1,6 +1,38 @@
-
-test "testX" {
-
-	assert.that(true)
-
-}
+ import ingredientes.*
+ import coctelera.*
+ 
+ const naranja = new Ingredientes()
+ const limon = new Ingredientes()
+ const cocacola = new Ingredientes()
+ 
+ describe "Ingredientes" {
+ 	test "Iniciliza vacio la cantidad de onzas"{
+ 		assert.equals(0, naranja.cantidadOnzas())
+ 	}
+ 	test "Aumtar onza"{
+ 		naranja.aumentarOnza()
+	 	assert.equals(1, naranja.cantidadOnzas())	
+ 	}
+ }
+ 
+ describe "Coctelera" {
+ 	test "Agregar Ingredientes" {
+ 		coctelera.agregarIngredientes(naranja)
+ 		coctelera.agregarIngredientes(limon)
+ 		coctelera.agregarIngredientes(cocacola)
+ 		assert.equals([naranja, limon, cocacola], coctelera.ingredientes())
+ 	}
+ 	test "Aumetan Onzas" {
+ 		coctelera.agregarIngredientes(naranja)
+ 		assert.equals(1, coctelera.ingredientes().first().cantidadOnzas())
+ 		
+ 		coctelera.agregarIngredientes(limon)
+ 		assert.equals(1, coctelera.ingredientes().get(1).cantidadOnzas())
+ 		
+ 		coctelera.agregarIngredientes(naranja)
+ 		assert.equals(2, coctelera.ingredientes().first().cantidadOnzas())
+ 		
+ 		coctelera.agregarIngredientes(limon)
+ 		assert.equals(2, coctelera.ingredientes().get(1).cantidadOnzas())
+ 	}
+ }
