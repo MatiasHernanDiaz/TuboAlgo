@@ -11,7 +11,7 @@ class Cliente{
 	var property tragoRecibido = false // se fija si recibio o no el trago
 	var tragoPedido = null	// que trago genero
 	var tragoQueRecibio = null
-	var position = silla.position() //misma posicion que la silla que se le asigno
+	var property position = silla.position() //misma posicion que la silla que se le asigno
 	var property image = "clienteFeliz.png" //cuantas imagenes de clienteFeliz hay?
 	
 	method tiempoEspera()
@@ -75,6 +75,10 @@ class Cliente{
 	
 	method iniciar() {
 		//NO SE QUE HACE ESTO
+	}
+	
+	method terminar() {
+		
 	}
 }
 

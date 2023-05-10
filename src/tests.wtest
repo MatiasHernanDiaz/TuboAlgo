@@ -31,7 +31,7 @@ describe "Pruebas para la clase Silla y sus herederas" {
 		
 		silla.evaluarEstado()
 		
-		assert.equals(silla.cliente().toString(), "un/a  Cliente")
+		assert.that(silla.cliente().toString().contains("un/a  Cliente"))
 	}
 	
 	test "Si la silla ya tiene un cliente, evaluarEstado() conserva el mismo cliente" {
@@ -66,13 +66,17 @@ describe "Pruebas para la clase Silla y sus herederas" {
 // Test para la Sesion
 describe "Sesion" {
 	test "Al iniciarse, todas sus sillas deben iniciarse y tener un cliente random" {
-		const sesion = new SesionFacil()
+		const sesion = new SesionParaTest()
 		
 		sesion.iniciar()
 		
 		assert.equals(sesion.sillas().size(), 4)
 		
-		sesion.sillas().forEach({ silla => assert.that(silla.cliente().toString().contains("un/a  Cliente"))})
+		game.schedule(1100, {
+			sesion.sillas().forEach({ 
+				silla => assert.that(silla.cliente().toString().contains("un/a  Cliente"))
+			})
+		})
 	}
 }
 

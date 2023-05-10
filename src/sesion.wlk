@@ -11,6 +11,8 @@ class Sesion {
 	const property position = game.at(1, game.height() - 1)
 	
 	method iniciar() {
+		self.crearSillas()
+		
 		sillas.forEach({ silla => self.iniciarSilla(silla) })
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
