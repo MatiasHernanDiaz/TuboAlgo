@@ -1,4 +1,4 @@
-import ingredientes
+import ingredientes.*
 
 class Trago{
 	const ingredientes = []
