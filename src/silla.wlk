@@ -1,4 +1,4 @@
-import Cliente.*
+import cliente.*
 
 import wollok.game.*
 
