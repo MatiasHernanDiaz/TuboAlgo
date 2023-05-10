@@ -12,11 +12,12 @@ const naranja = new Ingredientes()
 const limon = new Ingredientes()
 const cocacola = new Ingredientes()
  
-// Clientes
-const clienteConformista = new ClienteConformista(silla = 1, tiempoEspera = 60)
-const otroClienteConformista = new ClienteConformista(silla = 1, tiempoEspera = 60)
-const clienteMedio = new ClienteMedio(silla = 2, tiempoEspera = 40)
-const clienteExigente = new ClienteExigente(silla = 3, tiempoEspera = 60)
+// Clientes -> position? deberia pasar la misma posision de la silla...
+const silla = new SillaParaTest(position = game.origin())
+const clienteConformista = new ClienteConformista(silla = silla)
+const otroClienteConformista = new ClienteConformista(silla = silla)
+const clienteMedio = new ClienteMedio(silla = silla)
+const clienteExigente = new ClienteExigente(silla = silla)
 
 
 // Comienzan los tests sobre las Sillas
