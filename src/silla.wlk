@@ -36,7 +36,13 @@ class Silla {
 	}
 	
 	method recibirCliente() {
-		self.cliente(new Cliente(silla = self))
+		const nuevoCliente = [
+			new ClienteConformista(silla = self),
+			new ClienteMedio(silla = self),
+			new ClienteExigente(silla = self)
+		].anyOne()
+		
+		self.cliente(nuevoCliente)
 		game.addVisual(self.cliente())
 		self.cliente().iniciar()
 	}
@@ -50,7 +56,7 @@ class Silla {
 
 
 class SillaFria inherits Silla {
-	override method probabilidadCliente() = 15
+	override method probabilidadCliente() = 6
 }
 
 class SillaTibia inherits Silla {
@@ -58,7 +64,7 @@ class SillaTibia inherits Silla {
 }
 
 class SillaCaliente inherits Silla {
-	override method probabilidadCliente() = 6
+	override method probabilidadCliente() = 12
 }
 
 class SillaParaTest inherits Silla {
