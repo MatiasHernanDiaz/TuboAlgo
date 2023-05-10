@@ -1,6 +1,46 @@
+import Silla.*
+import Cliente.*
 
-test "testX" {
+import wollok.game.*
 
-	assert.that(true)
 
+describe "Pruebas para la clase Silla y sus herederas" {
+	
+	test "evaluarEstado() sin cliente y con 100% de probabilidades, debe generar cliente" {
+		
+		const silla = new SillaParaTest(position = game.origin())
+		
+		assert.notThat(silla.estaOcupada())
+		
+		silla.evaluarEstado()
+		
+		assert.equals(silla.cliente().toString(), "un/a  Cliente")
+	}
+	
+	test "Si la silla ya tiene un cliente, evaluarEstado() conserva el mismo cliente" {
+		
+		const silla = new SillaParaTest(position = game.origin())
+		
+		silla.evaluarEstado()
+		
+		const cliente = silla.cliente()
+		
+		silla.evaluarEstado()
+		
+		assert.that(silla.cliente() === cliente)
+	}
+	
+	test "retirarCliente()" {
+		
+		const silla = new SillaParaTest(position = game.origin())
+		
+		silla.evaluarEstado()
+		
+		assert.equals(silla.cliente().toString(), "un/a  Cliente")
+		
+		silla.retirarCliente()
+		
+		assert.notThat(silla.estaOcupada())
+	}
+	
 }
