@@ -35,4 +35,12 @@
  		coctelera.agregarIngredientes(limon)
  		assert.equals(2, coctelera.ingredientes().get(1).cantidadOnzas())
  	}
+ 	
+ 	test "Limpiar coctelera" {
+ 		coctelera.agregarIngredientes(naranja)
+ 		coctelera.agregarIngredientes(limon)
+ 		coctelera.agregarIngredientes(cocacola)
+ 		coctelera.limpiar()
+ 		assert.that(coctelera.ingredientes().isEmpty())
+ 	}
  }

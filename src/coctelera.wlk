@@ -10,12 +10,14 @@ object coctelera {
 			ingredientes.filter({ingr => ingr==ingrediente}).get(0).aumentarOnza()
 	}
 	
+	method limpiar() = ingredientes.clear()
+	
 	/*
 	 * Autor: Any
 	 * Instancia un objeto de la clase Trago
 	 * TODO: Importar clase Trago
 	 */
-//	method entregarCoctel(){
+//	method entregar(){
 //		return new Trago(ingredientes = self.ingredientes())
 //	}
 }
