@@ -1,7 +1,8 @@
-import Silla.*
+import silla.*
 import ingredientes.*
 import coctelera.*
 import cliente.*
+import barman.*
 
 import wollok.game.*
 
@@ -141,4 +142,23 @@ describe "cliente"{
  	test "cliente exigente"{
  		assert.equals(20, clienteExigente.timpoEspera())
  	}
+ 	
+}
+
+describe "barman"{
+	test "cocacola con naranja y limon"{
+		barman.agregarIngrediente(naranja)
+		barman.agregarIngrediente(limon)
+		barman.agregarIngrediente(cocacola)
+		barman.derecha()
+		barman.derecha()
+		barman.seleccionar()
+		barman.derecha()
+		barman.seleccionar()
+		barman.izquierda()
+		barman.izquierda()
+		barman.seleccionar()
+		
+		assert.that(coctelera.ingredientes() == [cocacola,naranja,limon])
+	}
 }
