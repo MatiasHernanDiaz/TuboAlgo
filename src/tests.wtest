@@ -1,9 +1,16 @@
  import ingredientes.*
  import coctelera.*
+ import cliente.*
  
  const naranja = new Ingredientes()
  const limon = new Ingredientes()
  const cocacola = new Ingredientes()
+ 
+ //Clientes
+ const clienteConformista = new ClienteConformista(silla = 1, tiempoEspera = 60)
+ const otroClienteConformista = new ClienteConformista(silla = 1, tiempoEspera = 60)
+ const clienteMedio = new ClienteMedio(silla = 2, tiempoEspera = 40)
+ const clienteExigente = new ClienteExigente(silla = 3, tiempoEspera = 60)
  
  describe "Ingredientes" {
  	test "Iniciliza vacio la cantidad de onzas"{
@@ -42,5 +49,47 @@
  		coctelera.agregarIngredientes(cocacola)
  		coctelera.limpiar()
  		assert.that(coctelera.ingredientes().isEmpty())
+ 	}
+ }
+ 
+ describe "cliente"{
+ 	test "cliente conformista"{
+ 		
+ 		//al inicio
+ 		assert.equals(60, clienteConformista.timpoEspera())
+ 		assert.equals(null,clienteConformista.tragoPedido())
+ 		
+ 		//pido trago
+ 		clienteConformista.generarTrago(_unTrago)
+ 		assert.equals(_unTrago,clienteConformista.tragoPedido())
+ 		
+ 		//No recibi el trago
+ 		assert.notThat(clienteConformista.tragoRecibido())
+ 		
+ 		//recibo trago
+ 		//aca tiene que pasar algo desde el bartender
+ 		assert.that(clienteConformista.tragoRecibido())
+ 		
+ 		//comparar tragos (es el mismo)
+ 		assert.that(clienteConformista.verificarTrago())
+ 		
+ 		//como es el mismo trago modifico satisfaccion?
+ 		//este metodo llama a verificarTrago
+ 		clienteConformista.modificarSatisfaccion()
+ 		assert.equals(3,clienteConformista.satisfaccion())
+ 		
+ 		//deja propina acorde a la satisfaccion
+ 		assert.equals(100,clienteConformista.darPropina())
+ 		
+ 		
+ 		
+ 	}
+ 	
+ 	test "cliente medio"{
+ 		assert.equals(40, clienteMedio.timpoEspera())
+ 	}
+ 	
+ 	test "cliente exigente"{
+ 		assert.equals(20, clienteExigente.timpoEspera())
  	}
  }
