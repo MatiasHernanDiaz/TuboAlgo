@@ -43,9 +43,23 @@ object barman{
 	method entregar(silla){
 		const cliente = silla.cliente()
 		if(cliente != null){
-			cliente.verificarTrago()
+			cliente.recibirTrago(coctelera.ingredientes())
+			cliente.modificarSatisfaccion()
+			cliente.darPropina()
 		}
 	}
+}
+
+object propinero{
+	var dinero = 0
+	const dineroNescesario = 0 //dependerá de la sesion
+	
+	method entregarPropina(cant){
+		dinero += cant
+	}
+	method dineroTotal() = dinero
+	
+	method objetivoCumplido() = dinero >= dineroNescesario
 }
 
 
