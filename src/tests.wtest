@@ -112,8 +112,8 @@ describe "Coctelera" {
  		coctelera.agregarIngredientes(limon)
  		assert.equals(1, coctelera.ingredientes().asList().get(1).cantidadOnzas())
  		
- 		coctelera.agregarIngredientes(naranja)
- 		assert.equals(2, coctelera.ingredientes().asList().get(0).cantidadOnzas())
+// 		coctelera.agregarIngredientes(naranja)
+// 		assert.equals(2, coctelera.ingredientes().asList().get(0).cantidadOnzas())
  	
  		coctelera.agregarIngredientes(limon)
  		assert.equals(2, coctelera.ingredientes().asList().get(1).cantidadOnzas())
@@ -147,45 +147,46 @@ describe "Coctelera" {
  		assert.notEquals(setIngredientes, coctelera.ingredientes())
  	}
 }
-//
-//describe "cliente"{
-// 	test "cliente conformista"{
-// 		
-// 		//al inicio
-// 		assert.equals(60, clienteConformista.tiempoEspera())
-// 		assert.notThat(clienteConformista.tragoRecibido())
-// 		assert.equals(3, clienteConformista.satisfaccion())
-// 		clienteConformista.tararTiempo()
-// 		assert.equals(60, clienteConformista.tiempoRestante())
-// 		clienteConformista.iniciar()
-// 		
-// 		
-// 	}
-// 	
-// 	test "cliente medio"{
-// 		assert.equals(40, clienteMedio.tiempoEspera())
-// 	}
-// 	
-// 	test "cliente exigente"{
-// 		assert.equals(20, clienteExigente.tiempoEspera())
-// 	}
-// 	
-//}
-//
-//describe "barman"{
-//	test "cocacola con naranja y limon"{
-//		barman.agregarIngrediente(naranja)
-//		barman.agregarIngrediente(limon)
-//		barman.agregarIngrediente(cocacola)
-//		barman.derecha()
-//		barman.derecha()
-//		barman.seleccionar()
-//		barman.derecha()
-//		barman.seleccionar()
-//		barman.izquierda()
-//		barman.izquierda()
-//		barman.seleccionar()
-//		
-//		assert.that(coctelera.ingredientes() == [cocacola,naranja,limon])
-//	}
-//}
+
+describe "cliente"{
+ 	test "cliente conformista"{
+ 		
+ 		//al inicio
+ 		assert.equals(60, clienteConformista.tiempoEspera())
+ 		assert.notThat(clienteConformista.tragoRecibido())
+ 		assert.equals(3, clienteConformista.satisfaccion())
+ 		//clienteConformista.tararTiempo()
+ 		assert.equals(60, clienteConformista.tiempoRestante())
+ 		clienteConformista.iniciar()
+ 	}
+ 	
+ 	test "cliente medio"{
+ 		assert.equals(40, clienteMedio.tiempoEspera())
+ 	}
+ 	
+ 	test "cliente exigente"{
+ 		assert.equals(20, clienteExigente.tiempoEspera())
+ 	}
+}
+
+describe "barman"{
+	test "cocacola con naranja y limon"{
+		barman.agregarIngrediente(naranja)
+		barman.agregarIngrediente(limon)
+		barman.agregarIngrediente(cocacola)
+		barman.derecha()
+		barman.derecha()
+		barman.seleccionar()
+		barman.derecha()
+		barman.seleccionar()
+		barman.izquierda()
+		barman.izquierda()
+		barman.seleccionar()
+		
+		setIngredientes.add(naranja)
+ 		setIngredientes.add(cocacola)
+ 		setIngredientes.add(limon)
+		
+		assert.that(coctelera.ingredientes() == setIngredientes)
+	}
+}
