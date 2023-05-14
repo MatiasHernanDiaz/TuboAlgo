@@ -5,47 +5,51 @@ import cliente.*
 
 object barman{
 	var seleccionado = 0
-	const property todosLosIngredientes = []//se agregarán en el test o cuando el juego comienze
+	const property todosLosIngredientes = []//se agregarán en el test o cuando el juego comience
 	
 	method cantIngredientes() = todosLosIngredientes.size()
 	
 	method seleccionado() = seleccionado
 	
 	method derecha(){
-		if(seleccionado == self.cantIngredientes()-1){
+		if(seleccionado == self.cantIngredientes()-1)
 			seleccionado = 0
-		}
-		else{
+		else
 			seleccionado++
-		}
+		
 	}
 	method izquierda(){
-		if(seleccionado == 0){
+		if(seleccionado == 0)
 			seleccionado = self.cantIngredientes()-1
-		}
-		else{
+		else
 			seleccionado--
-		}
+		
 	}
+	
+	// qué es batir? parce ser un metodo de coctelera o al menos que tiene que convivir con ella
 	method batir(num){
 		
 	}
+	
 	method seleccionar(){
 		coctelera.agregarIngredientes(self.ingredienteSeleccionado())
 	}
+	
 	method agregarIngrediente(ingrediente){
 		todosLosIngredientes.add(ingrediente)
 	}
-	method ingredienteSeleccionado(){
-		return self.todosLosIngredientes().get(seleccionado)
-	}
+	
+	method ingredienteSeleccionado() = self.todosLosIngredientes().get(seleccionado)
+	
 	
 	method entregar(silla){
 		const cliente = silla.cliente()
 		if(cliente != null){
-			cliente.recibirTrago(coctelera.ingredientes())
-			cliente.modificarSatisfaccion()
-			cliente.darPropina()
+			cliente.recibirTrago(coctelera.ingredientes())  //ESTO DE RECIBIR TRAGO, ES RECIBIR INGREDIENTES
+			cliente.modificarSatisfaccion() // este metodo no debería ser llamado desde bar, debería ser desencadenado por recibirTrago
+			cliente.darPropina() //este metodo no debería ser llamado desde bar, debería ser desencadenado por recibirTrago
+		} else {
+			game.say(self, "El cliente se ha ido. ¿Le entrego este trago a otro cliente o tiro este?")
 		}
 	}
 }

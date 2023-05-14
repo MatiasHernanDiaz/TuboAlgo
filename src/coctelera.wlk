@@ -1,5 +1,9 @@
+import wollok.game.*
+
 object coctelera {
-	const property ingredientes = []
+	var property image = "algunaimagen" //customizar 
+	var property position = new Position(x=10, y=20) //customizar 
+	const property ingredientes = #{}
 	
 	method agregarIngredientes(ingrediente) {
 		if(!ingredientes.contains(ingrediente)){
@@ -7,7 +11,7 @@ object coctelera {
 			ingredientes.add(ingrediente)
 		}
 		else
-			ingredientes.filter({ingr => ingr==ingrediente}).get(0).aumentarOnza()
+			ingredientes.asList().filter({ingr => ingr==ingrediente}).get(0).aumentarOnza()
 	}
 	
 	method limpiar() = ingredientes.clear()
