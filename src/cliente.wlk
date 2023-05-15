@@ -8,9 +8,9 @@ class Cliente{
 	
 	const silla // por parametro
 	var satisfaccion = 3 //siempre arranca alta
-	var property tragoRecibido = false // se fija si recibio o no el trago
-	var tragoPedido = null	// que trago genero
-	var tragoQueRecibio = null
+	//var property tragoRecibido = false // se fija si recibio o no el trago
+	var property tragoPedido = null	// que trago genero
+	//var tragoQueRecibio = null
 	const property position = silla.position() //misma posicion que la silla que se le asigno
 	var property image = "clienteFeliz.png" //cuantas imagenes de clienteFeliz hay?
 	var tiempoRestante = self.tiempoEspera() //se inicializa igual que tiempo de espera 
@@ -19,6 +19,8 @@ class Cliente{
 	/*ESTADO DEL CLIENTE */
 	
 	method estado(){
+		
+		/*
 		if(self.tragoRecibido()){
 			//sacar modificarSatisfaccion
 			//self.modificarSatisfaccion()
@@ -35,23 +37,12 @@ class Cliente{
 			self.cambiarImagen()
 			//un dialogo
 		}
+		* */
+		
 	}
 	
 	method satisfaccion(){return satisfaccion}
-	
-	method modificarSatisfaccion(){
-		//este metodo llama a verificarTrago y decide si modifica o no la satisfaccion
-		//la satisfaccion tambien se tiene que modificar con el tiempo
-		if(self.verificarTrago()){satisfaccion += 1}
-		else{satisfaccion -=1 }
-	}
-	
-	
-	
-	method satisfaccionActual(){
-		//revisa la satisfaccion para ver si tiene que cambiar imagen
-		game.onTick(1000,"revisarSatisfaccion",{self.estado()})
-	}
+
 	
 	method cambiarImagen(){
 		if(self.satisfaccion() == 3){image = "clienteFeliz.png"}
@@ -71,18 +62,21 @@ class Cliente{
 	/*METODOS DE INICIO Y TERMINAR */
 	
 	method iniciar() {
+		//pide un trago y corre el reloj y estado
+		self.generarTrago()
+		game.onTick(1000,"control",{self.control()})
 		
-		//inciar eventos 
-		//onTick tiene que llamar
-		//generarTrago()
-		self.estado()
+	}
+	
+	method control(){
+		//self.estado()
 		self.tiempoRegresivo()
-		
-		
+		self.modificarSatisfaccionTiempo()
 	}
 	
 	method terminar() {
 		//remueve los onTick de iniciar()
+		game.removeTickEvent("control")
 	}
 	
 	/*METODOS DE TIEMPO */
@@ -115,6 +109,7 @@ class Cliente{
 	
 	method modificarSatisfaccionTiempo(){
 		//modifico satisfaccion de a tercios
+		//escuchar mas tarde a theo
 		
 		if(self.tiempoRestante() < (self.tiempoEspera()*(1/3))){
 			satisfaccion = 1
@@ -128,17 +123,23 @@ class Cliente{
 	
 	/*METODOS PARA EL ANALISIS DE LOS TRAGOS */
 	
-	method verificarTrago() //abstracto
+	method verificarTrago(unTrago) //abstracto
 	
-	method generarTrago(_unTrago){
+	method generarTrago(){
 		//genera un trago
 		//llama al methodo que instancia un trago
-		tragoPedido = _unTrago
+		const unTrago = [new Fernet(), new Cerveza()].anyOne()
+		self.tragoPedido(unTrago)
 	}
 	
 	method tragoPedido(){return tragoPedido}
 	
-	method recibirTrago(_unTrago){tragoQueRecibio = _unTrago}
+	method recibirTrago(_unTrago){
+		if(self.verificarTrago(_unTrago)){
+			self.darPropina()
+		}
+		game.schedule(1000,{self.desalojar()})
+	}
 	
 	
 	method darPropina(){
@@ -168,7 +169,7 @@ class ClienteExigente inherits Cliente{
 	
 	override method tiempoEspera(){return 20}
 	
-	override method verificarTrago(){
+	override method verificarTrago(tragoQueRecibio){
 		//si los set son iguales le basta
 		return tragoQueRecibio.ingredientes().count(
 			{ing => tragoPedido.ingredientes().any(
@@ -184,7 +185,7 @@ class ClienteMedio inherits Cliente{
 	//tiempo de espera 40 segundos
 	override method tiempoEspera(){return 40}
 	
-	override method verificarTrago(){
+	override method verificarTrago(tragoQueRecibio){
 		//si los set son iguales le basta
 		return tragoQueRecibio.ingredientes().count(
 			{ing => tragoPedido.ingredientes().any(
@@ -203,7 +204,7 @@ class ClienteConformista inherits Cliente{
 	//tiempo de espera 60 segundos
 	override method tiempoEspera(){return 60}
 	
-	override method verificarTrago(){
+	override method verificarTrago(tragoQueRecibio){
 		//si los set son iguales le basta
 		//return tragoQueRecibio.ingredientes() == tragoPedido.ingredientes()
 		return tragoQueRecibio.ingredientes().count(
