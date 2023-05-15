@@ -1,6 +1,9 @@
+import tragos.*
+
 object coctelera {
 	const property ingredientes = []
-	
+	const property cantidades = []
+
 	method agregarIngredientes(ingrediente) {
 		if(!ingredientes.contains(ingrediente)){
 			ingrediente.aumentarOnza()
@@ -12,12 +15,10 @@ object coctelera {
 	
 	method limpiar() = ingredientes.clear()
 	
+	method entregar() = new Trago(ingredientes = self.ingredientes(), cantidades = self.cantidades())
 	/*
 	 * Autor: Any
 	 * Instancia un objeto de la clase Trago
 	 * TODO: Importar clase Trago
 	 */
-//	method entregar(){
-//		return new Trago(ingredientes = self.ingredientes())
-//	}
 }
