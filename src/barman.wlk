@@ -2,7 +2,9 @@ import wollok.game.*
 import coctelera.*
 import ingredientes.*
 import cliente.*
+import tragos.*
 
+//Theo
 object barman{
 	var seleccionado = 0
 	const property todosLosIngredientes = []//se agregarán en el test o cuando el juego comience
@@ -26,10 +28,6 @@ object barman{
 		
 	}
 	
-	// qué es batir? parce ser un metodo de coctelera o al menos que tiene que convivir con ella
-	method batir(num){
-		
-	}
 	
 	method seleccionar(){
 		coctelera.agregarIngredientes(self.ingredienteSeleccionado())
@@ -45,12 +43,18 @@ object barman{
 	method entregar(silla){
 		const cliente = silla.cliente()
 		if(cliente != null){
-			cliente.recibirTrago(coctelera.ingredientes())  //ESTO DE RECIBIR TRAGO, ES RECIBIR INGREDIENTES
-			cliente.modificarSatisfaccion() // este metodo no debería ser llamado desde bar, debería ser desencadenado por recibirTrago
-			cliente.darPropina() //este metodo no debería ser llamado desde bar, debería ser desencadenado por recibirTrago
+			cliente.recibirTrago(self.aTrago())
 		} else {
-			game.say(self, "El cliente se ha ido. ¿Le entrego este trago a otro cliente o tiro este?")
+			game.say(self, "No hay nadie ahi")
 		}
+	}
+	
+	method aTrago(){
+		return new Trago(
+			ingredientes = coctelera.ingredientes(),
+			cantidades = coctelera.cantidades(),
+			cantidadShakes = coctelera.cantidadShakes()
+		)
 	}
 }
 
@@ -72,7 +76,7 @@ object config{
 		keyboard.right().onPressDo({=> barman.derecha()})
 		keyboard.left().onPressDo({=> barman.izquierda()})
 		keyboard.enter().onPressDo({=> barman.seleccionar()})
-		keyboard.space().onPressDo({barman.batir(1)})
+		keyboard.space().onPressDo({coctelera.batir()})
 		
 		/*
 		keyboard.num1().onPressDo({barman.entregar(silla1)})
