@@ -1,6 +1,7 @@
 
 class Ingrediente{
-	var property image
+	var property vacio = false
+	var property image = if(!vacio) 'pepita.png' else 'pepita.png'
 	var property cantidadOnzas = 0
 	
 	method aumentarOnza() = cantidadOnzas++
@@ -8,29 +9,38 @@ class Ingrediente{
 
 //#### Ingredientes #####
 //#######################
+//DESCRIPCION:El bartender tiene que reponer los ingredientes, apretando una tecla 
+//			se agrega la animacion de una botella vacia, y una llena
+//			con el mensaje que no se puede seguir porque esta vacio
+//			Se instancian 1 vez para agregar el ingrediente a la carta.
+class BotellaCoca inherits Ingrediente(image = 'pepita.png'){}
+const coca = new BotellaCoca()
 
-//DESCRIPCION:El bartender dispone de una fuente infinita de todo, todo un Thanos el loquillo
-//			, apreta botones nomas  nunca se acaba nada, sin animacion de vacio/lleno
-const coca = new Ingrediente(image = 'pepita.png')
+class BotellaFernet inherits Ingrediente(image = 'pepita.png'){}
+const fernet = new BotellaFernet()
 
-const fernet = new Ingrediente(image = 'pepita.png')
+class BotellaCamparo inherits Ingrediente(image = 'pepita.png'){}
 
-const campari = new Ingrediente(image = 'pepita.png')
+class BotellaGinebra inherits Ingrediente(image = 'pepita.png'){}
 
-const ginebra = new Ingrediente(image = 'pepita.png')
+class BotellaVodka inherits Ingrediente(image = 'pepita.png'){}
 
-const vodka = new Ingrediente(image = 'pepita.png')
+class BotellaGancia inherits Ingrediente(image = 'pepita.png'){}
 
-const gancia = new Ingrediente(image = 'pepita.png')
+class BotellaAgua inherits Ingrediente(image = 'pepita.png'){}
+const aguaMineral = new BotellaAgua()
 
-const aguaMineral = new Ingrediente(image = 'pepita.png')
+class SifonSoda inherits Ingrediente(image = 'pepita.png'){}
+const soda= new SifonSoda()
 
-const soda = new Ingrediente(image = 'pepita.png')
+class BidonPulpaNaranja inherits Ingrediente(image = 'pepita.png'){}
+const pulpaNaranja = new BidonPulpaNaranja()
 
-const pulpaNaranja = new Ingrediente(image = 'pepita.png')
+class BidonPulpaManzana inherits Ingrediente(image = 'pepita.png'){}
+const pulpaManzana = new BidonPulpaManzana()
 
-const pulpaLimon = new Ingrediente(image = 'pepita.png')
+class BidonPulpaUva inherits Ingrediente(image = 'pepita.png'){}
+const pulpaUva = new BidonPulpaUva()
 
-const pulpaUva = new Ingrediente(image = 'pepita.png')
-
-const pulpaManzana = new Ingrediente(image = 'pepita.png')
+class BidonPulpaLimon inherits Ingrediente(image = 'pepita.png'){}
+const pulpaLimon = new BidonPulpaLimon()
