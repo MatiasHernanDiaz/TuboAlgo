@@ -1,0 +1,20 @@
+Botella 1: (4, 8)
+Botella 2: (11, 8)
+Botella 3: (18, 8)
+Botella 4: (25, 8)
+Botella 5: (32, 8)
+Botella 6: (39, 8)
+Botella 7: (46, 8)
+
+Propinero: (3, 20)
+
+Silla 1: (16, 20)
+Silla 2: (30, 20)
+Silla 3: (44, 20)
+Silla 4: (58, 20)
+
+Clientes: (x_silla + 3, 20)
+
+Coctelera: (73, 20)
+
+Reloj: ()
