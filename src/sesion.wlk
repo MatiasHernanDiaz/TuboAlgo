@@ -8,12 +8,14 @@ class Sesion {
 	var property tiempoRestante = self.tiempoInicial()
 	const property sillas = []
 	
-	const property position = game.at(1, game.height() - 1)
+	const property position = game.at(2, game.height() - 5)
 	
 	method iniciar() {
 		self.crearSillas()
 		
 		sillas.forEach({ silla => self.iniciarSilla(silla) })
+		
+		//game.addVisual(barman)
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
 	}
@@ -23,7 +25,7 @@ class Sesion {
 		
 		game.removeTickEvent("controlReloj")
 		
-		game.removeVisual(barman)
+		//game.removeVisual(barman)
 		
 		game.addVisual(finalSesion)
 	}
@@ -39,7 +41,7 @@ class Sesion {
 	
 	method text() = tiempoRestante.toString()
 	
-	method tiempoInicial() = 10
+	method tiempoInicial() = 600
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
@@ -56,10 +58,10 @@ class SesionFacil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(3, 2)),
-			new SillaTibia(position = game.at(3, 4)),
-			new SillaTibia(position = game.at(3, 8)),
-			new SillaCaliente(position = game.at(3, 10))
+			new SillaFria(position = game.at(16, 19)),
+			new SillaTibia(position = game.at(30, 19)),
+			new SillaTibia(position = game.at(44, 19)),
+			new SillaCaliente(position = game.at(58, 19))
 		])
 	}
 }

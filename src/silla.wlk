@@ -6,8 +6,7 @@ class Silla {
 	var property cliente = null
 	
 	const property position // Lo define la Sesión cuando crea la silla
-	const property image = "silla.png"
-	
+		
 	
 	method iniciar() {
 		game.onTick(1000, "evaluarEstado", { self.evaluarEstado() })
@@ -55,14 +54,20 @@ class Silla {
 
 
 class SillaFria inherits Silla {
+	const property image = "sillaFria.png"
+	
 	override method probabilidadCliente() = 6
 }
 
 class SillaTibia inherits Silla {
+	const property image = "sillaTibia.png"
+	
 	override method probabilidadCliente() = 10
 }
 
 class SillaCaliente inherits Silla {
+	const property image = "sillaCaliente.png"
+	
 	override method probabilidadCliente() = 12
 }
 
