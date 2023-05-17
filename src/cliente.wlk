@@ -7,20 +7,17 @@ import barman.*
 
 class Cliente{
 	
+	const property silla // por parametro
 	var property satisfaccion = 3 //siempre arranca alta
-	//var property tragoRecibido = false // se fija si recibio o no el trago
 	var property tragoPedido = null	// que trago genero
-	//var tragoQueRecibio = null
-	const property position = silla.position() //misma posicion que la silla que se le asigno
-	var property image = "clienteFeliz.png" //cuantas imagenes de clienteFeliz hay?
+	const property position = silla.position().right(2) //misma posicion que la silla que se le asigno
+	//var property image  //cuantas imagenes de clienteFeliz hay?
 	var tiempoRestante = self.tiempoEspera() //se inicializa igual que tiempo de espera 
 	var property tragoRecibido = false // se fija si recibio o no el trago
-	const silla // por parametro
 	
 	
-	method cambiarImagen(){
-		image = if(self.satisfaccion()==3) "clienteFeliz.png" else if(self.satisfaccion()==2) "clienteNeutral.png" else "clienteEnojado.png"
-	}
+	
+	method cambiarImagen()
 	
 	//deja la silla vacia
 	method desalojar() = silla.retirarCliente()
@@ -30,19 +27,22 @@ class Cliente{
 
 		//pide un trago y corre el reloj y estado
 		self.generarTrago()
-		game.onTick(1000,"control",{self.control()})
+		game.onTick(1000,'c' + self.silla().evento(),{self.control()})
 		
 	}
 	
 	method control(){
-	
-		self.tiempoRegresivo()
-		self.modificarSatisfaccionTiempo()
+		console.println('entré: ' + self.silla().evento())
+		if (self.silla().cliente() != false) {
+			self.tiempoRegresivo()
+			self.modificarSatisfaccionTiempo()			
+		}
+		
 	}
 	
 	method terminar() {
 		//remueve los onTick de iniciar()
-		game.removeTickEvent("control")
+		game.removeTickEvent('c' + self.silla().evento())
 	}
 	
 	/*abstracto */
@@ -54,8 +54,9 @@ class Cliente{
 	method tiempoRegresivo(){
 		//inicia la cuenta regresiva
 		if(self.verificarTiempoPositivo())
-			game.onTick(1000,"restasSegundos",{self.restarSegundos()})
+			self.restarSegundos()
 		else
+			//game.schedule(6000,{self.desalojar()})
 			self.desalojar()
 	}
 	
@@ -73,11 +74,13 @@ class Cliente{
 		//escuchar mas tarde a theo
 		if((self.tiempoRestante()) < (self.tiempoEspera()*(1/3))){
 			satisfaccion = 1
-			game.say(self, "Estoy por irme")
+			//game.say(self, "Me canse de esperar...")
+			
+			
 		}
 		else if((self.tiempoRestante()) < (self.tiempoEspera()*(2/3))){
 			satisfaccion = 2
-			game.say(self, "¿Falta mucho?")
+			//game.say(self, "¿Falta mucho?")
 		}
 	}
 	
@@ -123,6 +126,7 @@ class Cliente{
 			propinero.entregarPropina(1000) 
 		} else {
 			game.say(self, "Si no se tiene nada bueno que decir, mejor no decir nada. ¡Hasta nunca!")
+			
 			self.desalojar()
 		}
 	}
@@ -132,7 +136,9 @@ class Cliente{
 class ClienteExigente inherits Cliente {
 	//tiempo de espera 20 segundos
 	
-	override method tiempoEspera(){return 20}
+	var property image = "clienteDificilFeliz.png"
+	
+	override method tiempoEspera(){return 10}
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y lista onzas
@@ -142,11 +148,21 @@ class ClienteExigente inherits Cliente {
 			)}
 		)
 	}
+	
+	override method cambiarImagen(){
+		self.image(
+			if(self.satisfaccion()==3) "clienteDificilFeliz.png" 
+			else if(self.satisfaccion()==2) "clienteDificilNeutral.png" 
+			else "clienteDificilTriste.png") 
+	}
 }
 
 class ClienteMedio inherits Cliente{
 	//tiempo de espera 40 segundos
-	override method tiempoEspera() {return 40}
+	
+	var property image = "clienteMedioFeliz.png"
+	
+	override method tiempoEspera() {return 20}
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y compara lista onzas con tolerancia de 1 de dif
@@ -156,12 +172,21 @@ class ClienteMedio inherits Cliente{
 					.ingredientes()
 					.any({ing2 => ing2.nombre() == ing.nombre() && (ing2.Onzas() - ing.Onzas()).abs() <= 1})})
 	}
+	
+	override method cambiarImagen(){
+		self.image(
+			if(self.satisfaccion()==3) "clienteMedioFeliz.png" 
+			else if(self.satisfaccion()==2) "clienteMedioNeutral.png" 
+			else "clienteMedioTriste.png") 
+	}
 }
 
 class ClienteConformista inherits Cliente{
 	//tiempo de espera 60 segundos
+	
+	var property image = "clienteFacilFeliz.png" 
 
-	override method tiempoEspera(){return 60}
+	override method tiempoEspera(){return 30}
 	
 	override method verificarTrago(tragoQueRecibio){
 
@@ -173,5 +198,12 @@ class ClienteConformista inherits Cliente{
 					.ingredientes()
 					.any({ing2 => ing2.nombre() == ing.nombre()})}
 		)
+	}
+		
+	override method cambiarImagen(){
+		self.image(
+			if(self.satisfaccion()==3) "clienteFacilFeliz.png" 
+			else if(self.satisfaccion()==2) "clienteFacilNeutral.png" 
+			else "clienteFacilTriste.png") 
 	}
 }

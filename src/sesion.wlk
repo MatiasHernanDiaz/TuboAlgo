@@ -58,10 +58,10 @@ class SesionFacil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 19)),
-			new SillaTibia(position = game.at(30, 19)),
-			new SillaTibia(position = game.at(44, 19)),
-			new SillaCaliente(position = game.at(58, 19))
+			new SillaFria(position = game.at(16, 19), evento = 'e1'),
+			new SillaTibia(position = game.at(30, 19), evento = 'e2'),
+			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
+			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
 		])
 	}
 }
