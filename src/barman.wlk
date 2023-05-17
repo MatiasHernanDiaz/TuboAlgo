@@ -8,10 +8,15 @@ import tragos.*
 object barman{
 	var seleccionado = 0
 	const property todosLosIngredientes = []//se agregarán en el test o cuando el juego comience
+	var property sesion = null
 	
 	method cantIngredientes() = todosLosIngredientes.size()
 	
 	method seleccionado() = seleccionado
+	
+	method iniciar(sesion_){
+		self.sesion(sesion_)
+	}
 	
 	method derecha(){
 		if(seleccionado == self.cantIngredientes()-1)
@@ -44,6 +49,7 @@ object barman{
 		const cliente = silla.cliente()
 		if(cliente != null){
 			cliente.recibirTrago(self.aTrago())
+			coctelera.limpiar()
 		} else {
 			game.say(self, "No hay nadie ahi")
 		}

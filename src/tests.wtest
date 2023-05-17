@@ -8,9 +8,9 @@ import barman.*
 import wollok.game.*
 
 // Ingredientes
-const naranja = new Ingredientes(nombre = "naranja")
-const limon = new Ingredientes(nombre = "limon")
-const cocacola = new Ingredientes(nombre = "cocacola")
+const naranja = new Ingrediente()
+const limon = new Ingrediente()
+const cocacola = new Ingrediente()
 const setIngredientes = #{}
  
 // Clientes -> position? deberia pasar la misma posision de la silla...
