@@ -41,7 +41,7 @@ class Sesion {
 	
 	method text() = tiempoRestante.toString()
 	
-	method tiempoInicial() = 600
+	method tiempoInicial() = 300
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
@@ -72,10 +72,10 @@ class SesionNormal inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(3, 2)),
-			new SillaCaliente(position = game.at(3, 4)),
-			new SillaTibia(position = game.at(3, 8)),
-			new SillaCaliente(position = game.at(3, 10))
+			new SillaFria(position = game.at(16, 19), evento = 'e1'),
+			new SillaCaliente(position = game.at(30, 19), evento = 'e2'),
+			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
+			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
 		])
 	}
 }
@@ -86,10 +86,10 @@ class SesionDificil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaTibia(position = game.at(3, 2)),
-			new SillaCaliente(position = game.at(3, 4)),
-			new SillaTibia(position = game.at(3, 8)),
-			new SillaCaliente(position = game.at(3, 10))
+			new SillaTibia(position = game.at(16, 19), evento = 'e1'),
+			new SillaCaliente(position = game.at(30, 19), evento = 'e2'),
+			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
+			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
 		])
 	}
 }
@@ -100,15 +100,13 @@ class SesionParaTest inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaParaTest(position = game.at(3, 2)),
-			new SillaParaTest(position = game.at(3, 4)),
-			new SillaParaTest(position = game.at(3, 8)),
-			new SillaParaTest(position = game.at(3, 10))
+			new SillaParaTest(position = game.at(16, 19), evento = 'e1'),
+			new SillaParaTest(position = game.at(30, 19), evento = 'e2'),
+			new SillaParaTest(position = game.at(44, 19), evento = 'e3'),
+			new SillaParaTest(position = game.at(58, 19), evento = 'e4')
 		])
 	}
 }
-
-
 
 
 object finalSesion {
