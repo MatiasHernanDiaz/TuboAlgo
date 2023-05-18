@@ -2,6 +2,7 @@ import wollok.game.*
 import coctelera.*
 import ingredientes.*
 import barman.*
+import tragos.*
 
 /*Matias */
 
@@ -92,7 +93,7 @@ class Cliente{
 	method generarTrago(){
 		//genera un trago
 		//llama al methodo que instancia un trago
-		const unTrago = [new BotellaCoca(), new BotellaFernet()].anyOne()
+		const unTrago = carta.elegirTrago()
 		self.tragoPedido(unTrago)
 	}
 	

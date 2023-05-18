@@ -1,21 +1,45 @@
 import silla.*
 import barman.*
+import ingredientes.*
+import coctelera.*
 
 import wollok.game.*
 
+object config{
+	method config(){
+		keyboard.right().onPressDo({=> barman.derecha()})
+		keyboard.left().onPressDo({=> barman.izquierda()})
+		keyboard.up().onPressDo({=> barman.seleccionar()})
+		keyboard.down().onPressDo({coctelera.limpiar()})
+		
+		/*
+		keyboard.num1().onPressDo({barman.entregar(silla1)})
+		keyboard.num2().onPressDo({barman.entregar(silla2)})
+		keyboard.num3().onPressDo({barman.entregar(silla3)})
+		keyboard.num4().onPressDo({barman.entregar(silla4)})
+		keyboard.num5().onPressDo({coctelera.limpiar()})
+		*/
+	}
+	
+}
 
 class Sesion {
 	var property tiempoRestante = self.tiempoInicial()
 	const property sillas = []
+	const property ingredientes = [fernet, coca, campari, naranja, limon]
 	
 	const property position = game.at(2, game.height() - 5)
 	
 	method iniciar() {
 		self.crearSillas()
 		
-		sillas.forEach({ silla => self.iniciarSilla(silla) })
+		self.sillas().forEach({ silla => self.iniciarSilla(silla) })
+		self.ingredientes().forEach({ ingr => game.addVisual(ingr) })
 		
-		//game.addVisual(barman)
+		game.addVisual(barman)
+		game.addVisual(coctelera)
+		
+		config.config()
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
 	}
@@ -25,7 +49,7 @@ class Sesion {
 		
 		game.removeTickEvent("controlReloj")
 		
-		//game.removeVisual(barman)
+		game.removeVisual(barman)
 		
 		game.addVisual(finalSesion)
 	}

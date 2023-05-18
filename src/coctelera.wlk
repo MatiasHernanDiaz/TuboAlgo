@@ -1,24 +1,39 @@
 import tragos.*
+import wollok.game.*
 
 object coctelera {
 	const property ingredientes = []
-	const property cantidades = []
-	var property cantidadShakes = 0
+	const property onzas = []
+	//const property cantidades = []
+	//var property cantidadShakes = 0
+	
+	const property position = game.at(73, 18)
+	const property image = 'coctelera.png'
 
 	method agregarIngredientes(ingrediente) {
-		if(!ingredientes.contains(ingrediente)){
-			ingrediente.aumentarOnza()
+		if(ingredientes.size() < 8){ 
 			ingredientes.add(ingrediente)
+			
+			const onza = ingrediente.onza()
+			self.onzas().add(onza)
+			game.addVisualIn(onza, game.at(73, 17 + self.ingredientes().size()))
 		}
-		else
-			ingredientes.filter({ingr => ingr==ingrediente}).get(0).aumentarOnza()
+		else{ 
+			game.say(self, 'Te pasaste')
+			self.limpiar()
+		}
 	}
 	
-	method limpiar() = ingredientes.clear()
+	method limpiar() {
+		
+		ingredientes.clear()
+		self.onzas().forEach({ onza => game.removeVisual(onza) })
+		self.onzas().clear()
+			
+	}
 	
-	method entregar() = new Trago(ingredientes = self.ingredientes(), cantidades = self.cantidades())
+	method preparado() = new Trago(ingredientes = self.ingredientes() )
 	
-	method batir() = cantidadShakes++
 	/*
 	 * Autor: Any
 	 * Instancia un objeto de la clase Trago
