@@ -26,7 +26,12 @@ object barman{
 	}	
 	
 	method entregar(silla){
-
+		if( silla.cliente() != false ) {
+			silla.cliente().recibirTrago(coctelera.preparado())
+			coctelera.limpiar()
+		} else {
+			game.say(silla, 'Esta silla está vacía')
+		}
 	}
 	
 }

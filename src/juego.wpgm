@@ -2,7 +2,6 @@ import sesion.*
 
 import wollok.game.*
 
-
 program juego {
 	game.title("Turbo Barman")
 	game.cellSize(10)
@@ -12,6 +11,7 @@ program juego {
 	
 	
 	const sesion = new SesionFacil()
+	config.iniciar(sesion)
 		
 	game.addVisual(sesion)
 	sesion.iniciar()

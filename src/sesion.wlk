@@ -6,19 +6,25 @@ import coctelera.*
 import wollok.game.*
 
 object config{
+	
+	var property sesion = null
+	
 	method config(){
 		keyboard.right().onPressDo({=> barman.derecha()})
 		keyboard.left().onPressDo({=> barman.izquierda()})
 		keyboard.up().onPressDo({=> barman.seleccionar()})
 		keyboard.down().onPressDo({coctelera.limpiar()})
 		
-		/*
-		keyboard.num1().onPressDo({barman.entregar(silla1)})
-		keyboard.num2().onPressDo({barman.entregar(silla2)})
-		keyboard.num3().onPressDo({barman.entregar(silla3)})
-		keyboard.num4().onPressDo({barman.entregar(silla4)})
+		
+		keyboard.num1().onPressDo({barman.entregar(self.sesion().sillas().get(0))})
+		keyboard.num2().onPressDo({barman.entregar(self.sesion().sillas().get(1))})
+		keyboard.num3().onPressDo({barman.entregar(self.sesion().sillas().get(2))})
+		keyboard.num4().onPressDo({barman.entregar(self.sesion().sillas().get(3))})
 		keyboard.num5().onPressDo({coctelera.limpiar()})
-		*/
+	}
+	method iniciar(sesion_){
+		self.sesion(sesion_)
+		self.config()
 	}
 	
 }
@@ -38,8 +44,6 @@ class Sesion {
 		
 		game.addVisual(barman)
 		game.addVisual(coctelera)
-		
-		config.config()
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
 	}

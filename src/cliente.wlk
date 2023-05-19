@@ -14,8 +14,6 @@ class Cliente{
 	const property position = silla.position().right(2) //misma posicion que la silla que se le asigno
 	//var property image  //cuantas imagenes de clienteFeliz hay?
 	var tiempoRestante = self.tiempoEspera() //se inicializa igual que tiempo de espera 
-	var property tragoRecibido = false // se fija si recibio o no el trago
-	
 	
 	
 	method cambiarImagen()
@@ -33,7 +31,6 @@ class Cliente{
 	}
 	
 	method control(){
-		console.println('entré: ' + self.silla().evento())
 		if (self.silla().cliente() != false) {
 			self.tiempoRegresivo()
 			self.modificarSatisfaccionTiempo()			
@@ -93,15 +90,18 @@ class Cliente{
 	method generarTrago(){
 		//genera un trago
 		//llama al methodo que instancia un trago
-		const unTrago = carta.elegirTrago()
-		self.tragoPedido(unTrago)
+		self.tragoPedido(carta.elegirTrago())
+		
+		game.say(self, 'Dame ' + self.tragoPedido().toString())
 	}
 	
 	
 	method recibirTrago(_unTrago){
+		console.println(_unTrago)
 		if(self.verificarTrago(_unTrago)){
 			self.darPropina()
 		}
+		game.say(self, 'Esto no es lo que pedí.')
 		game.schedule(1000,{self.desalojar()})
 	}
 	
@@ -117,7 +117,7 @@ class Cliente{
 	//da propina acorde a su nivel de satisfaccion
 	//modifica el contador del propinero
 		if(self.satisfaccion() == 1){
-			game.say(self, "Deja que desea. Seguí practicando y pronto lo lograrás")
+			game.say(self, "Deja que desear. Seguí practicando y pronto lo lograrás")
 			propinero.entregarPropina(250)
 		} else if(self.satisfaccion() == 2) {
 			game.say(self, "Estuvo bien pero puede estar mejor")
@@ -143,12 +143,7 @@ class ClienteExigente inherits Cliente {
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y lista onzas
-		return tragoQueRecibio.ingredientes().count(
-			{ing => tragoPedido.ingredientes().any(
-				{ing2 => ing2.toString() == ing.toString() and ing2.Onzas() == ing.Onzas()}
-			)}
-		)
-	}
+		return tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1 < e2}) == self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1 < e2})}
 	
 	override method cambiarImagen(){
 		self.image(
@@ -167,12 +162,30 @@ class ClienteMedio inherits Cliente{
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y compara lista onzas con tolerancia de 1 de dif
-		return tragoQueRecibio
-				.ingredientes()
-				.count({ing => tragoPedido
-					.ingredientes()
-					.any({ing2 => ing2.nombre() == ing.nombre() && (ing2.Onzas() - ing.Onzas()).abs() <= 1})})
+		const ingredientesIdeales = self.tragoPedido().ingredientes().asSet()
+		const ingredientesReales = tragoQueRecibio.ingredientes().asSet()
+		
+		return ingredientesIdeales == ingredientesReales and 
+				tragoQueRecibio.ingredientes().all(
+				{ ingr1 => self.tragoPedido().any(
+					{ ingr2 => (
+						self.tragoPedido().count(ingr2) - tragoQueRecibio.ingredientes().count(ingr1)
+					).abs() <= 1 and ingr1 == ingr2}
+				)}
+			)
+		
+//		return self.cantErrores() < 3
 	}
+	
+//	method cantErrores(){
+//		const sett = tragoRecibido.ingredientes().asSet() or tragoPedido.ingredientes().asSet()
+//		var errores = 0
+//		sett.forEach({
+//			ingr =>
+//			errores += (tragoRecibido.ingredientes().count(ingr) - tragoPedido.ingredientes().count(ingr)).abs()
+//		})
+//		return errores
+//	}
 	
 	override method cambiarImagen(){
 		self.image(
@@ -190,15 +203,9 @@ class ClienteConformista inherits Cliente{
 	override method tiempoEspera(){return 30}
 	
 	override method verificarTrago(tragoQueRecibio){
-
-		//si los set son iguales le basta
-		//return tragoQueRecibio.ingredientes() == tragoPedido.ingredientes()
-		return tragoQueRecibio
-				.ingredientes()
-				.count({ing => tragoPedido
-					.ingredientes()
-					.any({ing2 => ing2.nombre() == ing.nombre()})}
-		)
+		return tragoQueRecibio.ingredientes().asSet() == self.tragoPedido().ingredientes().asSet() and
+			tragoQueRecibio.ingredientes().size() >= 7
+	
 	}
 		
 	override method cambiarImagen(){
