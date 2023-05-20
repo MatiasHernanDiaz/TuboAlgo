@@ -57,6 +57,7 @@ class Cliente{
 		if(self.verificarTiempoPositivo())
 			self.restarSegundos()
 		else {
+			self.recibioTrago(true)
 			game.say(self, "¡Me cansé de esperar!") // No funciona, porque sale enseguida. Sin embargo, 
 			//si eschedulizamos el self.desalojar(), pincha la referencia a self.silla().cliente()
 			self.desalojar()			
