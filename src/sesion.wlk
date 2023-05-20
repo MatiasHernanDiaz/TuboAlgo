@@ -35,6 +35,7 @@ class Sesion {
 	const property ingredientes = [fernet, coca, campari, naranja, limon]
 	
 	const property position = game.at(2, game.height() - 5)
+	method text() = tiempoRestante.toString()
 	
 	method iniciar() {
 		self.crearSillas()
@@ -43,6 +44,7 @@ class Sesion {
 		self.ingredientes().forEach({ ingr => game.addVisual(ingr) })
 		
 		game.addVisual(barman)
+		game.addVisual(propinero)
 		game.addVisual(coctelera)
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
@@ -67,8 +69,6 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method text() = tiempoRestante.toString()
-	
 	method tiempoInicial() = 300
 	
 	method controlReloj() {
@@ -86,10 +86,10 @@ class SesionFacil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 19), evento = 'e1'),
-			new SillaTibia(position = game.at(30, 19), evento = 'e2'),
-			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
-			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
+			new SillaFria(position = game.at(16, 20), evento = 'e1'),
+			new SillaTibia(position = game.at(32, 20), evento = 'e2'),
+			new SillaTibia(position = game.at(48, 20), evento = 'e3'),
+			new SillaCaliente(position = game.at(64, 20), evento = 'e4')
 		])
 	}
 }

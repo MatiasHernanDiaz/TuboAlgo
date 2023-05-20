@@ -7,7 +7,7 @@ object coctelera {
 	//const property cantidades = []
 	//var property cantidadShakes = 0
 	
-	const property position = game.at(73, 18)
+	const property position = game.at(84, 20)
 	const property image = 'coctelera.png'
 
 	method agregarIngredientes(ingrediente) {
@@ -16,7 +16,7 @@ object coctelera {
 			
 			const onza = ingrediente.onza()
 			self.onzas().add(onza)
-			game.addVisualIn(onza, game.at(73, 17 + self.ingredientes().size()))
+			game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
 		}
 		else{ 
 			game.say(self, 'Te pasaste')

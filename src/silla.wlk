@@ -3,7 +3,7 @@ import wollok.game.*
 
 
 class Silla {
-	var property cliente = false
+	var property cliente = null
 	
 	const property evento
 	
@@ -23,7 +23,7 @@ class Silla {
 	
 	method probabilidadCliente()
 	
-	method estaOcupada() = self.cliente() != false
+	method estaOcupada() = self.cliente() != null
 	
 	method evaluarEstado() {
 		if (not self.estaOcupada()) {
@@ -49,8 +49,12 @@ class Silla {
 	
 	method retirarCliente() {
 		self.cliente().terminar()
+		game.schedule(3000, {self.removerCliente()})
+	}
+	
+	method removerCliente() {
 		game.removeVisual(self.cliente())
-		self.cliente(false)
+		self.cliente(null)
 	}
 }
 
@@ -58,19 +62,19 @@ class Silla {
 class SillaFria inherits Silla {
 	const property image = "sillaFria.png"
 	
-	override method probabilidadCliente() = 6
+	override method probabilidadCliente() = 3
 }
 
 class SillaTibia inherits Silla {
 	const property image = "sillaTibia.png"
 	
-	override method probabilidadCliente() = 10
+	override method probabilidadCliente() = 6
 }
 
 class SillaCaliente inherits Silla {
 	const property image = "sillaCaliente.png"
 	
-	override method probabilidadCliente() = 12
+	override method probabilidadCliente() = 9
 }
 
 class SillaParaTest inherits Silla {

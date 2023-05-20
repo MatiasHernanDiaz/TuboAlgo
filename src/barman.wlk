@@ -37,8 +37,12 @@ object barman{
 }
 
 object propinero{
-	var dinero = 0
+	var property dinero = 0
 	const dineroNescesario = 0 //dependerá de la sesion
+	
+	const property position = game.at(2, 20)
+	const property image = 'propinero.png'
+	method text() = self.dinero().toString()
 	
 	method entregarPropina(cant){
 		dinero += cant

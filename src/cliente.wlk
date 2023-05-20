@@ -19,7 +19,9 @@ class Cliente{
 	method cambiarImagen()
 	
 	//deja la silla vacia
-	method desalojar() = silla.retirarCliente()
+	method desalojar() {
+		silla.retirarCliente()	
+	}
 	
 	/*METODOS DE INICIO Y TERMINAR */
 	method iniciar() {
@@ -31,7 +33,7 @@ class Cliente{
 	}
 	
 	method control(){
-		if (self.silla().cliente() != false) {
+		if (self.silla().cliente() != null) {
 			self.tiempoRegresivo()
 			self.modificarSatisfaccionTiempo()			
 		}
@@ -53,9 +55,11 @@ class Cliente{
 		//inicia la cuenta regresiva
 		if(self.verificarTiempoPositivo())
 			self.restarSegundos()
-		else
-			//game.schedule(6000,{self.desalojar()})
-			self.desalojar()
+		else {
+			game.say(self, "¡Me cansé de esperar!") // No funciona, porque sale enseguida. Sin embargo, 
+			//si eschedulizamos el self.desalojar(), pincha la referencia a self.silla().cliente()
+			self.desalojar()			
+		}
 	}
 	
 	//resto de a 1 seg
@@ -69,16 +73,14 @@ class Cliente{
 	//modifico satisfaccion de a tercios
 	method modificarSatisfaccionTiempo(){
 		//modifico satisfaccion de a tercios
-		//escuchar mas tarde a theo
-		if((self.tiempoRestante()) < (self.tiempoEspera()*(1/3))){
+		if(((self.tiempoRestante()) - (self.tiempoEspera()*(1/3))).abs() <= 1){
 			satisfaccion = 1
-			//game.say(self, "Me canse de esperar...")
-			
-			
+			self.cambiarImagen()
+			game.say(self, "¿Falta mucho?")
 		}
-		else if((self.tiempoRestante()) < (self.tiempoEspera()*(2/3))){
+		else if(((self.tiempoRestante()) - (self.tiempoEspera()*(2/3))).abs() <= 1) {
 			satisfaccion = 2
-			//game.say(self, "¿Falta mucho?")
+			self.cambiarImagen()
 		}
 	}
 	
@@ -100,9 +102,11 @@ class Cliente{
 		console.println(_unTrago)
 		if(self.verificarTrago(_unTrago)){
 			self.darPropina()
+			game.say(self, 'Está rico!')
+		} else {
+			game.say(self, 'Esto no es lo que pedí.')
 		}
-		game.say(self, 'Esto no es lo que pedí.')
-		game.schedule(1000,{self.desalojar()})
+		self.desalojar()
 	}
 	
 

@@ -6,7 +6,7 @@ program juego {
 	game.title("Turbo Barman")
 	game.cellSize(10)
 	game.height(50)
-	game.width(80)
+	game.width(100)
 	game.boardGround("fondo.png")
 	
 	
