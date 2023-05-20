@@ -26,7 +26,7 @@ object barman{
 	}	
 	
 	method entregar(silla){
-		if( silla.cliente() != false ) {
+		if( silla.cliente() != null ) {
 			silla.cliente().recibirTrago(coctelera.preparado())
 			coctelera.limpiar()
 		} else {
