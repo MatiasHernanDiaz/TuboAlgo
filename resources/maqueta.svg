@@ -663,6 +663,37 @@
        width="15.875"
        height="21.166666"
        x="219.60416"
-       y="58.208332" />
+       y="58.208332"
+       inkscape:export-filename="C:\Users\mauro\Documents\Mauro\Programación\wollok\workspace\tpgame_2023s1-turbo_algo\assets\coctelera.png"
+       inkscape:export-xdpi="95"
+       inkscape:export-ydpi="95" />
+    <rect
+       style="fill:#2ca05a;fill-opacity:1;stroke:#6c5353;stroke-width:1.25158;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect843-2"
+       width="21.166666"
+       height="10.583333"
+       x="-42.333328"
+       y="148.16666"
+       inkscape:export-filename="C:\Users\mauro\Documents\Mauro\Programación\wollok\workspace\tpgame_2023s1-turbo_algo\assets\propinero.png"
+       inkscape:export-xdpi="95"
+       inkscape:export-ydpi="95" />
+    <g
+       id="g964"
+       transform="translate(-7.9374998)"
+       inkscape:export-filename="C:\Users\mauro\Documents\Mauro\Programación\wollok\workspace\tpgame_2023s1-turbo_algo\assets\selector.png"
+       inkscape:export-xdpi="95"
+       inkscape:export-ydpi="95">
+      <rect
+         style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect135"
+         width="15.874999"
+         height="23.812498"
+         x="-26.45833"
+         y="166.6875" />
+      <path
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.23665px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -21.166664,190.49999 h 5.291666 v -4.23333 h 2.645833 l -5.291666,-6.35 -5.291666,6.35 h 2.645833 z"
+         id="path137" />
+    </g>
   </g>
 </svg>
