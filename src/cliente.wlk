@@ -11,6 +11,7 @@ class Cliente{
 	const property silla // por parametro
 	var property satisfaccion = 3 //siempre arranca alta
 	var property tragoPedido = null	// que trago genero
+	var property recibioTrago = false
 	const property position = silla.position().right(2) //misma posicion que la silla que se le asigno
 	//var property image  //cuantas imagenes de clienteFeliz hay?
 	var tiempoRestante = self.tiempoEspera() //se inicializa igual que tiempo de espera 
@@ -98,15 +99,18 @@ class Cliente{
 	}
 	
 	
-	method recibirTrago(_unTrago){
-		console.println(_unTrago)
-		if(self.verificarTrago(_unTrago)){
-			self.darPropina()
-			game.say(self, 'Está rico!')
-		} else {
-			game.say(self, 'Esto no es lo que pedí.')
+	method recibirTrago(_unTrago) {
+		if(not self.recibioTrago()) {
+			self.recibioTrago(true)
+			
+			if(self.verificarTrago(_unTrago)){
+				self.darPropina()
+				game.say(self, 'Está rico!')
+			} else {
+				game.say(self, 'Esto no es lo que pedí.')
+			}
+			self.desalojar()
 		}
-		self.desalojar()
 	}
 	
 

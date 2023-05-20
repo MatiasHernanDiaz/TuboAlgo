@@ -22,7 +22,8 @@ object barman{
 	}
 	
 	method seleccionar(){
-		coctelera.agregarIngredientes(game.uniqueCollider(self))
+		if(game.allVisuals().contains(self))
+			coctelera.agregarIngredientes(game.uniqueCollider(self))
 	}	
 	
 	method entregar(silla){
