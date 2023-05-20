@@ -1,0 +1,48 @@
+ingredientes: 
+- coca
+- fernet
+- naranja
+- campari
+- vodka
+- ron
+- wisky
+- tomate - vermuRojo
+- limon
+- ginebra
+- tequila
+
+Adaptaciones de tragos
+
+fernetCoca = [fernet, fernet, fernet, coca, coca, coca, coca, coca]
+
+fernetCordobes = [fernet, fernet, fernet, fernet, coca, coca, coca, coca]
+
+garibaldi = [campari, campari, campari, naranja, naranja, naranja, naranja, naranja]
+
+destornillador = [naranja, naranja, naranja, vodka, vodka, vodka, vodka, vodka]
+
+bloodyMary = [tomate, tomate, tomate, limon, vodka, vodka, vodka, vodka]
+
+#negroni = [naranja, campari, campari, vermuRojo, vermuRojo, ginebra, ginebra, ginebra]
+
+cubaLibre = [coca, coca, coca, limon, limon, ron, ron, ron]
+
+sexOnTheBeach = [vodka, vodka, limon, limon, limon, naranja, naranja, naranja, ]
+
+levantaMuertos = [wisky, wisky, ron, ron, vodka, vodka, fernet, fernet]
+
+vodkaFizz = [vodka, vodka, vodka, vodka, limon, limon, limon, limon]
+
+wiskySour = [wisky, wisky, wisky, wisky, wisky, wisky, limon, limon]
+
+manhattan = [wisky, wisky, wisky, wisky, tomate, tomate, tomate, tomate]
+
+jonhCollins = [wisky, wisky, wisky, wisky, wisky, wisky, naranja, limon]
+
+oldFashion = [wisky, wisky, wisky, wisky, naranja, naranja, naranja, naranja]
+
+ginTonic = [ginebra, ginebra, ginebra, limon, limon, limon, limon, limon]
+
+segundoFrancia = [fernet, fernet, fernet, fernet, fernet, fernet, coca, coca]
+
+
