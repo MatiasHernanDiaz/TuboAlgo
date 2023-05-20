@@ -146,8 +146,12 @@ class ClienteExigente inherits Cliente {
 	override method tiempoEspera(){return 10}
 	
 	override method verificarTrago(tragoQueRecibio){
-		//compara set tragos y lista onzas
-		return tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1 < e2}) == self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1 < e2})}
+		//Primero se deben ordenar los tragos, y luego devolver la comparación
+		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
+		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
+		
+		return tragoQueRecibio.ingredientes() == self.tragoPedido().ingredientes()
+	}
 	
 	override method cambiarImagen(){
 		self.image(
@@ -170,15 +174,11 @@ class ClienteMedio inherits Cliente{
 		const ingredientesReales = tragoQueRecibio.ingredientes().asSet()
 		
 		return ingredientesIdeales == ingredientesReales and 
-				tragoQueRecibio.ingredientes().all(
-				{ ingr1 => self.tragoPedido().any(
-					{ ingr2 => (
-						self.tragoPedido().count(ingr2) - tragoQueRecibio.ingredientes().count(ingr1)
-					).abs() <= 1 and ingr1 == ingr2}
-				)}
-			)
-		
-//		return self.cantErrores() < 3
+				ingredientesIdeales.all({
+					ingr1 => (ingredientesIdeales.count({ingr2 => ingr1 == ingr2}) 
+						- ingredientesReales.count({ingr2 => ingr1 == ingr2})
+					).abs() <= 1
+				})
 	}
 	
 //	method cantErrores(){

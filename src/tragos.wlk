@@ -9,11 +9,11 @@ class Trago{
 
 //####   Tragos    #####, cantidad maxima total 8 onzas de ingredientes
 //######################, estas son las recetas a seguir a la hora de preparar los tragos solicitados
-const fernetCoca = new Trago(ingredientes = [fernet, fernet, fernet, coca, coca, coca, coca, coca])
+object fernetCoca inherits Trago(ingredientes = [fernet, fernet, fernet, coca, coca, coca, coca, coca]) {}
 
-const fernetCordobes = new Trago(ingredientes = [fernet, fernet, fernet, fernet, fernet, coca, coca, coca])
+object fernetCordobes inherits Trago(ingredientes = [fernet, fernet, fernet, fernet, fernet, coca, coca, coca]) {}
 
-const garibaldi = new Trago(ingredientes = [campari, campari, campari, naranja, naranja, naranja, naranja, naranja])
+object garibaldi inherits Trago(ingredientes = [campari, campari, campari, naranja, naranja, naranja, naranja, naranja]) {}
 
 //const vinoTinto = new Trago(ingredientes = [])
 
