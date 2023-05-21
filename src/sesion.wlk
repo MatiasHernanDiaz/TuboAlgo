@@ -10,6 +10,7 @@ object config{
 	var property sesion = null
 	
 	method config(){
+
 		keyboard.right().onPressDo({=> barman.derecha()})
 		keyboard.left().onPressDo({=> barman.izquierda()})
 		keyboard.up().onPressDo({barman.seleccionar()})
@@ -94,7 +95,7 @@ class Sesion {
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
 		
-		if(self.tiempoRestante() == 0)
+		if(self.tiempoRestante() <= 0)
 			self.terminar()
 		
 	}
