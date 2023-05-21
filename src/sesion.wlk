@@ -12,7 +12,7 @@ object config{
 	method config(){
 		keyboard.right().onPressDo({=> barman.derecha()})
 		keyboard.left().onPressDo({=> barman.izquierda()})
-		keyboard.up().onPressDo({=> barman.seleccionar()})
+		keyboard.up().onPressDo({barman.seleccionar()})
 		keyboard.down().onPressDo({coctelera.limpiar()})
 		
 		
@@ -22,6 +22,21 @@ object config{
 		keyboard.num4().onPressDo({barman.entregar(self.sesion().sillas().get(3))})
 		keyboard.num5().onPressDo({coctelera.limpiar()})
 	}
+	
+	method resetearTeclado(){
+		keyboard.right().onPressDo({console.println("der")})
+		keyboard.left().onPressDo({console.println("izq")})
+		keyboard.up().onPressDo({console.println("arriba")})
+		keyboard.down().onPressDo({"abajo"})
+		
+		
+		keyboard.num1().onPressDo({console.println("1")})
+		keyboard.num2().onPressDo({console.println("2")})
+		keyboard.num3().onPressDo({console.println("3")})
+		keyboard.num4().onPressDo({console.println("4")})
+		keyboard.num5().onPressDo({console.println("5")})
+	}
+	
 	method iniciar(sesion_){
 		self.sesion(sesion_)
 		self.config()
@@ -51,13 +66,18 @@ class Sesion {
 	}
 	
 	method terminar() {
+		
 		sillas.forEach({ silla => silla.terminar() })
 		
 		game.removeTickEvent("controlReloj")
 		
+		config.resetearTeclado()
+		
 		game.removeVisual(barman)
 		
 		game.addVisual(finalSesion)
+		
+		
 	}
 	
 	method iniciarSilla(silla) {
@@ -69,7 +89,7 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method tiempoInicial() = 300
+	method tiempoInicial() = 10
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)

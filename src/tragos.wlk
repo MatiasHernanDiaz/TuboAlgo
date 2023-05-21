@@ -11,7 +11,7 @@ class Trago{
 //######################, estas son las recetas a seguir a la hora de preparar los tragos solicitados
 object fernetCoca inherits Trago(ingredientes = [fernet, fernet, fernet, coca, coca, coca, coca, coca]) {}
 
-object fernetCordobes inherits Trago(ingredientes = [fernet, fernet, fernet, fernet, fernet, coca, coca, coca]) {}
+object fernetCordobes inherits Trago(ingredientes = [fernet, fernet, fernet, fernet, coca, coca, coca, coca]) {}
 
 object garibaldi inherits Trago(ingredientes = [campari, campari, campari, naranja, naranja, naranja, naranja, naranja]) {}
 
