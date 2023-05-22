@@ -9,10 +9,10 @@ import tragos.*
 import wollok.game.*
 
 // Ingredientes
-const naranja = new Ingrediente()
-const limon = new Ingrediente()
-const cocacola = new Ingrediente()
-const setIngredientes = #{}
+//const naranja = new Ingrediente()
+//const limon = new Ingrediente()
+//const cocacola = new Ingrediente()
+//const setIngredientes = #{}
  
 // Clientes -> position? deberia pasar la misma posision de la silla...
 const silla = new SillaParaTest(position = game.origin())

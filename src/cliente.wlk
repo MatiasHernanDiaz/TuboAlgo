@@ -118,7 +118,7 @@ class Cliente{
 	//genera un trago
 	//llama al methodo que instancia un trago
 	method generarTrago(_unTrago){
-		tragoPedido = _unTrago
+		self.tragoPedido(_unTrago)
 	}
 	
 	
@@ -178,10 +178,11 @@ class ClienteMedio inherits Cliente{
 		const ingredientesIdeales = self.tragoPedido().ingredientes().asSet()
 		const ingredientesReales = tragoQueRecibio.ingredientes().asSet()
 		
+		console.println(ingredientesIdeales.count({ingr2 => naranja === ingr2}))
 		return ingredientesIdeales == ingredientesReales and 
 				ingredientesIdeales.all({
-					ingr1 => (ingredientesIdeales.count({ingr2 => ingr1 == ingr2}) 
-						- ingredientesReales.count({ingr2 => ingr1 == ingr2})
+					ingr1 => (self.tragoPedido().ingredientes().count({ingr2 => ingr1 === ingr2}) 
+						- tragoQueRecibio.ingredientes().count({ingr2 => ingr1 === ingr2})
 					).abs() <= 1
 				})
 	}

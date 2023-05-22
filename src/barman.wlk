@@ -27,11 +27,13 @@ object barman{
 	}	
 	
 	method entregar(silla){
-		if( silla.cliente() != null ) {
-			silla.cliente().recibirTrago(coctelera.preparado())
-			coctelera.limpiar()
-		} else {
-			game.say(silla, 'Esta silla está vacía')
+		if(game.allVisuals().contains(self)) {
+			if( silla.cliente() != null ) {
+				silla.cliente().recibirTrago(coctelera.preparado())
+				coctelera.limpiar()
+			} else {
+				game.say(silla, 'Esta silla está vacía')
+			}			
 		}
 	}
 	

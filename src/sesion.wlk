@@ -11,8 +11,8 @@ object config{
 	
 	method config(){
 
-		keyboard.right().onPressDo({=> barman.derecha()})
-		keyboard.left().onPressDo({=> barman.izquierda()})
+		keyboard.right().onPressDo({barman.derecha()})
+		keyboard.left().onPressDo({barman.izquierda()})
 		keyboard.up().onPressDo({barman.seleccionar()})
 		keyboard.down().onPressDo({coctelera.limpiar()})
 		
@@ -68,11 +68,11 @@ class Sesion {
 	
 	method terminar() {
 		
-		sillas.forEach({ silla => silla.terminar() })
-		
 		game.removeTickEvent("controlReloj")
 		
-		config.resetearTeclado()
+		sillas.forEach({ silla => silla.terminar() })
+		
+		//config.resetearTeclado()
 		
 		game.removeVisual(barman)
 		
@@ -90,7 +90,7 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method tiempoInicial() = 10
+	method tiempoInicial() = 30
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
