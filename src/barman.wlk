@@ -3,6 +3,8 @@ import coctelera.*
 import ingredientes.*
 import cliente.*
 import tragos.*
+import sesion.*
+
 //Theo
 object barman{
 	const property image = 'selector.png'
@@ -40,8 +42,9 @@ object barman{
 }
 
 object propinero{
+	//Si dinero es var property, por qué quiero un method dineroTotal()?
 	var property dinero = 0
-	const dineroNescesario = 0 //dependerá de la sesion
+	const dineroNescesario = 2000// sesion.propinaObjetivo() //dependerá de la sesion
 	
 	const property position = game.at(2, 20)
 	const property image = 'propinero.png'

@@ -22,6 +22,7 @@ object config{
 		keyboard.num3().onPressDo({barman.entregar(self.sesion().sillas().get(2))})
 		keyboard.num4().onPressDo({barman.entregar(self.sesion().sillas().get(3))})
 		keyboard.num5().onPressDo({coctelera.limpiar()})
+		
 	}
 	
 	method resetearTeclado(){
@@ -95,7 +96,7 @@ class Sesion {
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
 		
-		if(self.tiempoRestante() <= 0)
+		if(self.tiempoRestante() <= 0 or propinero.objetivoCumplido())
 			self.terminar()
 		
 	}

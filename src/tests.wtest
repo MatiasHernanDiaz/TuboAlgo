@@ -15,7 +15,7 @@ import wollok.game.*
 //const setIngredientes = #{}
  
 // Clientes -> position? deberia pasar la misma posision de la silla...
-const silla = new SillaParaTest(position = game.origin())
+const silla = new SillaParaTest(position = game.origin(), evento = 'test')
 const clienteConformista = new ClienteConformista(silla = silla)
 const clienteMedio = new ClienteMedio(silla = silla)
 const clienteExigente = new ClienteExigente(silla = silla)
@@ -26,8 +26,6 @@ describe "Pruebas para la clase Silla y sus herederas" {
 	
 	test "evaluarEstado() sin cliente y con 100% de probabilidades, debe generar cliente" {
 		
-		const silla = new SillaParaTest(position = game.origin())
-		
 		assert.notThat(silla.estaOcupada())
 		
 		silla.evaluarEstado()
@@ -36,8 +34,6 @@ describe "Pruebas para la clase Silla y sus herederas" {
 	}
 	
 	test "Si la silla ya tiene un cliente, evaluarEstado() conserva el mismo cliente" {
-		
-		const silla = new SillaParaTest(position = game.origin())
 		
 		silla.evaluarEstado()
 		
@@ -49,8 +45,6 @@ describe "Pruebas para la clase Silla y sus herederas" {
 	}
 	
 	test "retirarCliente()" {
-		
-		const silla = new SillaParaTest(position = game.origin())
 		
 		silla.evaluarEstado()
 		
@@ -83,14 +77,13 @@ describe "Sesion" {
 // Comienzan los tests sobre los Ingredientes y Coctelera
 describe "Ingredientes" {
 	test "Iniciliza vacio la cantidad de onzas"{
- 		assert.equals(0, naranja.cantidadOnzas())
+ 		assert.equals("Orange", naranja.text())
  	}
- 	test "Aumtar onza"{
- 		naranja.aumentarOnza()
-	 	assert.equals(1, naranja.cantidadOnzas())	
+ 	test "Onza"{
+ 		//No se que probar aca	
  	}
  	test "diferencia de ingredientes" {
- 		assert.notThat(naranja.nombre() == limon.nombre())
+ 		assert.notThat(naranja.text() == limon.text())
  	}
 }
  
@@ -98,31 +91,24 @@ describe "Coctelera" {
  	test "Agregar Ingredientes" {
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cocacola)
+ 		coctelera.agregarIngredientes(coca)
  		coctelera.agregarIngredientes(naranja)
- 		setIngredientes.add(naranja)
- 		setIngredientes.add(cocacola)
- 		setIngredientes.add(limon)
- 		assert.equals(setIngredientes, coctelera.ingredientes())
- 	}
- 	test "Aumetan Onzas" {
+ 		coctelera.agregarIngredientes(limon)
+ 		coctelera.agregarIngredientes(coca)
  		coctelera.agregarIngredientes(naranja)
- 		assert.equals(1, coctelera.ingredientes().asList().get(0).cantidadOnzas())
- 		
- 		coctelera.agregarIngredientes(limon)
- 		assert.equals(1, coctelera.ingredientes().asList().get(1).cantidadOnzas())
- 		
-// 		coctelera.agregarIngredientes(naranja)
-// 		assert.equals(2, coctelera.ingredientes().asList().get(0).cantidadOnzas())
- 	
- 		coctelera.agregarIngredientes(limon)
- 		assert.equals(2, coctelera.ingredientes().asList().get(1).cantidadOnzas())
+ 		assert.equals(7, coctelera.ingredientes().size())
+		coctelera.agregarIngredientes(naranja)
+ 		assert.equals(8, coctelera.ingredientes().size())
+ 		//coctelera.agregarIngredientes(naranja) game.say()
+ 		assert.equals(8, coctelera.ingredientes().size())
  	}
  	
  	test "Limpiar coctelera" {
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cocacola)
+ 		coctelera.agregarIngredientes(coca)
+ 		coctelera.agregarIngredientes(naranja)
+ 		assert.equals(4, coctelera.ingredientes().size())
  		coctelera.limpiar()
  		assert.that(coctelera.ingredientes().isEmpty())
  	}
@@ -130,22 +116,10 @@ describe "Coctelera" {
  	test "Compara ingredientes" {
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cocacola)
- 		setIngredientes.add(naranja)
- 		setIngredientes.add(cocacola)
- 		setIngredientes.add(limon)
  		
- 		assert.equals(setIngredientes, coctelera.ingredientes())
+ 		assert.equals([naranja, limon], coctelera.ingredientes())
  	}
  	
- 	test "Compara ingredientes false" {
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(cocacola)
- 		setIngredientes.add(naranja)
- 		setIngredientes.add(limon)
- 		
- 		assert.notEquals(setIngredientes, coctelera.ingredientes())
- 	}
 }
 
 describe "cliente"{
@@ -232,9 +206,7 @@ describe "cliente"{
 
 describe "barman"{
 	test "cocacola con naranja y limon"{
-		barman.agregarIngrediente(naranja)
-		barman.agregarIngrediente(limon)
-		barman.agregarIngrediente(cocacola)
+		
 		barman.derecha()
 		barman.derecha()
 		barman.seleccionar()
@@ -244,10 +216,18 @@ describe "barman"{
 		barman.izquierda()
 		barman.seleccionar()
 		
-		setIngredientes.add(naranja)
- 		setIngredientes.add(cocacola)
- 		setIngredientes.add(limon)
+		//hay que pensarlo
+	}
+}
+
+describe "propinero"{
+	test "propinero"{
 		
-		assert.that(coctelera.ingredientes() == setIngredientes)
+		assert.equals(0,propinero.dinero())
+		propinero.entregarPropina(100)
+		assert.equals(100,propinero.dinero())
+		const sesion = new SesionParaTest()
+		assert.notThat(propinero.objetivoCumplido())
+		
 	}
 }
