@@ -46,11 +46,17 @@ describe "Pruebas para la clase Silla y sus herederas" {
 	
 	test "retirarCliente()" {
 		
+		console.println(silla.cliente())
+		
 		silla.evaluarEstado()
+		
+		console.println(silla.cliente())
 		
 		assert.that(silla.cliente().toString().contains("un/a  Cliente"))
 		
 		silla.retirarCliente()
+		
+		console.println(silla.cliente())
 		
 		assert.notThat(silla.estaOcupada())
 	}

@@ -96,10 +96,13 @@ class Sesion {
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
 		
-		if(self.tiempoRestante() <= 0 or propinero.objetivoCumplido())
+		if(self.tiempoRestante() <= 0 or self.objetivoCumplido())
 			self.terminar()
-		
 	}
+	
+	method objetivoCumplido()= self.propinaObjetivo() <= propinero.dinero()
+	
+	
 }
 
 class SesionFacil inherits Sesion {
@@ -160,7 +163,16 @@ class SesionParaTest inherits Sesion {
 
 
 object finalSesion {
+	
 	const property position = game.center()
 	
 	method text() = 'Terminó'
+}
+
+object win{
+	
+		const property position = game.center()
+	
+		method text() = 'Terminó'
+		
 }

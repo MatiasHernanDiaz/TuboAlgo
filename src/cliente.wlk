@@ -29,7 +29,7 @@ class Cliente{
 
 		//pide un trago y corre el reloj y estado
 		self.generarTrago()
-		game.onTick(1000,'c' + self.silla().evento(),{self.control()})
+		game.onTick(1000, self.identity().toString(),{self.control()})
 		
 	}
 	
@@ -43,7 +43,7 @@ class Cliente{
 	
 	method terminar() {
 		//remueve los onTick de iniciar()
-		game.removeTickEvent('c' + self.silla().evento())
+		game.removeTickEvent(self.identity().toString())
 	}
 	
 	/*abstracto */

@@ -42,9 +42,8 @@ object barman{
 }
 
 object propinero{
-	//Si dinero es var property, por qué quiero un method dineroTotal()?
+	
 	var property dinero = 0
-	const dineroNescesario = 2000// sesion.propinaObjetivo() //dependerá de la sesion
 	
 	const property position = game.at(2, 20)
 	const property image = 'propinero.png'
@@ -53,7 +52,5 @@ object propinero{
 	method entregarPropina(cant){
 		dinero += cant
 	}
-	method dineroTotal() = dinero
 	
-	method objetivoCumplido() = dinero >= dineroNescesario
 }

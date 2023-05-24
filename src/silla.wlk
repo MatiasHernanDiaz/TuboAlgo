@@ -15,7 +15,9 @@ class Silla {
 	}
 	
 	method terminar() {
+		
 		game.removeTickEvent(self.evento())
+		
 		
 		if(self.estaOcupada())
 			self.retirarCliente()
