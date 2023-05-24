@@ -128,14 +128,18 @@ class Cliente{
 		if(self.satisfaccion() == 1){
 			game.say(self, "Deja que desear. Seguí practicando y pronto lo lograrás")
 			propinero.entregarPropina(250)
+			game.sound("audio/propina1.mp3").play()
 		} else if(self.satisfaccion() == 2) {
 			game.say(self, "Estuvo bien pero puede estar mejor")
 			propinero.entregarPropina(500)
+			game.sound("audio/propina1.mp3").play()
 		} else if(self.satisfaccion() >= 3) {
 			game.say(self, "Sos lo más. Excelente trago")
 			propinero.entregarPropina(1000) 
+			game.sound("audio/propina1.mp3").play()
 		} else {
 			game.say(self, "Si no se tiene nada bueno que decir, mejor no decir nada. ¡Hasta nunca!")
+			
 			
 			self.desalojar()
 		}

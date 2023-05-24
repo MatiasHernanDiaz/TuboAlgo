@@ -25,23 +25,17 @@ object config{
 		
 	}
 	
-	method resetearTeclado(){
-		keyboard.right().onPressDo({console.println("der")})
-		keyboard.left().onPressDo({console.println("izq")})
-		keyboard.up().onPressDo({console.println("arriba")})
-		keyboard.down().onPressDo({"abajo"})
-		
-		
-		keyboard.num1().onPressDo({console.println("1")})
-		keyboard.num2().onPressDo({console.println("2")})
-		keyboard.num3().onPressDo({console.println("3")})
-		keyboard.num4().onPressDo({console.println("4")})
-		keyboard.num5().onPressDo({console.println("5")})
-	}
-	
 	method iniciar(sesion_){
 		self.sesion(sesion_)
 		self.config()
+		self.musicaFondo()
+	}
+	
+	method musicaFondo(){
+		const musicaDeFondo = game.sound("audio/fondo1.mp3")
+		musicaDeFondo.shouldLoop(true)
+		game.schedule(500, { musicaDeFondo.play()} )
+		musicaDeFondo.volume(0.5)
 	}
 	
 }
@@ -77,7 +71,7 @@ class Sesion {
 		
 		game.removeVisual(barman)
 		
-		game.addVisual(finalSesion)
+		game.addVisual(new FinalSesion(objetivo = self.propinaObjetivo()))
 		
 		
 	}
@@ -162,17 +156,12 @@ class SesionParaTest inherits Sesion {
 }
 
 
-object finalSesion {
-	
+class FinalSesion {
+	const property objetivo
 	const property position = game.center()
 	
-	method text() = 'Terminó'
+	method text() = 'Juego terminado. Obtuviste ' + propinero.dinero().toString() + ' de un objetivo de ' + self.objetivo()
+	
+	
 }
 
-object win{
-	
-		const property position = game.center()
-	
-		method text() = 'Terminó'
-		
-}
