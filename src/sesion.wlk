@@ -2,6 +2,7 @@ import silla.*
 import barman.*
 import ingredientes.*
 import coctelera.*
+import tragos.*
 
 import wollok.game.*
 
@@ -23,6 +24,8 @@ object config{
 		keyboard.num4().onPressDo({barman.entregar(self.sesion().sillas().get(3))})
 		keyboard.num5().onPressDo({coctelera.limpiar()})
 		
+		keyboard.space().onPressDo({carta.toggle()})
+		
 	}
 	
 	method iniciar(sesion_){
@@ -43,7 +46,7 @@ object config{
 class Sesion {
 	var property tiempoRestante = self.tiempoInicial()
 	const property sillas = []
-	const property ingredientes = [fernet, coca, campari, naranja, limon]
+	const property ingredientes = [limon, naranja, tomate, cola, whisky, vodka, fernulo, ron]
 	
 	const property position = game.at(2, game.height() - 5)
 	method text() = tiempoRestante.toString()
@@ -62,18 +65,13 @@ class Sesion {
 	}
 	
 	method terminar() {
-		
 		game.removeTickEvent("controlReloj")
 		
 		sillas.forEach({ silla => silla.terminar() })
 		
-		//config.resetearTeclado()
-		
 		game.removeVisual(barman)
 		
 		game.addVisual(new FinalSesion(objetivo = self.propinaObjetivo()))
-		
-		
 	}
 	
 	method iniciarSilla(silla) {
@@ -85,7 +83,7 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method tiempoInicial() = 30
+	method tiempoInicial() = 80
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
@@ -94,9 +92,7 @@ class Sesion {
 			self.terminar()
 	}
 	
-	method objetivoCumplido()= self.propinaObjetivo() <= propinero.dinero()
-	
-	
+	method objetivoCumplido()= self.propinaObjetivo() <= propinero.dinero()	
 }
 
 class SesionFacil inherits Sesion {
@@ -105,10 +101,10 @@ class SesionFacil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 20), evento = 'e1'),
-			new SillaTibia(position = game.at(32, 20), evento = 'e2'),
-			new SillaTibia(position = game.at(48, 20), evento = 'e3'),
-			new SillaCaliente(position = game.at(64, 20), evento = 'e4')
+			new SillaFria(position = game.at(16, 20)),
+			new SillaTibia(position = game.at(32, 20)),
+			new SillaTibia(position = game.at(48, 20)),
+			new SillaCaliente(position = game.at(64, 20))
 		])
 	}
 }
@@ -119,10 +115,10 @@ class SesionNormal inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 19), evento = 'e1'),
-			new SillaCaliente(position = game.at(30, 19), evento = 'e2'),
-			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
-			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
+			new SillaFria(position = game.at(16, 20)),
+			new SillaCaliente(position = game.at(30, 20)),
+			new SillaTibia(position = game.at(44, 20)),
+			new SillaCaliente(position = game.at(58, 20))
 		])
 	}
 }
@@ -133,10 +129,10 @@ class SesionDificil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaTibia(position = game.at(16, 19), evento = 'e1'),
-			new SillaCaliente(position = game.at(30, 19), evento = 'e2'),
-			new SillaTibia(position = game.at(44, 19), evento = 'e3'),
-			new SillaCaliente(position = game.at(58, 19), evento = 'e4')
+			new SillaTibia(position = game.at(16, 20)),
+			new SillaCaliente(position = game.at(30, 20)),
+			new SillaTibia(position = game.at(44, 20)),
+			new SillaCaliente(position = game.at(58, 20))
 		])
 	}
 }
@@ -147,10 +143,10 @@ class SesionParaTest inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaParaTest(position = game.at(16, 19), evento = 'e1'),
-			new SillaParaTest(position = game.at(30, 19), evento = 'e2'),
-			new SillaParaTest(position = game.at(44, 19), evento = 'e3'),
-			new SillaParaTest(position = game.at(58, 19), evento = 'e4')
+			new SillaParaTest(position = game.at(16, 20)),
+			new SillaParaTest(position = game.at(30, 20)),
+			new SillaParaTest(position = game.at(44, 20)),
+			new SillaParaTest(position = game.at(58, 20))
 		])
 	}
 }

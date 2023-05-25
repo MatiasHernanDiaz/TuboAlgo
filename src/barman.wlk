@@ -8,8 +8,8 @@ import sesion.*
 //Theo
 object barman{
 	const property image = 'selector.png'
-	const property minPosition = fernet.position()
-	const property maxPosition = naranja.position()
+	const property minPosition = limon.position()
+	const property maxPosition = ron.position()
 	var property position = minPosition
 	
 	method iniciar(){}
