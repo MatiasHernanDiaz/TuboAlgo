@@ -5,18 +5,16 @@ import wollok.game.*
 class Silla {
 	var property cliente = null
 	
-	const property evento
-	
 	const property position // Lo define la Sesión cuando crea la silla
 		
 	
 	method iniciar() {
-		game.onTick(1000, self.evento(), { self.evaluarEstado() })
+		game.onTick(1000, self.identity().toString(), { self.evaluarEstado() })
 	}
 	
 	method terminar() {
 		
-		game.removeTickEvent(self.evento())
+		game.removeTickEvent(self.identity().toString())
 		
 		if(self.estaOcupada())
 			self.retirarCliente()

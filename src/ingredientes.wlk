@@ -1,53 +1,59 @@
 import wollok.game.*
 
+class Ingrediente {
+	const property nombre
+	const property posicionX
+	const property position = game.at(posicionX, 8)
+	const property image = 'botella' + self.nombre() + '.png'
+	const property text = self.nombre()
+	
+	method onza() {
+		return new Onza(image = 'onza' + self.nombre() + '.png')
+	}
+}
+const limon = new Ingrediente(
+	nombre = 'Limon',
+	posicionX = 4
+)
 
-object  fernet {
-	var property image = 'botellaFernet.png'
-	const property position = game.at(4, 8)
-	const property text = 'Fernet'
-	
-	method onza() {
-		return new Onza(image = 'onzaFernet.png')
-	}
-}
-object  limon {
-	var property image = 'botellaLimon.png'
-	const property position = game.at(11, 8)
-	const property text = 'Limón'
-	
-	method onza() {
-		return new Onza(image = 'onzaLimon.png')
-	}
-}
-object  coca{
-	var property image = 'botellaCola.png'
-	const property position = game.at(18, 8)
-	const property text = 'Cola'
-	
-	method onza() {
-		return new Onza(image = 'onzaCola.png')
-	}
-}
+const naranja = new Ingrediente(
+	nombre = 'Naranja',
+	posicionX = 11
+)
 
-object  campari{
-	var property image = 'botellaCampari.png'
-	const property position = game.at(25, 8)
-	const property text = 'Campi'
-	
-	method onza() {
-		return new Onza(image = 'onzaCampari.png')
-	}
-}
+const tomate = new Ingrediente(
+	nombre = 'Tomate',
+	posicionX = 18
+)
 
-object  naranja{
-	var property image = 'botellaNaranja.png'
-	const property position = game.at(32, 8)
-	const property text = 'Orange'
-	
-	method onza() {
-		return new Onza(image = 'onzaNaranja.png')
-	}
-}
+const cola = new Ingrediente(
+	nombre = 'Cola',
+	posicionX = 25
+)
+
+const whisky = new Ingrediente(
+	nombre = 'Whisky',
+	posicionX = 32
+)
+
+const vodka = new Ingrediente(
+	nombre = 'Vodka',
+	posicionX = 39
+)
+
+const fernulo = new Ingrediente(
+	nombre = 'Fernulo',
+	posicionX = 46
+)
+
+const ron = new Ingrediente(
+	nombre = 'Ron',
+	posicionX = 53
+)
+
+
+
+
 
 class Onza {
 	//var property position = game.origin()

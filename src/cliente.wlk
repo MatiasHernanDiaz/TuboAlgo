@@ -30,7 +30,7 @@ class Cliente{
 
 		//pide un trago y corre el reloj y estado
 		self.generarTrago()
-		game.onTick(1000, self.identity().toString(),{self.control()})
+		game.onTick(1000, self.identity().toString(), {self.control()})
 		
 	}
 	
@@ -159,7 +159,7 @@ class ClienteExigente inherits Cliente {
 	
 	var property image = "clienteDificilFeliz.png"
 	
-	override method tiempoEspera(){return 10}
+	override method tiempoEspera(){return 16}
 	
 	override method verificarTrago(tragoQueRecibio){
 		//Primero se deben ordenar los tragos, y luego devolver la comparación
@@ -183,7 +183,7 @@ class ClienteMedio inherits Cliente{
 	
 	var property image = "clienteMedioFeliz.png"
 	
-	override method tiempoEspera() {return 20}
+	override method tiempoEspera() {return 30}
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y compara lista onzas con tolerancia de 1 de dif
@@ -213,7 +213,7 @@ class ClienteConformista inherits Cliente{
 	
 	var property image = "clienteFacilFeliz.png" 
 
-	override method tiempoEspera(){return 30}
+	override method tiempoEspera(){return 45}
 	
 	override method verificarTrago(tragoQueRecibio){
 		return tragoQueRecibio.ingredientes().asSet() == self.tragoPedido().ingredientes().asSet() and
