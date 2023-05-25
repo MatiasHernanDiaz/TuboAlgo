@@ -15,7 +15,7 @@ object config{
 		keyboard.right().onPressDo({barman.derecha()})
 		keyboard.left().onPressDo({barman.izquierda()})
 		keyboard.up().onPressDo({barman.seleccionar()})
-		keyboard.down().onPressDo({coctelera.limpiar()})
+		keyboard.down().onPressDo({coctelera.limpiarConSonido()})
 		
 		
 		keyboard.num1().onPressDo({barman.entregar(self.sesion().sillas().get(0))})
@@ -58,6 +58,12 @@ object configSonido{
 	method entrega(){game.sound("audio/entregaTrago1.mp3").play()}
 	
 	method win(){game.sound("audio/win.mp3").play()}
+	
+	method loser(){game.sound("audio/loser.mp3").play()}
+	
+	method limpiar(){game.sound("audio/limpiar.mp3").play()}
+	
+	method servir(){game.sound("audio/servir.mp3").play()}
 				
 }
 
@@ -136,9 +142,14 @@ class Sesion {
 		self.tiempoRestante(self.tiempoRestante() - 1)
 		
 		if(self.tiempoRestante() <= 0 or self.objetivoCumplido()){
-			if(self.objetivoCumplido())
+			if(self.objetivoCumplido()){
 				configSonido.win()
-			self.terminar()
+				self.terminar()				
+			}
+			else{
+				configSonido.loser()
+				self.terminar()
+			}
 		}
 	}
 	

@@ -30,6 +30,7 @@ object barman{
 	method seleccionar(){
 		if(game.allVisuals().contains(self))
 			coctelera.agregarIngredientes(game.uniqueCollider(self))
+			configSonido.servir()
 	}	
 	
 	method entregar(silla){

@@ -23,15 +23,20 @@ object coctelera {
 			//game.say(self, 'Te pasaste')
 			dialogo.contelera(self)
 			self.limpiar()
+			configSonido.limpiar()
+			
 		}
 	}
 	
 	method limpiar() {
-		
 		ingredientes.clear()
 		self.onzas().forEach({ onza => game.removeVisual(onza) })
 		self.onzas().clear()
-			
+	}
+	
+	method limpiarConSonido(){
+		self.limpiar()
+		configSonido.limpiar()
 	}
 	
 	method preparado() = new Trago(ingredientes = self.ingredientes() )
