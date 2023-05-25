@@ -17,13 +17,13 @@ object barman{
 	method derecha(){
 		if(self.position().x() < maxPosition.x()){ self.position(self.position().right(7)) }
 		else{ self.position(minPosition) }
-		game.sound("audio/botellas.mp3").play()
+		configSonido.efectoBotella()
 		
 	}
 	method izquierda(){
 		if(self.position().x() > minPosition.x()){ self.position(self.position().left(7)) }
 		else{ self.position(maxPosition) }
-		game.sound("audio/botellas.mp3").play()
+		configSonido.efectoBotella()
 
 	}
 	
@@ -36,11 +36,13 @@ object barman{
 		if(game.allVisuals().contains(self)) {
 			if( silla.cliente() != null ) {
 				silla.cliente().recibirTrago(coctelera.preparado())
-				game.sound("audio/entregaTrago.mp3").play()
+				configSonido.entrega()
+				//game.sound("audio/entregaTrago.mp3").play()
 				
 				coctelera.limpiar()
 			} else {
 				game.say(silla, 'Esta silla está vacía')
+				dialogo.sillaVacia(silla)
 			}			
 		}
 	}

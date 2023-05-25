@@ -28,15 +28,64 @@ object config{
 	method iniciar(sesion_){
 		self.sesion(sesion_)
 		self.config()
-		self.musicaFondo()
+		configSonido.musicaFondo()
 	}
 	
+	
+	
+	
+}
+
+object configSonido{
+	
+	const musicaDeFondo = game.sound("audio/fondo1.mp3")
+	
 	method musicaFondo(){
-		const musicaDeFondo = game.sound("audio/fondo1.mp3")
 		musicaDeFondo.shouldLoop(true)
 		game.schedule(500, { musicaDeFondo.play()} )
 		musicaDeFondo.volume(0.5)
 	}
+	
+	method musicaFondoStop(){
+		musicaDeFondo.stop()
+	}
+	
+	method efectoBotella(){
+		game.sound("audio/botellas.mp3").play()
+	}
+	
+	method efectoPropina(){
+		game.sound("audio/propina1.mp3").play()
+	}
+	
+	method entrega(){game.sound("audio/entregaTrago.mp3").play()}
+				
+	
+}
+
+object dialogo{
+	
+	method tiempoFuera(c){game.say(c, "¡Me cansé de esperar!")}
+	
+	method faltaMucho(c){game.say(c, "¿Falta mucho?")}
+	
+	method rico(c){game.say(c, 'Está rico!')}
+	
+	method noPedi(c){game.say(c, 'Esto no es lo que pedí.')}
+	
+	method satisfaccion1(c){game.say(c, "Deja que desear.")}
+	
+	method satisfaccion2(c){game.say(c, "Estuvo bien pero puede estar mejor")}
+	
+	method satisfaccion3(c){game.say(c, "Sos lo más. Excelente trago")}
+	
+	method tragoMal(c){game.say(c, "Es muy feo!")}
+	
+	method sillaVacia(s){ game.say(s, 'Esta silla está vacía')}
+	
+	method contelera(cot){game.say(cot, 'Te pasaste')}
+				
+	
 	
 }
 
@@ -66,6 +115,8 @@ class Sesion {
 		game.removeTickEvent("controlReloj")
 		
 		sillas.forEach({ silla => silla.terminar() })
+		
+		configSonido.musicaFondoStop()
 		
 		//config.resetearTeclado()
 		
@@ -159,6 +210,7 @@ class SesionParaTest inherits Sesion {
 class FinalSesion {
 	const property objetivo
 	const property position = game.center()
+	
 	
 	method text() = 'Juego terminado. Obtuviste ' + propinero.dinero().toString() + ' de un objetivo de ' + self.objetivo()
 	

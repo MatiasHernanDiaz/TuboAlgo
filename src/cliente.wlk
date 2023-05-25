@@ -3,6 +3,7 @@ import coctelera.*
 import ingredientes.*
 import barman.*
 import tragos.*
+import sesion.*
 
 /*Matias */
 
@@ -58,7 +59,8 @@ class Cliente{
 			self.restarSegundos()
 		else {
 			self.recibioTrago(true)
-			game.say(self, "¡Me cansé de esperar!") // No funciona, porque sale enseguida. Sin embargo, 
+			dialogo.tiempoFuera(self)
+			//game.say(self, "¡Me cansé de esperar!") // No funciona, porque sale enseguida. Sin embargo, 
 			//si eschedulizamos el self.desalojar(), pincha la referencia a self.silla().cliente()
 			self.desalojar()			
 		}
@@ -78,7 +80,8 @@ class Cliente{
 		if(((self.tiempoRestante()) - (self.tiempoEspera()*(1/3))).abs() <= 1){
 			satisfaccion = 1
 			self.cambiarImagen()
-			game.say(self, "¿Falta mucho?")
+			//game.say(self, "¿Falta mucho?")
+			dialogo.faltaMucho(self)
 		}
 		else if(((self.tiempoRestante()) - (self.tiempoEspera()*(2/3))).abs() <= 1) {
 			satisfaccion = 2
@@ -106,9 +109,11 @@ class Cliente{
 			
 			if(self.verificarTrago(_unTrago)){
 				self.darPropina()
-				game.say(self, 'Está rico!')
+				dialogo.rico(self)
+				//game.say(self, 'Está rico!')
 			} else {
-				game.say(self, 'Esto no es lo que pedí.')
+				dialogo.noPedi(self)
+				//game.say(self, 'Esto no es lo que pedí.')
 			}
 			self.desalojar()
 		}
@@ -126,21 +131,23 @@ class Cliente{
 	//da propina acorde a su nivel de satisfaccion
 	//modifica el contador del propinero
 		if(self.satisfaccion() == 1){
-			game.say(self, "Deja que desear. Seguí practicando y pronto lo lograrás")
+			//game.say(self, "Deja que desear.")
+			dialogo.satisfaccion1(self)
 			propinero.entregarPropina(250)
-			game.sound("audio/propina1.mp3").play()
+			configSonido.efectoPropina()
 		} else if(self.satisfaccion() == 2) {
 			game.say(self, "Estuvo bien pero puede estar mejor")
+			dialogo.satisfaccion2(self)
 			propinero.entregarPropina(500)
-			game.sound("audio/propina1.mp3").play()
+			configSonido.efectoPropina()
 		} else if(self.satisfaccion() >= 3) {
 			game.say(self, "Sos lo más. Excelente trago")
+			dialogo.satisfaccion3(self)
 			propinero.entregarPropina(1000) 
-			game.sound("audio/propina1.mp3").play()
+			configSonido.efectoPropina()
 		} else {
-			game.say(self, "Si no se tiene nada bueno que decir, mejor no decir nada. ¡Hasta nunca!")
-			
-			
+			//game.say(self, "Es muy feo!")
+			dialogo.tragoMal(self)
 			self.desalojar()
 		}
 	}
@@ -168,6 +175,7 @@ class ClienteExigente inherits Cliente {
 			else if(self.satisfaccion()==2) "clienteDificilNeutral.png" 
 			else "clienteDificilTriste.png") 
 	}
+	
 }
 
 class ClienteMedio inherits Cliente{
@@ -191,15 +199,6 @@ class ClienteMedio inherits Cliente{
 				})
 	}
 	
-//	method cantErrores(){
-//		const sett = tragoRecibido.ingredientes().asSet() or tragoPedido.ingredientes().asSet()
-//		var errores = 0
-//		sett.forEach({
-//			ingr =>
-//			errores += (tragoRecibido.ingredientes().count(ingr) - tragoPedido.ingredientes().count(ingr)).abs()
-//		})
-//		return errores
-//	}
 	
 	override method cambiarImagen(){
 		self.image(
@@ -226,6 +225,6 @@ class ClienteConformista inherits Cliente{
 		self.image(
 			if(self.satisfaccion()==3) "clienteFacilFeliz.png" 
 			else if(self.satisfaccion()==2) "clienteFacilNeutral.png" 
-			else "clienteFacilTriste.png") 
+			else "clienteFacilTriste.png")
 	}
 }
