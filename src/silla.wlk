@@ -18,7 +18,6 @@ class Silla {
 		
 		game.removeTickEvent(self.evento())
 		
-		
 		if(self.estaOcupada())
 			self.retirarCliente()
 	}
@@ -51,12 +50,13 @@ class Silla {
 	
 	method retirarCliente() {
 		self.cliente().terminar()
-		game.schedule(3000, {self.removerCliente()})
+		const cli = self.cliente()
+		game.schedule(3000, {self.removerCliente(cli)})
+		self.cliente(null)
 	}
 	
-	method removerCliente() {
-		game.removeVisual(self.cliente())
-		self.cliente(null)
+	method removerCliente(cli) {
+		game.removeVisual(cli)
 	}
 }
 
