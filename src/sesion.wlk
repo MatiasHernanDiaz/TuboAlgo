@@ -59,6 +59,7 @@ class Sesion {
 		
 		game.addVisual(barman)
 		game.addVisual(propinero)
+		game.addVisual(propina)
 		game.addVisual(coctelera)
 		
 		game.onTick(1000, "controlReloj", { self.controlReloj() })
@@ -71,7 +72,9 @@ class Sesion {
 		
 		game.removeVisual(barman)
 		
-		game.addVisual(new FinalSesion(objetivo = self.propinaObjetivo()))
+		game.addVisual(cartelFinal)
+		textoFinal.dineroObjetivo(self.propinaObjetivo())
+		game.addVisual(textoFinal)
 	}
 	
 	method iniciarSilla(silla) {
@@ -83,7 +86,7 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method tiempoInicial() = 80
+	method tiempoInicial() = 60
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
@@ -152,12 +155,21 @@ class SesionParaTest inherits Sesion {
 }
 
 
-class FinalSesion {
-	const property objetivo
-	const property position = game.center()
-	
-	method text() = 'Juego terminado. Obtuviste ' + propinero.dinero().toString() + ' de un objetivo de ' + self.objetivo()
-	
-	
+object cartelFinal {
+	const property position = game.at(30, 35)
+	const property image = 'cartelFinal.png'
 }
+
+object textoFinal {
+	var property dineroObjetivo
+	const property position = game.at(47, 38)
+	
+	method text() = 'Obtuviste $' + propinero.dinero().toString() + 
+					' de un objetivo de $' + self.dineroObjetivo() + '. ' + 
+					self.textoResultado()
+	
+	method textoResultado() = if (self.dineroObjetivo() <= propinero.dinero()) '¡Ganaste!' else '¡Perdiste!'
+}
+
+
 

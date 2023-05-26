@@ -156,8 +156,8 @@ class ClienteExigente inherits Cliente {
 	
 	override method verificarTrago(tragoQueRecibio){
 		//Primero se deben ordenar los tragos, y luego devolver la comparación
-		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
-		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
+		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
+		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
 		
 		return tragoQueRecibio.ingredientes() == self.tragoPedido().ingredientes()
 	}
@@ -190,17 +190,7 @@ class ClienteMedio inherits Cliente{
 					).abs() <= 1
 				})
 	}
-	
-//	method cantErrores(){
-//		const sett = tragoRecibido.ingredientes().asSet() or tragoPedido.ingredientes().asSet()
-//		var errores = 0
-//		sett.forEach({
-//			ingr =>
-//			errores += (tragoRecibido.ingredientes().count(ingr) - tragoPedido.ingredientes().count(ingr)).abs()
-//		})
-//		return errores
-//	}
-	
+
 	override method cambiarImagen(){
 		self.image(
 			if(self.satisfaccion()==3) "clienteMedioFeliz.png" 
