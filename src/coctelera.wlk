@@ -1,5 +1,6 @@
 import tragos.*
 import wollok.game.*
+import sesion.*
 
 object coctelera {
 	const property ingredientes = []
@@ -19,17 +20,23 @@ object coctelera {
 			game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
 		}
 		else{ 
-			game.say(self, 'Te pasaste')
+			//game.say(self, 'Te pasaste')
+			dialogo.contelera(self)
 			self.limpiar()
+			configSonido.limpiar()
+			
 		}
 	}
 	
 	method limpiar() {
-		
 		ingredientes.clear()
 		self.onzas().forEach({ onza => game.removeVisual(onza) })
 		self.onzas().clear()
-			
+	}
+	
+	method limpiarConSonido(){
+		self.limpiar()
+		configSonido.limpiar()
 	}
 	
 	method preparado() = new Trago(ingredientes = self.ingredientes() )
