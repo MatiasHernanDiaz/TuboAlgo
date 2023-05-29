@@ -3,8 +3,8 @@ import barman.*
 import ingredientes.*
 import coctelera.*
 import tragos.*
-
 import wollok.game.*
+import menu.*
 
 object config{
 	
@@ -34,8 +34,15 @@ object config{
 		configSonido.musicaFondo()
 	}
 	
-	
-	
+	method configMenuPrincipal(){
+		keyboard.up().onPressDo({selector.arriba()})
+		keyboard.down().onPressDo({selector.abajo()})
+		keyboard.right().onPressDo({selector.seleccionado().aceptar()})
+		
+	}
+	method configVolver(){
+		keyboard.left().onPressDo({volverMenuPrincipal.aceptar()})
+	}
 	
 }
 

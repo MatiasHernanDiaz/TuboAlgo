@@ -1,20 +1,11 @@
-import sesion.*
-
 import wollok.game.*
+import menu.*
 
 program juego {
 	game.title("Turbo Barman")
 	game.cellSize(10)
 	game.height(50)
 	game.width(100)
-	game.boardGround("fondo.png")
-	
-	
-	const sesion = new SesionFacil()
-	config.iniciar(sesion)
-		
-	game.addVisual(sesion)
-	sesion.iniciar()
-
+	menuPrincipal.iniciar()
 	game.start()
 }
