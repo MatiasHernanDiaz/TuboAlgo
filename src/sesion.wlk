@@ -49,6 +49,7 @@ object config{
 object configSonido{
 	
 	const musicaDeFondo = game.sound("audio/fondo1.mp3")
+	const musicaDeMenu = game.sound("audio/menu.mp3")
 	
 	method musicaFondo(){
 		musicaDeFondo.shouldLoop(true)
@@ -56,7 +57,15 @@ object configSonido{
 		musicaDeFondo.volume(0.5)
 	}
 	
+	method musicaMenu(){
+		musicaDeMenu.shouldLoop(true)
+		game.schedule(500, { musicaDeMenu.play()} )
+		musicaDeMenu.volume(0.5)
+	}
+	
 	method musicaFondoStop(){musicaDeFondo.stop()}
+	
+	method musicaMenuStop() {musicaDeMenu.stop()}
 	
 	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
 	
@@ -76,28 +85,43 @@ object configSonido{
 
 object dialogo{
 	
-	method tiempoFuera(c){game.say(c, "¡Me cansé de esperar!")}
+	const property tiempoFueraDialogos = ["¡Me cansé de esperar!","Me burrí","Te esperé mucho!"]
 	
-	method faltaMucho(c){game.say(c, "¿Falta mucho?")}
+	const property faltaMucho = ["¿Falta mucho?","Sigo esperando...","¿Por qué tardas tanto?"]
 	
-	method rico(c){game.say(c, 'Está rico!')}
+	const property rico = ["Está rico!","Excelente","mmm delicioso"]
 	
-	method noPedi(c){game.say(c, 'Esto no es lo que pedí.')}
+	const property noPedi = ["Esto no es lo que pedí","Jamás pedí esto","Creo que te confundiste"]
 	
-	method satisfaccion1(c){game.say(c, "Deja que desear.")}
+	const property satisfaccion1 = ["Al fin!","Mejor tarde que nunca","Pudo estar mejor"]
 	
-	method satisfaccion2(c){game.say(c, "Estuvo bien pero puede estar mejor")}
+	const property satisfaccion2 = ["Estuvo bien","Con practica podes mejorar"]
 	
-	method satisfaccion3(c){game.say(c, "Sos lo más. Excelente trago")}
+	const property satisfaccion3 = ["Excelente trago!", "Impecable, te aplaudo","Oh, me sorprendiste"]
 	
-	method tragoMal(c){game.say(c, "Es muy feo!")}
+	const property tragoMal = ["Es asqueroso!", "Un espanto", "Es muy feo","Y pensar que te pagué"]
+	
+	method tiempoFuera(c){game.say(c, self.tiempoFueraDialogos().anyOne())}
+	
+	method faltaMucho(c){game.say(c, self.faltaMucho().anyOne())}
+	
+	method rico(c){game.say(c, self.rico().anyOne())}
+	
+	method noPedi(c){game.say(c, self.noPedi().anyOne())}
+	
+	method satisfaccion1(c){game.say(c, self.satisfaccion1().anyOne())}
+	
+	method satisfaccion2(c){game.say(c, self.satisfaccion2().anyOne())}
+	
+	method satisfaccion3(c){game.say(c, self.satisfaccion3().anyOne())}
+	
+	method tragoMal(c){game.say(c, self.tragoMal().anyOne())}
 	
 	method sillaVacia(s){ game.say(s, 'Esta silla está vacía')}
 	
 	method contelera(cot){game.say(cot, 'Te pasaste')}
 				
-	
-	
+
 }
 
 class Sesion {
@@ -135,6 +159,7 @@ class Sesion {
 		game.addVisual(cartelFinal)
 		textoFinal.dineroObjetivo(self.propinaObjetivo())
 		game.addVisual(textoFinal)
+		//game.schedule(5000,{menuPrincipal.iniciar()})
 	}
 	
 	method iniciarSilla(silla) {
@@ -237,6 +262,8 @@ object textoFinal {
 					self.textoResultado()
 	
 	method textoResultado() = if (self.dineroObjetivo() <= propinero.dinero()) '¡Ganaste!' else '¡Perdiste!'
+	
+	
 }
 
 

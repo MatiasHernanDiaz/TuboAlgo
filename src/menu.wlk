@@ -12,6 +12,8 @@ object menuPrincipal {
 		game.addVisual(salir)
 		game.addVisual(selector)
 		config.configMenuPrincipal()
+		//const musicaDeMenu = game.sound("audio/menu.mp3")
+		configSonido.musicaMenu()
 	}
 }
 
@@ -22,6 +24,7 @@ object comenzar{
 	const property position = game.at(45, 32)
 	
 	method aceptar(){
+		configSonido.musicaMenuStop()
 		game.clear()
 		game.addVisual(fondoJuego)
 		const sesion = new SesionFacil()
