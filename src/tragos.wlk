@@ -1,5 +1,7 @@
 import ingredientes.*
 
+import wollok.game.*
+
 //####   Tragos creados por la coctelera    #####
 //###############################################
 class Trago{
@@ -9,31 +11,45 @@ class Trago{
 
 //####   Tragos    #####, cantidad maxima total 8 onzas de ingredientes
 //######################, estas son las recetas a seguir a la hora de preparar los tragos solicitados
-object fernetCoca inherits Trago(ingredientes = [fernet, fernet, fernet, coca, coca, coca, coca, coca]) {}
+object fernCola inherits Trago(ingredientes = [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]) {}
 
-object fernetCordobes inherits Trago(ingredientes = [fernet, fernet, fernet, fernet, coca, coca, coca, coca]) {}
+object fernCordobes inherits Trago(ingredientes = [fernulo, fernulo, fernulo, fernulo, cola, cola, cola, cola]) {}
 
-object garibaldi inherits Trago(ingredientes = [campari, campari, campari, naranja, naranja, naranja, naranja, naranja]) {}
+object manhattan inherits Trago(ingredientes = [whisky, whisky, whisky, whisky, tomate, tomate, tomate, tomate]) {}
 
-//const vinoTinto = new Trago(ingredientes = [])
+object destorni inherits Trago(ingredientes = [naranja, naranja, naranja, vodka, vodka, vodka, vodka, vodka]) {}
 
-//const agua = new Trago(ingredientes = [agua], cantidades = [8], cantidadShakes = 0)
+object vodkaFizz inherits Trago(ingredientes = [vodka, vodka, vodka, vodka, limon, limon, limon, limon]) {}
 
-//const jugoNaranja = new Trago(ingredientes = [agua, pulpaNaranja], cantidades = [2, 6], cantidadShakes = 3)
+object sexBeach inherits Trago(ingredientes = [vodka, vodka, limon, limon, limon, naranja, naranja, naranja]) {}
 
-//const jugoMultifruta= new Trago(ingredientes = [agua, pulpaLimon, pulpaUva, pulpaManzana], cantidades = [2, 2, 2, 2], cantidadShakes = 3)
+object johnCollins inherits Trago(ingredientes = [whisky, whisky, whisky, whisky, whisky, whisky, naranja, limon]) {}
 
+object cubaLibre inherits Trago(ingredientes = [cola, cola, cola, limon, limon, ron, ron, ron]) {}
+
+object bloodyMary inherits Trago(ingredientes = [tomate, tomate, tomate, limon, vodka, vodka, vodka, vodka]) {}
+
+object deadAwaker inherits Trago(ingredientes = [whisky, whisky, ron, ron, vodka, vodka, fernulo, fernulo]) {}
 
 //####  Carta #####, 1 carta por cada cliente, se elije un randon de la "const property carta"
 //#################
 
-object carta {
-	const property vinos = [garibaldi]
-	const property fernets = [fernetCoca, fernetCordobes]
-	//const property sinAlcohol = [agua, jugoNaranja, jugoMultifruta]
-	
-	const property carta = [vinos, fernets].flatten()
+object carta {	
+	const property carta = [
+			fernCola, fernCordobes, manhattan, destorni, vodkaFizz, sexBeach,
+			johnCollins, cubaLibre, bloodyMary, deadAwaker
+		]
+		
+	const property position = game.at(3, 3)
+	const property image = 'carta.png'
 	
 	method elegirTrago() = carta.anyOne()
+	
+	method toggle() {
+		if(game.allVisuals().contains(self))
+			game.removeVisual(self)
+		else
+			game.addVisual(self)
+	}
 
 }
