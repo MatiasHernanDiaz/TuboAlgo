@@ -79,9 +79,6 @@ describe "Ingredientes" {
 	test "Iniciliza vacio la cantidad de onzas"{
  		assert.equals("Orange", naranja.text())
  	}
- 	test "Onza"{
- 		//No se que probar aca	
- 	}
  	test "diferencia de ingredientes" {
  		assert.notThat(naranja.text() == limon.text())
  	}
@@ -101,6 +98,9 @@ describe "Coctelera" {
  		assert.equals(8, coctelera.ingredientes().size())
  		//coctelera.agregarIngredientes(naranja) game.say()
  		assert.equals(8, coctelera.ingredientes().size())
+ 	}
+ 	test "Onza"{
+ 		//No se que probar aca	
  	}
  	
  	test "Limpiar coctelera" {
