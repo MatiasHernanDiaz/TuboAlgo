@@ -37,7 +37,7 @@ object config{
 	method configMenuPrincipal(){
 		keyboard.up().onPressDo({selector.arriba()})
 		keyboard.down().onPressDo({selector.abajo()})
-		keyboard.right().onPressDo({selector.seleccionado().aceptar()})
+		keyboard.enter().onPressDo({selector.seleccionado().aceptar()})
 		
 	}
 	method configVolver(){
