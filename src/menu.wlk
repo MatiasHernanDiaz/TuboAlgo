@@ -4,8 +4,10 @@ import sesion.*
 // 		MENU
 //////////////////////////////////////////////////////////////
 object menuPrincipal {
+	
 	method iniciar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
@@ -14,6 +16,8 @@ object menuPrincipal {
 		config.configMenuPrincipal()
 		//const musicaDeMenu = game.sound("audio/menu.mp3")
 		configSonido.musicaMenu()
+		
+		
 	}
 }
 
@@ -21,7 +25,7 @@ object menuPrincipal {
 // OPCIONES DE MENU
 //////////////////////////////////////////////////////////////
 object comenzar{
-	const property position = game.at(45, 32)
+	const property position = game.at(65, 32)
 	
 	method aceptar(){
 		configSonido.musicaMenuStop()
@@ -39,13 +43,17 @@ object comenzar{
 }
 
 object tutorial{
-	const property position = game.at(45, 24)
+	const property position = game.at(65, 24)
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoTutorial)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
+		configSonido.seleccionOpcionMenu()
+		
+		
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
 	method image() = if(!self.seleccionado()) "tutorial.png" else "tutorialSeleccionado.png"
@@ -54,13 +62,16 @@ object tutorial{
 }
 
 object cartel{
-	const property position = game.at(45, 16)
+	const property position = game.at(65, 16)
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoCartel)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
+		configSonido.seleccionOpcionMenu()
+		
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
 	method image() = if(!self.seleccionado()) "cartel.png" else "cartelSeleccionado.png"
@@ -69,7 +80,7 @@ object cartel{
 }
 
 object salir{
-	const property position = game.at(45, 8)
+	const property position = game.at(65, 8)
 	
 	method aceptar(){ game.stop() } 
 	method seleccionado() = selector.position().y() == self.position().y()
@@ -88,11 +99,13 @@ object selector{
 	
 	method arriba(){ 
 		seleccionado = seleccionado.siguiente()
+		configSonido.seleccionMenu()
 		self.position(game.at(x, seleccionado.position().y()))
 	}
 	
 	method abajo(){ 
 		seleccionado = seleccionado.anterior()
+		configSonido.seleccionMenu()
 		self.position(game.at(x, seleccionado.position().y()))
 	}
 }
@@ -102,12 +115,14 @@ object volverMenuPrincipal{
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
 		game.addVisual(salir)
 		game.addVisual(selector)
 		config.configMenuPrincipal()
+		configSonido.seleccionOpcionMenu()
 	} 
 	method seleccionado() = true
 	method text() = "FLECHA IZQUIERA PARA VOLVER AL MENU PRINCIPAL"
@@ -118,7 +133,8 @@ object volverMenuPrincipal{
 // 			FONDOS DE PANTALLA PARA CADA MENU
 //////////////////////////////////////////////////////////////
 object fondoMenuPrincipal{
-	
+	const property position = game.origin()
+	method image() = "turboAlgoLey2.png"
 }
 
 object fondoJuego{
@@ -135,7 +151,7 @@ object fondoTutorial{
 
 object fondoCartel{
 	const property position = game.center()
-	method text() = "PROHIBIDA EL ALCOHOL A LOS MENOS DE 18 AÑOS, SI TIENE PROBLEMAS BUSQUE AYUDA PROFESIONAL"
+	method text() = "PROHIBIDA EL ALCOHOL A LOS MENORES DE 18 AÑOS, SI TIENE PROBLEMAS CON LA BEBIDA BUSQUE AYUDA PROFESIONAL"
 	
 	method regresar(){}//aca configurar botones para volver al menu principal 
 }
