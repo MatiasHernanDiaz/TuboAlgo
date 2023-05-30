@@ -135,7 +135,7 @@ object fondoTutorial{
 
 object fondoCartel{
 	const property position = game.center()
-	method text() = "PROHIBIDA EL ALCOHOL A LOS MENOS DE 18 AÑOS, SI TIENE PROBLEMAS BUSQUE AYUDA PROFESIONAL"
+	method text() = "PROHIBIDA EL ALCOHOL A LOS MENORES DE 18 AÑOS, SI TIENE PROBLEMAS CON LA BEBIDA BUSQUE AYUDA PROFESIONAL"
 	
 	method regresar(){}//aca configurar botones para volver al menu principal 
 }
