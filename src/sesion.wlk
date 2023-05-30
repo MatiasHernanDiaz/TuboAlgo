@@ -58,6 +58,7 @@ object configSonido{
 	}
 	
 	method musicaMenu(){
+		//const musicaDeMenu = game.sound("audio/menu.mp3")
 		musicaDeMenu.shouldLoop(true)
 		game.schedule(500, { musicaDeMenu.play()} )
 		musicaDeMenu.volume(0.5)
@@ -80,6 +81,10 @@ object configSonido{
 	method limpiar(){game.sound("audio/limpiar.mp3").play()}
 	
 	method servir(){game.sound("audio/servir.mp3").play()}
+	
+	method seleccionOpcionMenu(){game.sound("audio/seleccion_opcion_menu1.mp3").play()}
+	
+	method seleccionMenu(){game.sound("audio/selector_menu1.mp3").play()}
 				
 }
 
