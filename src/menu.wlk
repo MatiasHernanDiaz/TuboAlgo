@@ -28,13 +28,17 @@ object comenzar{
 	const property position = game.at(65, 32)
 	
 	method aceptar(){
-		configSonido.musicaMenuStop()
 		game.clear()
-		game.addVisual(fondoJuego)
-		const sesion = new SesionFacil()
-		config.iniciar(sesion)
-		game.addVisual(sesion)
-		sesion.iniciar()
+		game.addVisual(fondoMenuPrincipal)
+		game.addVisual(facil)
+		game.addVisual(normal)
+		game.addVisual(dificil)
+		game.addVisual(selector)
+		game.addVisual(volverMenuPrincipal)
+		selector.seleccionado(normal)
+		config.configMenuPrincipal()
+		config.configVolver()
+		configSonido.seleccionOpcionMenu()
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
 	method image() = if(!self.seleccionado()) "comenzar.png" else "comenzarSeleccionado.png"
@@ -89,24 +93,74 @@ object salir{
 	method anterior() = comenzar
 }
 
+object facil{
+	const property position = game.at(65, 32)
+	
+	method aceptar(){
+		configSonido.musicaMenuStop()
+		game.clear()
+		game.addVisual(fondoJuego)
+		const sesion = new SesionFacil()
+		config.iniciar(sesion)
+		game.addVisual(sesion)
+		sesion.iniciar()
+	} 
+	method seleccionado() = selector.position().y() == self.position().y()
+	method image() = if(!self.seleccionado()) "facil.png" else "facilSeleccionado.png"
+	method siguiente() = dificil
+	method anterior() = normal
+}
+object normal{
+	const property position = game.at(65, 24)
+	
+	method aceptar(){
+		configSonido.musicaMenuStop()
+		game.clear()
+		game.addVisual(fondoJuego)
+		const sesion = new SesionNormal()
+		config.iniciar(sesion)
+		game.addVisual(sesion)
+		sesion.iniciar()
+	} 
+	method seleccionado() = selector.position().y() == self.position().y()
+	method image() = if(!self.seleccionado()) "normal.png" else "normalSeleccionado.png"
+	method siguiente() = facil
+	method anterior() = dificil
+}
+object dificil{
+	const property position = game.at(65, 16)
+	
+	method aceptar(){
+		configSonido.musicaMenuStop()
+		game.clear()
+		game.addVisual(fondoJuego)
+		const sesion = new SesionDificil()
+		config.iniciar(sesion)
+		game.addVisual(sesion)
+		sesion.iniciar()
+	} 
+	method seleccionado() = selector.position().y() == self.position().y()
+	method image() = if(!self.seleccionado()) "dificil.png" else "dificilSeleccionado.png"
+	method siguiente() = normal
+	method anterior() = facil
+}
+
 ///////////////////////////////////////////////////////////////
 // SELECTOR
 //////////////////////////////////////////////////////////////
 object selector{
 	const property x = 25
 	var property seleccionado = cartel
-	var property position = game.at(x, cartel.position().y())
+	method position() = game.at(x, seleccionado.position().y())
 	
 	method arriba(){ 
 		seleccionado = seleccionado.siguiente()
 		configSonido.seleccionMenu()
-		self.position(game.at(x, seleccionado.position().y()))
 	}
 	
 	method abajo(){ 
 		seleccionado = seleccionado.anterior()
 		configSonido.seleccionMenu()
-		self.position(game.at(x, seleccionado.position().y()))
 	}
 }
 
@@ -143,14 +197,14 @@ object fondoJuego{
 }
 
 object fondoTutorial{
-	const property position = game.center()
+	const property position = game.at(65,game.center().y())
 	method text() = "ACA ARMAR LA EXPLICACION DEL TUTORIAL"
 	
 	method regresar(){}//aca configurar botones para volver al menu principal 
 }
 
 object fondoCartel{
-	const property position = game.center()
+	const property position = game.at(65,game.center().y())
 	method text() = "PROHIBIDA EL ALCOHOL A LOS MENORES DE 18 AÑOS, SI TIENE PROBLEMAS CON LA BEBIDA BUSQUE AYUDA PROFESIONAL"
 	
 	method regresar(){}//aca configurar botones para volver al menu principal 
