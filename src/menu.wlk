@@ -7,6 +7,7 @@ object menuPrincipal {
 	
 	method iniciar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
@@ -24,7 +25,7 @@ object menuPrincipal {
 // OPCIONES DE MENU
 //////////////////////////////////////////////////////////////
 object comenzar{
-	const property position = game.at(45, 32)
+	const property position = game.at(65, 32)
 	
 	method aceptar(){
 		configSonido.musicaMenuStop()
@@ -42,14 +43,16 @@ object comenzar{
 }
 
 object tutorial{
-	const property position = game.at(45, 24)
+	const property position = game.at(65, 24)
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoTutorial)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
 		configSonido.seleccionOpcionMenu()
+		
 		
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
@@ -59,10 +62,11 @@ object tutorial{
 }
 
 object cartel{
-	const property position = game.at(45, 16)
+	const property position = game.at(65, 16)
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoCartel)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
@@ -76,7 +80,7 @@ object cartel{
 }
 
 object salir{
-	const property position = game.at(45, 8)
+	const property position = game.at(65, 8)
 	
 	method aceptar(){ game.stop() } 
 	method seleccionado() = selector.position().y() == self.position().y()
@@ -111,6 +115,7 @@ object volverMenuPrincipal{
 	
 	method aceptar(){
 		game.clear()
+		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
@@ -128,7 +133,8 @@ object volverMenuPrincipal{
 // 			FONDOS DE PANTALLA PARA CADA MENU
 //////////////////////////////////////////////////////////////
 object fondoMenuPrincipal{
-	
+	const property position = game.origin()
+	method image() = "turboAlgoLey2.png"
 }
 
 object fondoJuego{
