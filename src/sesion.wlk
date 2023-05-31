@@ -65,7 +65,7 @@ object configSonido{
 	
 	method musicaFondoStop(){musicaDeFondo.stop()}
 	
-	method musicaMenuStop() {game.sound("audio/menu.mp3").stop()}
+	method musicaMenuStop() {musicaDeMenu.stop()} // musicaDem
 	
 	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
 	
