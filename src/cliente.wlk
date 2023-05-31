@@ -157,7 +157,7 @@ class Cliente{
 class ClienteExigente inherits Cliente {
 	//tiempo de espera 20 segundos
 	
-	var property image = "clienteDificilFeliz.png"
+	var property image = "exigente1.png"
 	
 	override method tiempoEspera(){return 16}
 	
@@ -171,9 +171,9 @@ class ClienteExigente inherits Cliente {
 	
 	override method cambiarImagen(){
 		self.image(
-			if(self.satisfaccion()==3) "clienteDificilFeliz.png" 
-			else if(self.satisfaccion()==2) "clienteDificilNeutral.png" 
-			else "clienteDificilTriste.png") 
+			if(self.satisfaccion()==3) "exigente1.png" 
+			else if(self.satisfaccion()==2) "exigente2.png" 
+			else "exigente3.png") 
 	}
 	
 }
@@ -181,7 +181,7 @@ class ClienteExigente inherits Cliente {
 class ClienteMedio inherits Cliente{
 	//tiempo de espera 40 segundos
 	
-	var property image = "clienteMedioFeliz.png"
+	var property image = "medio1.png"
 	
 	override method tiempoEspera() {return 30}
 	
@@ -201,16 +201,16 @@ class ClienteMedio inherits Cliente{
 
 	override method cambiarImagen(){
 		self.image(
-			if(self.satisfaccion()==3) "clienteMedioFeliz.png" 
-			else if(self.satisfaccion()==2) "clienteMedioNeutral.png" 
-			else "clienteMedioTriste.png") 
+			if(self.satisfaccion()==3) "medio1.png" 
+			else if(self.satisfaccion()==2) "medio2.png" 
+			else "medio3.png") 
 	}
 }
 
 class ClienteConformista inherits Cliente{
 	//tiempo de espera 60 segundos
 	
-	var property image = "clienteFacilFeliz.png" 
+	var property image = "conformista1.png" 
 
 	override method tiempoEspera(){return 45}
 	
@@ -222,8 +222,8 @@ class ClienteConformista inherits Cliente{
 		
 	override method cambiarImagen(){
 		self.image(
-			if(self.satisfaccion()==3) "clienteFacilFeliz.png" 
-			else if(self.satisfaccion()==2) "clienteFacilNeutral.png" 
-			else "clienteFacilTriste.png")
+			if(self.satisfaccion()==3) "conformista1.png" 
+			else if(self.satisfaccion()==2) "conformista1.png" 
+			else "conformista1.png")
 	}
 }
