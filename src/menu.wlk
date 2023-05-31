@@ -5,17 +5,22 @@ import sesion.*
 //////////////////////////////////////////////////////////////
 object menuPrincipal {
 	
-	method iniciar(){
-		game.clear()
-		game.addVisual(fondoMenuPrincipal)
+	method cargarFondo(){game.addVisual(fondoMenuPrincipal)}
+	method cargarOpciones(){
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
 		game.addVisual(salir)
 		game.addVisual(selector)
-		config.configMenuPrincipal()
+	}
+	method cargarConfiguracion(){config.configMenuPrincipal()}
+	method cargarSonido(){configSonido.musicaMenu()}
+	method iniciar(){
+		game.clear()
+		self.cargarFondo()
+		self.cargarOpciones()
+		self.cargarConfiguracion()
 		//const musicaDeMenu = game.sound("audio/menu.mp3")
-		configSonido.musicaMenu()
 	}
 }
 
@@ -32,6 +37,7 @@ object comenzar{
 		game.addVisual(normal)
 		game.addVisual(dificil)
 		game.addVisual(selector)
+		selector.ultimaSeleccion(self)
 		game.addVisual(volverMenuPrincipal)
 		selector.seleccionado(normal)
 		config.configMenuPrincipal()
@@ -51,6 +57,7 @@ object tutorial{
 		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoTutorial)
 		game.addVisual(volverMenuPrincipal)
+		selector.ultimaSeleccion(self)
 		config.configVolver()
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
@@ -67,6 +74,7 @@ object cartel{
 		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoCartel)
 		game.addVisual(volverMenuPrincipal)
+		selector.ultimaSeleccion(self)
 		config.configVolver()
 		
 	} 
@@ -144,6 +152,7 @@ object dificil{
 object selector{
 	const property x = 25
 	var property seleccionado = cartel
+	var property ultimaSeleccion
 	method position() = game.at(x, seleccionado.position().y())
 	
 	method arriba(){ 
@@ -161,15 +170,8 @@ object volverMenuPrincipal{
 	const property position = game.at(10, 10)
 	
 	method aceptar(){
-		game.clear()
-		game.addVisual(fondoMenuPrincipal)
-		game.addVisual(comenzar)
-		game.addVisual(tutorial)
-		game.addVisual(cartel)
-		game.addVisual(salir)
-		game.addVisual(selector)
-		selector.seleccionado(tutorial)
-		config.configMenuPrincipal()
+		selector.seleccionado(selector.ultimaSeleccion())
+		menuPrincipal.iniciar()
 	} 
 	method seleccionado() = true
 	method text() = "FLECHA IZQUIERA PARA VOLVER AL MENU PRINCIPAL"

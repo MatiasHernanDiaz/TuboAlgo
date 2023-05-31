@@ -58,7 +58,6 @@ object configSonido{
 	}
 	
 	method musicaMenu(){
-		//const musicaDeMenu = game.sound("audio/menu.mp3")
 		musicaDeMenu.shouldLoop(true)
 		game.schedule(500, { musicaDeMenu.play()} )
 		musicaDeMenu.volume(0.5)
@@ -66,7 +65,7 @@ object configSonido{
 	
 	method musicaFondoStop(){musicaDeFondo.stop()}
 	
-	method musicaMenuStop() {musicaDeMenu.stop()}
+	method musicaMenuStop() {game.sound("audio/menu.mp3").stop()}
 	
 	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
 	

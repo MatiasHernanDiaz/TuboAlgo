@@ -7,5 +7,6 @@ program juego {
 	game.height(50)
 	game.width(100)
 	menuPrincipal.iniciar()
+	menuPrincipal.cargarSonido()
 	game.start()
 }
