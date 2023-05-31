@@ -223,7 +223,7 @@ class ClienteConformista inherits Cliente{
 	override method cambiarImagen(){
 		self.image(
 			if(self.satisfaccion()==3) "conformista1.png" 
-			else if(self.satisfaccion()==2) "conformista1.png" 
-			else "conformista1.png")
+			else if(self.satisfaccion()==2) "conformista2.png" 
+			else "conformista3.png")
 	}
 }
