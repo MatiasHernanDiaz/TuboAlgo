@@ -16,8 +16,6 @@ object menuPrincipal {
 		config.configMenuPrincipal()
 		//const musicaDeMenu = game.sound("audio/menu.mp3")
 		configSonido.musicaMenu()
-		
-		
 	}
 }
 
@@ -38,7 +36,6 @@ object comenzar{
 		selector.seleccionado(normal)
 		config.configMenuPrincipal()
 		config.configVolver()
-		configSonido.seleccionOpcionMenu()
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
 	method image() = if(!self.seleccionado()) "comenzar.png" else "comenzarSeleccionado.png"
@@ -55,9 +52,6 @@ object tutorial{
 		game.addVisual(fondoTutorial)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
-		configSonido.seleccionOpcionMenu()
-		
-		
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
 	method image() = if(!self.seleccionado()) "tutorial.png" else "tutorialSeleccionado.png"
@@ -74,7 +68,6 @@ object cartel{
 		game.addVisual(fondoCartel)
 		game.addVisual(volverMenuPrincipal)
 		config.configVolver()
-		configSonido.seleccionOpcionMenu()
 		
 	} 
 	method seleccionado() = selector.position().y() == self.position().y()
@@ -175,8 +168,8 @@ object volverMenuPrincipal{
 		game.addVisual(cartel)
 		game.addVisual(salir)
 		game.addVisual(selector)
+		selector.seleccionado(tutorial)
 		config.configMenuPrincipal()
-		configSonido.seleccionOpcionMenu()
 	} 
 	method seleccionado() = true
 	method text() = "FLECHA IZQUIERA PARA VOLVER AL MENU PRINCIPAL"
