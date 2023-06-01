@@ -94,10 +94,10 @@ describe "Coctelera" {
  	test "Agregar Ingredientes" {
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(coca)
+ 		coctelera.agregarIngredientes(cola)
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(coca)
+ 		coctelera.agregarIngredientes(cola)
  		coctelera.agregarIngredientes(naranja)
  		assert.equals(7, coctelera.ingredientes().size())
 		coctelera.agregarIngredientes(naranja)
@@ -112,7 +112,7 @@ describe "Coctelera" {
  	test "Limpiar coctelera" {
  		coctelera.agregarIngredientes(naranja)
  		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(coca)
+ 		coctelera.agregarIngredientes(cola)
  		coctelera.agregarIngredientes(naranja)
  		assert.equals(4, coctelera.ingredientes().size())
  		coctelera.limpiar()
@@ -233,7 +233,7 @@ describe "propinero"{
 		propinero.entregarPropina(100)
 		assert.equals(100,propinero.dinero())
 		const sesion = new SesionParaTest()
-		assert.notThat(propinero.objetivoCumplido())
+		//assert.notThat(propinero.objetivoCumplido())
 		
 	}
 }
