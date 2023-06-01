@@ -32,6 +32,7 @@ object comenzar{
 	
 	method aceptar(){
 		game.clear()
+		configSonido.seleccionOpcionMenu()
 		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(facil)
 		game.addVisual(normal)
@@ -54,6 +55,7 @@ object tutorial{
 	
 	method aceptar(){
 		game.clear()
+		configSonido.seleccionOpcionMenu()
 		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoTutorial)
 		game.addVisual(volverMenuPrincipal)
@@ -71,6 +73,7 @@ object cartel{
 	
 	method aceptar(){
 		game.clear()
+		configSonido.seleccionOpcionMenu()
 		game.addVisual(fondoMenuPrincipal)
 		game.addVisual(fondoCartel)
 		game.addVisual(volverMenuPrincipal)
@@ -98,6 +101,7 @@ object facil{
 	const property position = game.at(65, 32)
 	
 	method aceptar(){
+		configSonido.seleccionOpcionMenu()
 		configSonido.musicaMenuStop()
 		game.clear()
 		game.addVisual(fondoJuego)
@@ -115,6 +119,7 @@ object normal{
 	const property position = game.at(65, 24)
 	
 	method aceptar(){
+		configSonido.seleccionOpcionMenu()
 		configSonido.musicaMenuStop()
 		game.clear()
 		game.addVisual(fondoJuego)
@@ -132,6 +137,7 @@ object dificil{
 	const property position = game.at(65, 16)
 	
 	method aceptar(){
+		configSonido.seleccionOpcionMenu()
 		configSonido.musicaMenuStop()
 		game.clear()
 		game.addVisual(fondoJuego)
@@ -170,6 +176,7 @@ object volverMenuPrincipal{
 	const property position = game.at(10, 10)
 	
 	method aceptar(){
+		configSonido.seleccionOpcionMenu()
 		selector.seleccionado(selector.ultimaSeleccion())
 		menuPrincipal.iniciar()
 	} 
