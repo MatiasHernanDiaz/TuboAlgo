@@ -5,7 +5,7 @@ class Ingrediente {
 	const property posicionX
 	const property position = game.at(posicionX, 8)
 	const property image = 'botella' + self.nombre() + '.png'
-	const property text = self.nombre()
+	//const property text = self.nombre()
 	
 	method onza() {
 		return new Onza(image = 'onza' + self.nombre() + '.png')
