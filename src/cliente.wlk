@@ -1,4 +1,5 @@
 import wollok.game.*
+import config.*
 import coctelera.*
 import ingredientes.*
 import barman.*

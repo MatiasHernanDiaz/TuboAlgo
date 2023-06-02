@@ -1,5 +1,6 @@
-import tragos.*
 import wollok.game.*
+import config.*
+import tragos.*
 import sesion.*
 
 object coctelera {

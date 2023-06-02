@@ -1,4 +1,5 @@
 import wollok.game.*
+import config.*
 import menu.*
 
 program juego {
@@ -6,7 +7,8 @@ program juego {
 	game.cellSize(10)
 	game.height(50)
 	game.width(100)
+	game.boardGround('turboAlgoLey2.png')
 	menuPrincipal.iniciar()
-	menuPrincipal.cargarSonido()
+	configSonido.cargarAudio()
 	game.start()
 }
