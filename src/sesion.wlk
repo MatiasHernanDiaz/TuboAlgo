@@ -38,8 +38,6 @@ class Sesion {
 		game.removeTickEvent("controlReloj")
 		
 		sillas.forEach({ silla => silla.terminar() })
-
-		configSonido.musicaFondoStop()
 		
 		game.removeVisual(barman)
 		

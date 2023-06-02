@@ -74,9 +74,9 @@ object configSonido{
 		//musicaDeMenu.volume(0)
 	}
 	
-	method musicaFondoStop(){musicaDeFondo.stop()}
+	//method musicaFondoStop(){musicaDeFondo.stop()}
 	
-	method musicaMenuStop() {musicaDeMenu.stop()} // musicaDem
+	//method musicaMenuStop() {musicaDeMenu.stop()} // musicaDem
 	
 	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
 	

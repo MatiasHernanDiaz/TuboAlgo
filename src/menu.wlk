@@ -93,9 +93,9 @@ class OpcionNivelSesion inherits OpcionMenu {
 	override method aceptar(){
 		super()
 		selector.ultimaSeleccion(comenzar)
-		config.iniciarJuego(visuales.first())
+		config.iniciarJuego(visuales.first()) // Debe ser una Sesión
 		visuales.first().iniciar()
-		configSonido.musicaMenuStop()
+		configSonido.iniciarMusicaFondo()
 	}
 }
 
