@@ -1,6 +1,7 @@
 import wollok.game.*
 import config.*
 import sesion.*
+import coctelera.*
 ///////////////////////////////////////////////////////////////
 // 		MENU
 //////////////////////////////////////////////////////////////
@@ -90,6 +91,8 @@ class OpcionNivelSesion inherits OpcionMenu {
 	method nuevaSesion()
 	override method aceptar(){
 		game.clear()
+		coctelera.ingredientes().clear()
+		coctelera.onzas().clear()
 		selector.ultimaSeleccion(comenzar)
 		config.iniciarJuego(self.nuevaSesion()) // Debe ser una Sesión
 		configSonido.iniciarMusicaFondo()
