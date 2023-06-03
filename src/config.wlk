@@ -12,6 +12,8 @@ object config{
 	method iniciarJuego(sesion_){
 		self.sesion(sesion_)
 		self.tecladoJuego()
+		game.addVisual(self.sesion())
+		self.sesion().iniciar()
 		configSonido.iniciarMusicaFondo()
 	}
 	
@@ -60,6 +62,11 @@ object configSonido{
 	method iniciarMusicaFondo() {
 		musicaDeMenu.volume(0)
 		musicaDeFondo.volume(0.5)
+	}
+	
+	method silencioTotal(){
+		musicaDeMenu.volume(0)
+		musicaDeFondo.volume(0)
 	}
 	
 	method musicaFondo(){

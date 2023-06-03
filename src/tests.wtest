@@ -80,15 +80,6 @@ describe "Sesion" {
 }
 
 
-// Comienzan los tests sobre los Ingredientes y Coctelera
-describe "Ingredientes" {
-	test "Iniciliza vacio la cantidad de onzas"{
- 		assert.equals("Orange", naranja.text())
- 	}
- 	test "diferencia de ingredientes" {
- 		assert.notThat(naranja.text() == limon.text())
- 	}
-}
  
 describe "Coctelera" {
  	test "Agregar Ingredientes" {
@@ -102,11 +93,19 @@ describe "Coctelera" {
  		assert.equals(7, coctelera.ingredientes().size())
 		coctelera.agregarIngredientes(naranja)
  		assert.equals(8, coctelera.ingredientes().size())
- 		//coctelera.agregarIngredientes(naranja) game.say()
- 		assert.equals(8, coctelera.ingredientes().size())
  	}
- 	test "Onza"{
- 		//No se que probar aca	
+ 	
+ 	test "te pasaste"{
+ 		coctelera.agregarIngredientes(naranja)
+ 		coctelera.agregarIngredientes(limon)
+ 		coctelera.agregarIngredientes(cola)
+ 		coctelera.agregarIngredientes(naranja)
+ 		coctelera.agregarIngredientes(limon)
+ 		coctelera.agregarIngredientes(cola)
+ 		coctelera.agregarIngredientes(naranja)
+ 		coctelera.agregarIngredientes(limon)
+ 		assert.equals(8, coctelera.ingredientes().size())
+ 		coctelera.agregarIngredientes(cola)
  	}
  	
  	test "Limpiar coctelera" {

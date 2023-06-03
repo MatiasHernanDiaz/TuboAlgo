@@ -15,14 +15,13 @@ class Sesion {
 	
 	const property position = game.origin()
 	const property image = 'fondo.png'
-//	method text() = tiempoRestante.toString()
-//	method textPosition() = game.at(2, game.height() - 5)
 	
 	method iniciar() {
 		self.crearSillas()
 		
 		self.sillas().forEach({ silla => self.iniciarSilla(silla) })
 		self.ingredientes().forEach({ ingr => game.addVisual(ingr) })
+		propinero.dinero(0)
 		
 		game.addVisual(barman)
 		game.addVisual(propinero)
@@ -40,11 +39,10 @@ class Sesion {
 		sillas.forEach({ silla => silla.terminar() })
 		
 		game.removeVisual(barman)
+		configSonido.silencioTotal()
 		
 		game.addVisual(cartelFinal)
-		textoFinal.dineroObjetivo(self.propinaObjetivo())
 		game.addVisual(textoFinal)
-		//game.schedule(5000,{menuPrincipal.iniciar()})
 	}
 	
 	method iniciarSilla(silla) {
@@ -133,9 +131,9 @@ class SesionParaTest inherits Sesion {
 }
 
 object reloj {
-	var property sesion = config.sesion()
 	const property position = game.at(2, game.height() - 5)
-	method text() = sesion.tiempoRestante().toString()
+	method sesion() = config.sesion()
+	method text() = self.sesion().tiempoRestante().toString()
 }
 
 object cartelFinal {
@@ -144,14 +142,13 @@ object cartelFinal {
 }
 
 object textoFinal {
-	var property dineroObjetivo
 	const property position = game.at(47, 38)
 	
 	method text() = 'Obtuviste $' + propinero.dinero().toString() + 
-					' de un objetivo de $' + self.dineroObjetivo() + '. ' + 
+					' de un objetivo de $' + config.sesion().propinaObjetivo() + '. ' + 
 					self.textoResultado()
 	
-	method textoResultado() = if (self.dineroObjetivo() <= propinero.dinero()) '¡Ganaste!' else '¡Perdiste!'
+	method textoResultado() = if (config.sesion().propinaObjetivo() <= propinero.dinero()) '¡Ganaste!' else '¡Perdiste!'
 }
 
 

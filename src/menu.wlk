@@ -11,13 +11,11 @@ object menuPrincipal {
 		game.addVisual(cartel)
 		game.addVisual(salir)
 	}
-	method cargarConfiguracion(){config.tecladoMenu()}
-	method cargarSonido(){configSonido.iniciarMusicaMenu()}
 	method iniciar(){
 		game.clear()
 		self.cargarOpciones()
-		self.cargarConfiguracion()
-		self.cargarSonido()
+		config.tecladoMenu()
+		configSonido.iniciarMusicaMenu()
 	}
 }
 
@@ -50,7 +48,6 @@ object comenzar inherits OpcionMenu(
 	anterior = tutorial,
 	nombre = 'comenzar'
 ) {
-	
 	override method aceptar() {
 		super()
 		selector.seleccionado(normal)
@@ -90,11 +87,11 @@ object salir inherits OpcionMenu(
 // OPCIONES  DE INICIO DEL JUEGO
 //////////////////////////////////////////////////////////////
 class OpcionNivelSesion inherits OpcionMenu {
+	method nuevaSesion()
 	override method aceptar(){
-		super()
+		game.clear()
 		selector.ultimaSeleccion(comenzar)
-		config.iniciarJuego(visuales.first()) // Debe ser una Sesión
-		visuales.first().iniciar()
+		config.iniciarJuego(self.nuevaSesion()) // Debe ser una Sesión
 		configSonido.iniciarMusicaFondo()
 	}
 }
@@ -102,29 +99,41 @@ class OpcionNivelSesion inherits OpcionMenu {
 
 object facil inherits OpcionNivelSesion(
 	position = game.at(65, 32),
-	visuales = [new SesionFacil()], 
+	visuales = [], 
 	siguiente = dificil, 
 	anterior = normal,
 	nombre = 'facil'
-) {}
+) {
+	override method nuevaSesion(){
+		return new SesionFacil()
+	}
+}
 
 
 object normal inherits OpcionNivelSesion(
 	position = game.at(65, 24),
-	visuales = [new SesionNormal()], 
+	visuales = [], 
 	siguiente = facil, 
 	anterior = dificil,
 	nombre = 'normal'
-) {}
+) {
+	override method nuevaSesion(){
+		return new SesionNormal()
+	}
+}
 
 
 object dificil inherits OpcionNivelSesion(
 	position = game.at(65, 16),
-	visuales = [new SesionDificil()], 
+	visuales = [], 
 	siguiente = normal, 
 	anterior = facil,
 	nombre = 'dificil'
-) {}
+) {
+	override method nuevaSesion(){
+		return new SesionDificil()
+	}
+}
 
 
 ///////////////////////////////////////////////////////////////
