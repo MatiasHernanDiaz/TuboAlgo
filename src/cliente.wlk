@@ -191,7 +191,6 @@ class ClienteMedio inherits Cliente{
 		const ingredientesIdeales = self.tragoPedido().ingredientes().asSet()
 		const ingredientesReales = tragoQueRecibio.ingredientes().asSet()
 		
-		console.println(ingredientesIdeales.count({ingr2 => naranja === ingr2}))
 		return ingredientesIdeales == ingredientesReales and 
 				ingredientesIdeales.all({
 					ingr1 => (self.tragoPedido().ingredientes().count({ingr2 => ingr1 === ingr2}) 
