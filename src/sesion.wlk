@@ -54,7 +54,7 @@ class Sesion {
 	
 	method propinaObjetivo()
 	
-	method tiempoInicial() = 60
+	method tiempoInicial() = 100
 	
 	method controlReloj() {
 		self.tiempoRestante(self.tiempoRestante() - 1)
@@ -76,7 +76,7 @@ class Sesion {
 
 class SesionFacil inherits Sesion {
 	
-	override method propinaObjetivo() = 100
+	override method propinaObjetivo() = 3000
 	
 	override method crearSillas() {
 		self.sillas().addAll([
@@ -90,7 +90,7 @@ class SesionFacil inherits Sesion {
 
 class SesionNormal inherits Sesion {
 	
-	override method propinaObjetivo() = 16000
+	override method propinaObjetivo() = 5000
 	
 	override method crearSillas() {
 		self.sillas().addAll([
@@ -104,7 +104,7 @@ class SesionNormal inherits Sesion {
 
 class SesionDificil inherits Sesion {
 	
-	override method propinaObjetivo() = 22000
+	override method propinaObjetivo() = 8000
 	
 	override method crearSillas() {
 		self.sillas().addAll([
