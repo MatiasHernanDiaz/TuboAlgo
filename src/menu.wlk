@@ -67,11 +67,17 @@ object tutorial inherits OpcionMenu(
 
 object cartel inherits OpcionMenu(
 	position = game.at(65, 16), 
-	visuales = [volverMenuPrincipal],
+	visuales = [volverMenuPrincipal,creditos],
 	siguiente = tutorial, 
 	anterior = salir,
 	nombre = 'cartel'
+	
 ) {}
+
+object creditos{
+	var property position = game.at(53, 4)
+	method image() = "creditos-nombres.png"
+}
 
 
 object salir inherits OpcionMenu(
@@ -159,7 +165,7 @@ object selector{
 
 
 object volverMenuPrincipal{
-	const property position = game.at(10, 10)
+	const property position = game.at(16, 7)
 	
 	method aceptar(){
 		configSonido.seleccionOpcionMenu()		
@@ -168,6 +174,7 @@ object volverMenuPrincipal{
 	}
 	
 	method seleccionado() = true
-	method text() = "BACKSPACE PARA VOLVER AL MENU PRINCIPAL"
+	method image() = "backspace.png"
 }
+
 
