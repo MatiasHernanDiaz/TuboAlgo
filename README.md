@@ -23,7 +23,7 @@ los tragos que tus clientes te pedirán al sentarse en la barra.
   El juego consta de tres niveles seleccionables de dificultad. Cada uno de ellos
 cuenta con su propio objetivo final de propina que deberas cumplir antes que se termine el tiempo de sesión!
 
-  Pero !cuidado¡, esto no será tan fácil, ya que los clientes tienen su propio método
+  Pero !Cuidado¡, esto no será tan fácil, ya que los clientes tienen su propio método
 de exigencia y su propio nivel de satisfaccón el cual irá bajando en la medida que transcurra el tiempo...
   
   Un cliente no te esperará por siempre, transcurrido un tiempo de espera se cansará y desidirá
@@ -33,7 +33,7 @@ más alta sera su satisfacción y por ende dejará una propina mas jugosa!
 RESUMEN:
 
 * Tiempo límite de sesion de 2 min
-* 3 tipos de cliente: Fácil o conformista, Medio y Difícil o exigente.
+* 3 tipos de cliente: Conformista, Medio y Exigente.
 * Cada uno cuenta con su propio tiempo de espera y su propio metodo de validación de trago
 * El juego termina o bien al finalizar el tiempo (perdiendo) o al llegar a la propina objetivo (ganando)
 
