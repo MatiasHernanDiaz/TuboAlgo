@@ -58,11 +58,16 @@ object comenzar inherits OpcionMenu(
 
 object tutorial inherits OpcionMenu(
 	position = game.at(65, 24), 
-	visuales = [volverMenuPrincipal],
+	visuales = [volverMenuPrincipal,tutorialDescripcion],
 	siguiente = comenzar, 
 	anterior = cartel,
 	nombre = 'tutorial'
 ) {}
+
+object tutorialDescripcion{
+	var property position = game.at(3,3)
+	method image() = "tutorial-descripcion.png"
+}
 
 
 object cartel inherits OpcionMenu(
@@ -118,7 +123,6 @@ object facil inherits OpcionNivelSesion(
 	}
 }
 
-
 object normal inherits OpcionNivelSesion(
 	position = game.at(65, 24),
 	visuales = [], 
@@ -130,7 +134,6 @@ object normal inherits OpcionNivelSesion(
 		return new SesionNormal()
 	}
 }
-
 
 object dificil inherits OpcionNivelSesion(
 	position = game.at(65, 16),

@@ -3,7 +3,7 @@ import wollok.game.*
 class Ingrediente {
 	const property nombre
 	const property posicionX
-	const property position = game.at(posicionX, 8)
+	const property position = game.at(posicionX, 5)
 	const property image = 'botella' + self.nombre() + '.png'
 	//const property text = self.nombre()
 	
@@ -50,8 +50,6 @@ const ron = new Ingrediente(
 	nombre = 'Ron',
 	posicionX = 53
 )
-
-
 
 
 
