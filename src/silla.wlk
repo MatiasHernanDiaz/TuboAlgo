@@ -1,5 +1,6 @@
 import cliente.*
 import wollok.game.*
+import tragos.*
 
 
 class Silla {
@@ -43,6 +44,10 @@ class Silla {
 		
 		self.cliente(nuevoCliente)
 		game.addVisual(self.cliente())
+		if(game.allVisuals().contains(carta)) {
+            game.removeVisual(carta)
+            game.addVisual(carta)
+            }
 		self.cliente().iniciar()
 	}
 	

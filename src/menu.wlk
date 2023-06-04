@@ -1,165 +1,150 @@
 import wollok.game.*
+import config.*
 import sesion.*
+import coctelera.*
 ///////////////////////////////////////////////////////////////
 // 		MENU
 //////////////////////////////////////////////////////////////
 object menuPrincipal {
-	
-	method cargarFondo(){game.addVisual(fondoMenuPrincipal)}
 	method cargarOpciones(){
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
 		game.addVisual(salir)
-		game.addVisual(selector)
 	}
-	method cargarConfiguracion(){config.configMenuPrincipal()}
-	method cargarSonido(){configSonido.musicaMenu()}
 	method iniciar(){
 		game.clear()
-		self.cargarFondo()
 		self.cargarOpciones()
-		self.cargarConfiguracion()
-		//const musicaDeMenu = game.sound("audio/menu.mp3")
+		config.tecladoMenu()
+		configSonido.iniciarMusicaMenu()
 	}
 }
 
 ///////////////////////////////////////////////////////////////
-// OPCIONES DE MENU
+// OPCIONES GENERALES DEL MENU
 //////////////////////////////////////////////////////////////
-object comenzar{
-	const property position = game.at(65, 32)
+class OpcionMenu {
+	const property position
+	const property visuales
+	const property siguiente
+	const property anterior
+	const property nombre
 	
-	method aceptar(){
+	method aceptar() {
 		game.clear()
 		configSonido.seleccionOpcionMenu()
-		game.addVisual(fondoMenuPrincipal)
-		game.addVisual(facil)
-		game.addVisual(normal)
-		game.addVisual(dificil)
-		game.addVisual(selector)
+		visuales.forEach({ visual => game.addVisual(visual) })
 		selector.ultimaSeleccion(self)
-		game.addVisual(volverMenuPrincipal)
+		config.tecladoMenu()
+	}
+	
+	method seleccionado() = selector.seleccionado() === self
+	method image() = if(!self.seleccionado()) self.nombre() + '.png' else self.nombre() + 'Seleccionado.png'
+}
+
+object comenzar inherits OpcionMenu(
+	position = game.at(65, 32), 
+	visuales = [facil, normal, dificil, volverMenuPrincipal],
+	siguiente = salir, 
+	anterior = tutorial,
+	nombre = 'comenzar'
+) {
+	override method aceptar() {
+		super()
 		selector.seleccionado(normal)
-		config.configMenuPrincipal()
-		config.configVolver()
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "comenzar.png" else "comenzarSeleccionado.png"
-	method siguiente() = salir
-	method anterior() = tutorial
+	}
 }
 
-object tutorial{
-	const property position = game.at(65, 24)
-	
-	method aceptar(){
-		game.clear()
-		configSonido.seleccionOpcionMenu()
-		game.addVisual(fondoMenuPrincipal)
-		game.addVisual(fondoTutorial)
-		game.addVisual(volverMenuPrincipal)
-		selector.ultimaSeleccion(self)
-		config.configVolver()
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "tutorial.png" else "tutorialSeleccionado.png"
-	method siguiente() = comenzar
-	method anterior() = cartel
+
+object tutorial inherits OpcionMenu(
+	position = game.at(65, 24), 
+	visuales = [volverMenuPrincipal],
+	siguiente = comenzar, 
+	anterior = cartel,
+	nombre = 'tutorial'
+) {}
+
+
+object cartel inherits OpcionMenu(
+	position = game.at(65, 16), 
+	visuales = [volverMenuPrincipal],
+	siguiente = tutorial, 
+	anterior = salir,
+	nombre = 'cartel'
+) {}
+
+
+object salir inherits OpcionMenu(
+	position = game.at(65, 8), 
+	visuales = null,
+	siguiente = cartel, 
+	anterior = comenzar,
+	nombre = 'salir'
+) {
+	override method aceptar() { game.stop() }
 }
 
-object cartel{
-	const property position = game.at(65, 16)
-	
-	method aceptar(){
+///////////////////////////////////////////////////////////////
+// OPCIONES  DE INICIO DEL JUEGO
+//////////////////////////////////////////////////////////////
+class OpcionNivelSesion inherits OpcionMenu {
+	method nuevaSesion()
+	override method aceptar(){
 		game.clear()
-		configSonido.seleccionOpcionMenu()
-		game.addVisual(fondoMenuPrincipal)
-		game.addVisual(fondoCartel)
-		game.addVisual(volverMenuPrincipal)
-		selector.ultimaSeleccion(self)
-		config.configVolver()
-		
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "cartel.png" else "cartelSeleccionado.png"
-	method siguiente() = tutorial
-	method anterior() = salir
+		coctelera.ingredientes().clear()
+		coctelera.onzas().clear()
+		selector.ultimaSeleccion(comenzar)
+		config.iniciarJuego(self.nuevaSesion()) // Debe ser una Sesión
+		configSonido.iniciarMusicaFondo()
+	}
 }
 
-object salir{
-	const property position = game.at(65, 8)
-	
-	method aceptar(){ game.stop() } 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "salir.png" else "salirSeleccionado.png"
-	method siguiente() = cartel
-	method anterior() = comenzar
+
+object facil inherits OpcionNivelSesion(
+	position = game.at(65, 32),
+	visuales = [], 
+	siguiente = dificil, 
+	anterior = normal,
+	nombre = 'facil'
+) {
+	override method nuevaSesion(){
+		return new SesionFacil()
+	}
 }
 
-object facil{
-	const property position = game.at(65, 32)
-	
-	method aceptar(){
-		configSonido.seleccionOpcionMenu()
-		configSonido.musicaMenuStop()
-		game.clear()
-		game.addVisual(fondoJuego)
-		const sesion = new SesionFacil()
-		config.iniciar(sesion)
-		game.addVisual(sesion)
-		sesion.iniciar()
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "facil.png" else "facilSeleccionado.png"
-	method siguiente() = dificil
-	method anterior() = normal
+
+object normal inherits OpcionNivelSesion(
+	position = game.at(65, 24),
+	visuales = [], 
+	siguiente = facil, 
+	anterior = dificil,
+	nombre = 'normal'
+) {
+	override method nuevaSesion(){
+		return new SesionNormal()
+	}
 }
-object normal{
-	const property position = game.at(65, 24)
-	
-	method aceptar(){
-		configSonido.seleccionOpcionMenu()
-		configSonido.musicaMenuStop()
-		game.clear()
-		game.addVisual(fondoJuego)
-		const sesion = new SesionNormal()
-		config.iniciar(sesion)
-		game.addVisual(sesion)
-		sesion.iniciar()
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "normal.png" else "normalSeleccionado.png"
-	method siguiente() = facil
-	method anterior() = dificil
+
+
+object dificil inherits OpcionNivelSesion(
+	position = game.at(65, 16),
+	visuales = [], 
+	siguiente = normal, 
+	anterior = facil,
+	nombre = 'dificil'
+) {
+	override method nuevaSesion(){
+		return new SesionDificil()
+	}
 }
-object dificil{
-	const property position = game.at(65, 16)
-	
-	method aceptar(){
-		configSonido.seleccionOpcionMenu()
-		configSonido.musicaMenuStop()
-		game.clear()
-		game.addVisual(fondoJuego)
-		const sesion = new SesionDificil()
-		config.iniciar(sesion)
-		game.addVisual(sesion)
-		sesion.iniciar()
-	} 
-	method seleccionado() = selector.position().y() == self.position().y()
-	method image() = if(!self.seleccionado()) "dificil.png" else "dificilSeleccionado.png"
-	method siguiente() = normal
-	method anterior() = facil
-}
+
 
 ///////////////////////////////////////////////////////////////
 // SELECTOR
 //////////////////////////////////////////////////////////////
 object selector{
-	const property x = 25
-	var property seleccionado = cartel
-	var property ultimaSeleccion
-	method position() = game.at(x, seleccionado.position().y())
+	var property seleccionado = comenzar
+	var property ultimaSeleccion = null
 	
 	method arriba(){ 
 		seleccionado = seleccionado.siguiente()
@@ -172,48 +157,17 @@ object selector{
 	}
 }
 
+
 object volverMenuPrincipal{
 	const property position = game.at(10, 10)
 	
 	method aceptar(){
-		configSonido.seleccionOpcionMenu()
+		configSonido.seleccionOpcionMenu()		
 		selector.seleccionado(selector.ultimaSeleccion())
 		menuPrincipal.iniciar()
-	} 
+	}
+	
 	method seleccionado() = true
-	method text() = "FLECHA IZQUIERA PARA VOLVER AL MENU PRINCIPAL"
-	method textColor() = if(!self.seleccionado()) paleta.verde() else paleta.rojo()
-
-}
-///////////////////////////////////////////////////////////////
-// 			FONDOS DE PANTALLA PARA CADA MENU
-//////////////////////////////////////////////////////////////
-object fondoMenuPrincipal{
-	const property position = game.origin()
-	method image() = "turboAlgoLey2.png"
-}
-
-object fondoJuego{
-	const property position = game.origin()
-	method image() = "fondo.png"
-}
-
-object fondoTutorial{
-	const property position = game.at(65,game.center().y())
-	method text() = "ACA ARMAR LA EXPLICACION DEL TUTORIAL"
-	
-	method regresar(){}//aca configurar botones para volver al menu principal 
-}
-
-object fondoCartel{
-	const property position = game.at(65,game.center().y())
-	method text() = "PROHIBIDA EL ALCOHOL A LOS MENORES DE 18 AÑOS, SI TIENE PROBLEMAS CON LA BEBIDA BUSQUE AYUDA PROFESIONAL"
-	
-	method regresar(){}//aca configurar botones para volver al menu principal 
-}
-
-object paleta {
-	const property verde = "00FF00FF"
-	const property rojo = "FF0000FF"
+	method text() = "BACKSPACE PARA VOLVER AL MENU PRINCIPAL"
 }
 

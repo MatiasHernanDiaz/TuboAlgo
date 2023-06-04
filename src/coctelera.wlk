@@ -1,12 +1,11 @@
-import tragos.*
 import wollok.game.*
+import config.*
+import tragos.*
 import sesion.*
 
 object coctelera {
 	const property ingredientes = []
 	const property onzas = []
-	//const property cantidades = []
-	//var property cantidadShakes = 0
 	
 	const property position = game.at(84, 20)
 	const property image = 'coctelera.png'
