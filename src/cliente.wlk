@@ -5,54 +5,49 @@ import barman.*
 import tragos.*
 import sesion.*
 
-/*Matias */
-
 class Cliente{
 	
-	const property silla // por parametro
-	var property satisfaccion = 3 //siempre arranca alta
-	var property tragoPedido = null	// que trago genero
+	const property silla 
+	var property satisfaccion = 3 
+	var property tragoPedido = null	
 	var property recibioTrago = false
-	const property position = silla.position().right(2) //misma posicion que la silla que se le asigno
-	//var property image  //cuantas imagenes de clienteFeliz hay?
-	var tiempoRestante = self.tiempoEspera() //se inicializa igual que tiempo de espera 
+	const property position = silla.position().right(2) 
+	var tiempoRestante = self.tiempoEspera() 
 	
 	
 	method cambiarImagen()
 	
-	//deja la silla vacia
-	method desalojar() {
-		silla.retirarCliente()	
-	}
-	
 	/*METODOS DE INICIO Y TERMINAR */
 	method iniciar() {
-
-		//pide un trago y corre el reloj y estado
+		//Pide un trago y llama a control una vez por segundo
 		self.generarTrago()
 		game.onTick(1000, self.identity().toString(), {self.control()})
 		
 	}
 	
 	method control(){
+		//Controla la satisfaccion del cliente por tiempo y corre reloj
 		if (self.silla().cliente() != null) {
 			self.tiempoRegresivo()
 			self.modificarSatisfaccionTiempo()			
-		}
-		
+		}		
+	}
+
+	method desalojar() {
+		//deja la silla vacia
+		silla.retirarCliente()	
 	}
 	
 	method terminar() {
 		//remueve los onTick de iniciar()
 		game.removeTickEvent(self.identity().toString())
 	}
-	
-	/*abstracto */
+
+	/*METRODOS DE TIEMPO */
 	method tiempoEspera()
 	
 	method tiempoRestante() = tiempoRestante
 
-	
 	method tiempoRegresivo(){
 		//inicia la cuenta regresiva
 		if(self.verificarTiempoPositivo())
@@ -60,27 +55,19 @@ class Cliente{
 		else {
 			self.recibioTrago(true)
 			dialogo.tiempoFuera(self)
-			//game.say(self, "¡Me cansé de esperar!") // No funciona, porque sale enseguida. Sin embargo, 
-			//si eschedulizamos el self.desalojar(), pincha la referencia a self.silla().cliente()
 			self.desalojar()			
 		}
 	}
 	
-	//resto de a 1 seg
-	method restarSegundos(){
-		tiempoRestante -= 1
-	}
+	method restarSegundos(){tiempoRestante -= 1}
 	
-	//tiempo positivo
 	method verificarTiempoPositivo() = tiempoRestante > 0
 	
-	//modifico satisfaccion de a tercios
 	method modificarSatisfaccionTiempo(){
 		//modifico satisfaccion de a tercios
 		if(((self.tiempoRestante()) - (self.tiempoEspera()*(1/3))).abs() <= 1){
 			satisfaccion = 1
 			self.cambiarImagen()
-			//game.say(self, "¿Falta mucho?")
 			dialogo.faltaMucho(self)
 		}
 		else if(((self.tiempoRestante()) - (self.tiempoEspera()*(2/3))).abs() <= 1) {
@@ -88,17 +75,12 @@ class Cliente{
 			self.cambiarImagen()
 		}
 	}
-	
-	
-	/*METODOS PARA EL ANALISIS DE LOS TRAGOS */ 
 
-	method verificarTrago(unTrago) //abstracto
+	/*METODOS PARA EL ANALISIS DE LOS TRAGOS */ 
+	method verificarTrago(unTrago)
 	
 	method generarTrago(){
-		//genera un trago
-		//llama al methodo que instancia un trago
 		self.tragoPedido(carta.elegirTrago())
-		
 		game.say(self, 'Dame ' + self.tragoPedido().toString())
 	}
 	
