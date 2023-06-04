@@ -18,7 +18,7 @@ class Cliente{
 	
 	method cambiarImagen()
 	
-	/*METODOS DE INICIO Y TERMINAR */
+/*METODOS DE INICIO Y TERMINAR */
 	method iniciar() {
 		//Pide un trago y llama a control una vez por segundo
 		self.generarTrago()
@@ -44,7 +44,7 @@ class Cliente{
 		game.removeTickEvent(self.identity().toString())
 	}
 
-	/*METRODOS DE TIEMPO */
+/*METRODOS DE TIEMPO */
 	method tiempoEspera()
 	
 	method tiempoRestante() = tiempoRestante
@@ -77,59 +77,60 @@ class Cliente{
 		}
 	}
 
-	/*METODOS PARA EL ANALISIS DE LOS TRAGOS */ 
+/*METODOS PARA EL ANALISIS DE LOS TRAGOS */ 
 	method verificarTrago(unTrago)
 	
 	method generarTrago(){
 		self.tragoPedido(carta.elegirTrago())
-		game.say(self, 'Dame ' + self.tragoPedido().toString())
+		dialogo.dameUn(self)
 	}
 	
-	
-	method recibirTrago(_unTrago) {
+	method recibirTrago(unTrago) {
+		//Solo recibe el trago si no recibio previamente uno
+		//Independientemente de que lo reciba o no desaloja
 		if(not self.recibioTrago()) {
 			self.recibioTrago(true)
-			
-			if(self.verificarTrago(_unTrago)){
+			if(self.verificarTrago(unTrago)){
 				self.darPropina()
 				dialogo.rico(self)
-				//game.say(self, 'Está rico!')
 			} else {
 				dialogo.noPedi(self)
-				//game.say(self, 'Esto no es lo que pedí.')
 			}
 			self.desalojar()
 		}
 	}
 	
-
-	//genera un trago
-	//llama al methodo que instancia un trago
-	method generarTrago(_unTrago){
-		self.tragoPedido(_unTrago)
+	method generarTrago(unTrago){
+		//Creado para poder implementar los test
+		self.tragoPedido(unTrago)
 	}
+	
+	method compararTragosSet(tragoQueRecibio){
+		//convierte los tragos en Set y los compara
+		return tragoQueRecibio.ingredientes().asSet() == self.tragoPedido().ingredientes().asSet()
+	}
+	
+	method ingredientesIdeales() = self.tragoPedido().ingredientes().asSet()
+	
+	method ingredientesReales(tragoQueRecibio) =  tragoQueRecibio.ingredientes().asSet()
 	
 	
 	method darPropina(){
-	//da propina acorde a su nivel de satisfaccion
+	//Da propina acorde a su nivel de satisfaccion
 	//modifica el contador del propinero
 		if(self.satisfaccion() == 1){
-			//game.say(self, "Deja que desear.")
 			dialogo.satisfaccion1(self)
 			propinero.entregarPropina(250)
 			configSonido.efectoPropina()
 		} else if(self.satisfaccion() == 2) {
-			game.say(self, "Estuvo bien pero puede estar mejor")
 			dialogo.satisfaccion2(self)
 			propinero.entregarPropina(500)
 			configSonido.efectoPropina()
 		} else if(self.satisfaccion() >= 3) {
-			game.say(self, "Sos lo más. Excelente trago")
 			dialogo.satisfaccion3(self)
 			propinero.entregarPropina(1000) 
 			configSonido.efectoPropina()
 		} else {
-			//game.say(self, "Es muy feo!")
 			dialogo.tragoMal(self)
 			self.desalojar()
 		}
@@ -138,18 +139,28 @@ class Cliente{
 
 /*TIPOS DE CLIENTES */
 class ClienteExigente inherits Cliente {
-	//tiempo de espera 20 segundos
+	//tiempo de espera 16 segundos
 	
 	var property image = "exigente1.png"
 	
 	override method tiempoEspera(){return 16}
 	
 	override method verificarTrago(tragoQueRecibio){
-		//Primero se deben ordenar los tragos, y luego devolver la comparación
+		//Se deben ordenar los tragos, y luego devolver la comparación.
+		//Tiene que ser identicos
+		return self.ordenarTragoRecibido(tragoQueRecibio) == self.ordenarTragoPedido()
+	}
+	
+	method ordenarTragoRecibido(tragoQueRecibio){
+		//retorna lista del trago que recibio ordenado
 		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
+		return tragoQueRecibio.ingredientes()
+	}
+	
+	method ordenarTragoPedido(){
+		//retorna lista del trago pedido ordenado
 		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
-		
-		return tragoQueRecibio.ingredientes() == self.tragoPedido().ingredientes()
+		return self.tragoPedido().ingredientes()
 	}
 	
 	override method cambiarImagen(){
@@ -162,19 +173,23 @@ class ClienteExigente inherits Cliente {
 }
 
 class ClienteMedio inherits Cliente{
-	//tiempo de espera 40 segundos
+	//tiempo de espera 30 segundos
 	
 	var property image = "medio1.png"
 	
 	override method tiempoEspera() {return 30}
 	
 	override method verificarTrago(tragoQueRecibio){
-		//compara set tragos y compara lista onzas con tolerancia de 1 de dif
-		const ingredientesIdeales = self.tragoPedido().ingredientes().asSet()
-		const ingredientesReales = tragoQueRecibio.ingredientes().asSet()
+		//Compara los set de tragos y se verifica la direrencia de cantidades
 		
-		return ingredientesIdeales == ingredientesReales and 
-				ingredientesIdeales.all({
+		return self.compararTragosSet(tragoQueRecibio) and 
+			self.verificarToleranciaUnaDif(tragoQueRecibio)
+	}
+	
+	method verificarToleranciaUnaDif(tragoQueRecibio){
+		//Para todos los ingredientes del trago pedido y los compara con los del trago que entregado
+		//si son iguales
+		return self.ingredientesIdeales().all({
 					ingr1 => (self.tragoPedido().ingredientes().count({ingr2 => ingr1 === ingr2}) 
 						- tragoQueRecibio.ingredientes().count({ingr2 => ingr1 === ingr2})
 					).abs() <= 1
@@ -190,18 +205,22 @@ class ClienteMedio inherits Cliente{
 }
 
 class ClienteConformista inherits Cliente{
-	//tiempo de espera 60 segundos
+	//tiempo de espera 45 segundos
 	
 	var property image = "conformista1.png" 
 
 	override method tiempoEspera(){return 45}
 	
 	override method verificarTrago(tragoQueRecibio){
-		return tragoQueRecibio.ingredientes().asSet() == self.tragoPedido().ingredientes().asSet() and
-			tragoQueRecibio.ingredientes().size() >= 7
+		//compara set tragos y pide que el vaso este lleno
+		return self.compararTragosSet(tragoQueRecibio) and self.vasoLleno(tragoQueRecibio)
+		}
 	
-	}
-		
+	method vasoLleno(unTrago){
+		//Retorna True si el vaso esta lleno
+		return unTrago.ingredientes().size() >= 7
+	}	
+	
 	override method cambiarImagen(){
 		self.image(
 			if(self.satisfaccion()==3) "conformista1.png" 

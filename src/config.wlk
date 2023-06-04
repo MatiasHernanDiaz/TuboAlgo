@@ -18,7 +18,8 @@ object config{
 	}
 	
 	method tecladoJuego(){
-
+		//Agrupa todas las configuraciones del teclado
+		
 		keyboard.right().onPressDo({barman.derecha()})
 		keyboard.left().onPressDo({barman.izquierda()})
 		keyboard.up().onPressDo({barman.seleccionar()})
@@ -45,6 +46,7 @@ object config{
 }
 
 object configSonido{
+	//Agrupa todos los efectos de sonido
 	
 	const musicaDeFondo = game.sound("audio/fondo1.mp3")
 	const musicaDeMenu = game.sound("audio/menu.mp3")
@@ -72,18 +74,12 @@ object configSonido{
 	method musicaFondo(){
 		musicaDeFondo.shouldLoop(true)
 		game.schedule(500, { musicaDeFondo.play()} )
-		//musicaDeFondo.volume(0.5)
 	}
 	
 	method musicaMenu(){
 		musicaDeMenu.shouldLoop(true)
 		game.schedule(500, { musicaDeMenu.play()} )
-		//musicaDeMenu.volume(0)
 	}
-	
-	//method musicaFondoStop(){musicaDeFondo.stop()}
-	
-	//method musicaMenuStop() {musicaDeMenu.stop()} // musicaDem
 	
 	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
 	
@@ -106,6 +102,7 @@ object configSonido{
 }
 
 object dialogo{
+	//Agrupa todo los dialogos
 	
 	const property tiempoFueraDialogos = ["¡Me cansé de esperar!","Me burrí","Te esperé mucho!"]
 	
@@ -142,4 +139,6 @@ object dialogo{
 	method sillaVacia(s){ game.say(s, 'Esta silla está vacía')}
 	
 	method contelera(cot){game.say(cot, 'Te pasaste')}
+	
+	method dameUn(c){game.say(c, 'Dame ' + c.tragoPedido().toString())}
 }

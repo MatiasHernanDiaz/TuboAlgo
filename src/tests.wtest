@@ -130,8 +130,8 @@ describe "Coctelera" {
 describe "cliente"{
  	test "cliente conformista"{
  		//inicio
- 		//assert.equals(60,clienteConformista.tiempoEspera())
- 		assert.equals(45,clienteConformista.tiempoEspera()) //para el test
+ 		
+ 		assert.equals(45,clienteConformista.tiempoEspera()) 
  		assert.equals(3,clienteConformista.satisfaccion())
  		assert.equals(null, clienteConformista.tragoPedido())
  		
@@ -139,19 +139,24 @@ describe "cliente"{
  		clienteConformista.generarTrago(fernCola)
  		assert.equals(fernCola, clienteConformista.tragoPedido())
  		
- 		//recibe fernet y lo verigica //NO SE PRUEBA recibeTrago(unTrago) rompe game.say()
+ 		//recibe fernet y lo verigica 
  		assert.that(clienteConformista.verificarTrago(fernCola))
  		//recibe fernetCordobes
  		assert.that(clienteConformista.verificarTrago(fernCordobes))
  		//recibe manhattan
  		assert.notThat(clienteConformista.verificarTrago(manhattan))
  		
+ 		//recibe un trago por la mitad
+ 		const otroTrago = new Trago(ingredientes = [fernulo,fernulo,naranja, naranja, naranja, ron])
+ 		assert.notThat(clienteConformista.vasoLleno(otroTrago))
+ 		//recibe un trago por completo
+ 		const otroOtroTrago = new Trago(ingredientes = [fernulo,fernulo,naranja, naranja, naranja, ron, ron, ron])
+ 		assert.that(clienteConformista.vasoLleno(otroOtroTrago))
  		
  	}
  	
  	test "cliente medio"{
  		//inicio
- 		//assert.equals(40,clienteMedio.tiempoEspera())
  		assert.equals(30,clienteMedio.tiempoEspera())
  		assert.equals(3,clienteMedio.satisfaccion())
  		assert.equals(null, clienteMedio.tragoPedido())
@@ -160,28 +165,28 @@ describe "cliente"{
  		clienteMedio.generarTrago(fernCola)
  		assert.equals(fernCola, clienteMedio.tragoPedido())
  		
- 		//recibe fernet y lo verigica //NO SE PRUEBA recibeTrago(unTrago) rompe game.say()
+ 		//recibe fernet y lo verigica 
  		assert.that(clienteMedio.verificarTrago(fernCola))
  		//recibe fernetCordobes
  		assert.that(clienteMedio.verificarTrago(fernCordobes))
  		//recibe manhattan
  		assert.notThat(clienteMedio.verificarTrago(manhattan))
  		//recibe otro trago
- 		const otroTrago = new Trago(ingredientes = [fernulo,fernulo,naranja, naranja, naranja, ron, ron, ron])
-		const otroTragoCambioUno = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, ron, ron, ron])
-		const otroTragoCambioDos = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, naranja, ron, ron])
-		const otroTragoCambioTres = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, naranja, naranja, ron])
-		
+ 		const otroTrago = new Trago(ingredientes = [fernulo,fernulo,fernulo, fernulo, ron, ron, ron, naranja])
+		const reciboTragoCambio = new Trago(ingredientes = [fernulo,fernulo,fernulo, fernulo, fernulo, ron, ron, naranja])
+		const reciboTragoCambio2 = new Trago(ingredientes = [fernulo,fernulo,fernulo, fernulo, fernulo, fernulo, ron, ron])
+		const reciboTragoCambio3 = new Trago(ingredientes = [fernulo,fernulo,fernulo, ron, ron, ron, naranja, naranja])
 		clienteMedio.generarTrago(otroTrago)
-		assert.that(clienteMedio.verificarTrago(otroTragoCambioUno))
-		assert.notThat(clienteMedio.verificarTrago(otroTragoCambioDos))
-		assert.notThat(clienteMedio.verificarTrago(otroTragoCambioTres))
+		assert.that(clienteMedio.verificarTrago(otroTrago))
+		assert.that(clienteMedio.verificarTrago(reciboTragoCambio))
+		assert.notThat(clienteMedio.verificarTrago(reciboTragoCambio2))
+		assert.that(clienteMedio.verificarTrago(reciboTragoCambio3))
+		
  	}
  	
  	test "cliente exigente"{
  		//inicio
- 		//assert.equals(10,clienteExigente.tiempoEspera())
- 		assert.equals(16,clienteExigente.tiempoEspera()) //para el test
+ 		assert.equals(16,clienteExigente.tiempoEspera()) 
  		assert.equals(3,clienteExigente.satisfaccion())
  		assert.equals(null, clienteExigente.tragoPedido())
  		
@@ -189,23 +194,30 @@ describe "cliente"{
  		clienteExigente.generarTrago(fernCola)
  		assert.equals(fernCola, clienteExigente.tragoPedido())
  		
- 		//recibe fernet y lo verigica //NO SE PRUEBA recibeTrago(unTrago) rompe game.say()
+ 		//ordenar trago que pidio
+ 		//fernCola = [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]
+ 		assert.notEquals([fernulo, fernulo, fernulo, cola, cola, cola, cola, cola],clienteExigente.ordenarTragoPedido())
+ 		assert.equals([cola, cola, cola, cola, cola, fernulo, fernulo, fernulo],clienteExigente.ordenarTragoPedido())
+ 		
+ 		//ordenar trago que recibio
+ 		//fernCola = [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]
+		assert.notEquals([fernulo, fernulo, fernulo, cola, cola, cola, cola, cola],clienteExigente.ordenarTragoRecibido(fernCola))
+ 		assert.equals([cola, cola, cola, cola, cola, fernulo, fernulo, fernulo],clienteExigente.ordenarTragoRecibido(fernCola))
+				 		
+ 		//recibe fernet y lo verigica
  		assert.that(clienteExigente.verificarTrago(fernCola))
  		//recibe fernetCordobes
  		assert.notThat(clienteExigente.verificarTrago(fernCordobes))
  		//recibe manhattan
  		assert.notThat(clienteExigente.verificarTrago(manhattan))
+ 		
  		//recibe otro trago
  		const otroTrago = new Trago(ingredientes = [fernulo,fernulo,naranja, naranja, naranja, ron, ron, ron])
-		const otroTragoCambioUno = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, ron, ron, ron])
-		const otroTragoCambioDos = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, naranja, ron, ron])
-		const otroTragoCambioTres = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, naranja, naranja, ron])
+		const otroTragoCambio = new Trago(ingredientes = [fernulo,naranja,naranja, naranja, naranja, ron, ron, ron])
 		
 		clienteExigente.generarTrago(otroTrago)
-		assert.notThat(clienteExigente.verificarTrago(otroTragoCambioUno))
-		assert.notThat(clienteExigente.verificarTrago(otroTragoCambioDos))
-		assert.notThat(clienteExigente.verificarTrago(otroTragoCambioTres))
- 		
+		assert.notThat(clienteExigente.verificarTrago(otroTragoCambio))
+		
  	}
 }
 
