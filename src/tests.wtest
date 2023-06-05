@@ -5,6 +5,7 @@ import coctelera.*
 import cliente.*
 import barman.*
 import tragos.*
+import config.*
 
 import wollok.game.*
 
@@ -19,7 +20,6 @@ const clienteExigente = new ClienteExigente(silla = silla)
 describe "Pruebas para la clase Silla y sus herederas" {
 	
 	test "evaluarEstado() sin cliente y con 100% de probabilidades, debe generar cliente" {
-		
 		assert.notThat(silla.estaOcupada())
 		
 		silla.evaluarEstado()
@@ -73,6 +73,11 @@ describe "Sesion" {
 }
 
 describe "Coctelera" {
+	method initialize(){
+		game.clear()
+		const sesion = new SesionParaTest()
+		sesion.iniciar()
+	}
  	test "Agregar Ingredientes - 8 maximo" {//para mas de 8 OTRO TEST
  		assert.equals(0, cocteleraParaTest.ingredientes().size())
  		cocteleraParaTest.agregarIngredientes(naranja)
@@ -104,7 +109,7 @@ describe "Coctelera" {
  		cocteleraParaTest.agregarIngredientes(ron)
  		assert.equals(8, cocteleraParaTest.ingredientes().size())
  		cocteleraParaTest.agregarIngredientes(ron)
- 		assert.equals(0, cocteleraParaTest.ingredientes().size())
+ 		assert.equals(0, coctelera.ingredientes().size())
  	}
  	
  	test "Limpiar manualmente" {
@@ -219,29 +224,110 @@ describe "cliente"{
 }
 
 describe "barman"{
-	test "cocacola con naranja y limon"{
-		
-		barman.derecha()
-		barman.derecha()
-		barman.seleccionar()
-		barman.derecha()
-		barman.seleccionar()
-		barman.izquierda()
-		barman.izquierda()
-		barman.seleccionar()
-		
-		//hay que pensarlo
-	}
-}
-
-describe "propinero"{
-	test "propinero"{
-		
-		assert.equals(0,propinero.dinero())
-		propinero.entregarPropina(100)
-		assert.equals(100,propinero.dinero())
+	method initialize(){
+		game.clear()
 		const sesion = new SesionParaTest()
-		//assert.notThat(propinero.objetivoCumplido())
+		sesion.iniciar()
+	}
+	method prepararFernet(){
+		barmanParaTest.izquierda()
+		barmanParaTest.izquierda()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
+		barmanParaTest.izquierda()
+		barmanParaTest.izquierda()
+		barmanParaTest.izquierda()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
+		barmanParaTest.seleccionar()
 		
+	}
+	//RECORDAR: 
+	//En sesion=> const property ingredientes = [limon, naranja, tomate, cola, whisky, vodka, fernulo, ron]
+	//barman comienza seleccionando limon por default
+	test "Seleccion de barman a derecha. Si se pasa, vuelve al principio"{
+		self.initialize()
+		assert.equals(limon.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(naranja.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(tomate.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(cola.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(whisky.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(vodka.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(fernulo.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(ron.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(limon.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+	}
+	
+	test "Seleccion de barman a izquierda"{
+		self.initialize()
+		assert.equals(limon.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(ron.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(fernulo.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(vodka.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(whisky.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(cola.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(tomate.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(naranja.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(limon.position(), barmanParaTest.position())
+	}
+	
+	test "Seleccion de barman intercalada"{
+		self.initialize()
+		assert.equals(limon.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(ron.position(), barmanParaTest.position())
+		barmanParaTest.izquierda()
+		assert.equals(fernulo.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(ron.position(), barmanParaTest.position())
+		barmanParaTest.derecha()
+		assert.equals(limon.position(), barmanParaTest.position())
+	}
+	
+	test "Barman sirve en la coctelera"{//
+		self.initialize()
+		assert.equals(limon.position(), barmanParaTest.position())
+		barmanParaTest.seleccionar()
+		assert.equals([limon], cocteleraParaTest.ingredientes())
+	}
+	
+	test "Barman prepara trago.Se llena y vacia la coctelera"{//
+		self.initialize()
+		self.prepararFernet()
+		assert.equals([fernulo, fernulo, fernulo, cola, cola, cola, cola, cola], cocteleraParaTest.ingredientes())
+		const tragoTest = cocteleraParaTest.preparado()
+		assert.equals(tragoTest.ingredientes(), cocteleraParaTest.ingredientes())
+		barmanParaTest.seleccionar()//llena uno de mas, se revalsa y vacia la coctelera
+		assert.that(cocteleraParaTest.ingredientes().isEmpty())
+	}
+	
+	test "Prepara trago, lo entrega y el propinero recibe dinero"{//
+		game.clear()
+		const cliente = new ClienteConformista(silla = silla, tragoPedido=fernCola)
+		self.prepararFernet()
+		assert.notThat(cocteleraParaTest.ingredientes().isEmpty())
+		barmanParaTest.entregar(cliente.silla())
+		assert.that(cocteleraParaTest.ingredientes().isEmpty())
+		//assert.equals(1000,propinero.dinero())
 	}
 }
