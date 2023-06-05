@@ -8,18 +8,12 @@ import tragos.*
 
 import wollok.game.*
 
-// Ingredientes
-//const naranja = new Ingrediente()
-//const limon = new Ingrediente()
-//const cocacola = new Ingrediente()
-//const setIngredientes = #{}
- 
+//LOS INGREDIENTES ESTAN INSTANCIADOS
 // Clientes -> position? deberia pasar la misma posision de la silla...
 const silla = new SillaParaTest(position = game.origin())
 const clienteConformista = new ClienteConformista(silla = silla)
 const clienteMedio = new ClienteMedio(silla = silla)
 const clienteExigente = new ClienteExigente(silla = silla)
-
 
 // Comienzan los tests sobre las Sillas
 describe "Pruebas para la clase Silla y sus herederas" {
@@ -62,7 +56,6 @@ describe "Pruebas para la clase Silla y sus herederas" {
 	}
 }
 
-//Test para la Sesion
 describe "Sesion" {
 	test "Al iniciarse, todas sus sillas deben iniciarse y tener un cliente random" {
 		const sesion = new SesionParaTest()
@@ -79,50 +72,53 @@ describe "Sesion" {
 	}
 }
 
-
- 
 describe "Coctelera" {
- 	test "Agregar Ingredientes" {
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cola)
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cola)
- 		coctelera.agregarIngredientes(naranja)
- 		assert.equals(7, coctelera.ingredientes().size())
-		coctelera.agregarIngredientes(naranja)
- 		assert.equals(8, coctelera.ingredientes().size())
+ 	test "Agregar Ingredientes - 8 maximo" {//para mas de 8 OTRO TEST
+ 		assert.equals(0, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		assert.equals(1, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(limon)
+ 		assert.equals(2, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(cola)
+ 		assert.equals(3, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		assert.equals(4, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(limon)
+ 		assert.equals(5, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(cola)
+ 		assert.equals(6, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		assert.equals(7, cocteleraParaTest.ingredientes().size())
+		cocteleraParaTest.agregarIngredientes(naranja)
+ 		assert.equals(8, cocteleraParaTest.ingredientes().size())
  	}
  	
- 	test "te pasaste"{
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cola)
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cola)
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		assert.equals(8, coctelera.ingredientes().size())
- 		coctelera.agregarIngredientes(cola)
+ 	test "Exceso de ingredientes. Se limpia al agregar el 9no ingrediente"{
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		cocteleraParaTest.agregarIngredientes(limon)
+ 		cocteleraParaTest.agregarIngredientes(cola)
+ 		cocteleraParaTest.agregarIngredientes(tomate)
+ 		cocteleraParaTest.agregarIngredientes(whisky)
+ 		cocteleraParaTest.agregarIngredientes(vodka)
+ 		cocteleraParaTest.agregarIngredientes(fernulo)
+ 		cocteleraParaTest.agregarIngredientes(ron)
+ 		assert.equals(8, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.agregarIngredientes(ron)
+ 		assert.equals(0, cocteleraParaTest.ingredientes().size())
  	}
  	
- 	test "Limpiar coctelera" {
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		coctelera.agregarIngredientes(cola)
- 		coctelera.agregarIngredientes(naranja)
- 		assert.equals(4, coctelera.ingredientes().size())
- 		coctelera.limpiar()
- 		assert.that(coctelera.ingredientes().isEmpty())
+ 	test "Limpiar manualmente" {
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		cocteleraParaTest.agregarIngredientes(limon)
+ 		assert.equals(2, cocteleraParaTest.ingredientes().size())
+ 		cocteleraParaTest.limpiar()
+ 		assert.that(cocteleraParaTest.ingredientes().isEmpty())
  	}
  	
- 	test "Compara ingredientes" {
- 		coctelera.agregarIngredientes(naranja)
- 		coctelera.agregarIngredientes(limon)
- 		
- 		assert.equals([naranja, limon], coctelera.ingredientes())
+ 	test "Verificar ingredientes agregados" {
+ 		cocteleraParaTest.agregarIngredientes(naranja)
+ 		cocteleraParaTest.agregarIngredientes(limon)
+ 		assert.equals([naranja, limon], cocteleraParaTest.ingredientes())
  	}
  	
 }
@@ -130,7 +126,6 @@ describe "Coctelera" {
 describe "cliente"{
  	test "cliente conformista"{
  		//inicio
- 		
  		assert.equals(45,clienteConformista.tiempoEspera()) 
  		assert.equals(3,clienteConformista.satisfaccion())
  		assert.equals(null, clienteConformista.tragoPedido())
@@ -171,6 +166,7 @@ describe "cliente"{
  		assert.that(clienteMedio.verificarTrago(fernCordobes))
  		//recibe manhattan
  		assert.notThat(clienteMedio.verificarTrago(manhattan))
+ 		
  		//recibe otro trago
  		const otroTrago = new Trago(ingredientes = [fernulo,fernulo,fernulo, fernulo, ron, ron, ron, naranja])
 		const reciboTragoCambio = new Trago(ingredientes = [fernulo,fernulo,fernulo, fernulo, fernulo, ron, ron, naranja])
@@ -181,7 +177,7 @@ describe "cliente"{
 		assert.that(clienteMedio.verificarTrago(reciboTragoCambio))
 		assert.notThat(clienteMedio.verificarTrago(reciboTragoCambio2))
 		assert.that(clienteMedio.verificarTrago(reciboTragoCambio3))
-		
+
  	}
  	
  	test "cliente exigente"{
@@ -219,6 +215,7 @@ describe "cliente"{
 		assert.notThat(clienteExigente.verificarTrago(otroTragoCambio))
 		
  	}
+ 	
 }
 
 describe "barman"{

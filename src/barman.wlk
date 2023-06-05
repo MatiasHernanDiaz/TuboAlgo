@@ -53,16 +53,15 @@ object barman{
 
 object propinero{
 	var property dinero = 0
-	
 	const property position = game.at(2, 20)
 	const property image = 'propinero.png'
 	
-	method entregarPropina(cant){
-		dinero += cant
-	}
+	method entregarPropina(cant){ dinero += cant }
+	
 }
 
 object propina {
 	const property position = game.at(4, 19)
-	method text() = propinero.dinero().toString()
+	method text() = '$'+propinero.dinero().toString()
+	method textColor() = paleta.verde()
 }

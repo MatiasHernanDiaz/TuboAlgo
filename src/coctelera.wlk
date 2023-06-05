@@ -2,7 +2,9 @@ import wollok.game.*
 import config.*
 import tragos.*
 import sesion.*
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////// COCTELERA
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 object coctelera {
 	const property ingredientes = []
 	const property onzas = []
@@ -13,18 +15,11 @@ object coctelera {
 	method agregarIngredientes(ingrediente) {
 		if(ingredientes.size() < 8){ 
 			ingredientes.add(ingrediente)
-			
 			const onza = ingrediente.onza()
 			self.onzas().add(onza)
 			game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
 		}
-		else{ 
-			//game.say(self, 'Te pasaste')
-			dialogo.contelera(self)
-			self.limpiar()
-			configSonido.limpiar()
-			
-		}
+		else{ self.limpiarConSonido() }
 	}
 	
 	method limpiar() {
@@ -34,6 +29,7 @@ object coctelera {
 	}
 	
 	method limpiarConSonido(){
+		dialogo.contelera(self) 
 		self.limpiar()
 		configSonido.limpiar()
 	}
@@ -46,3 +42,29 @@ object coctelera {
 	 * TODO: Importar clase Trago
 	 */
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  IDEM COCTELERA PERO SIN SONIDOS NI VISUALES
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+object cocteleraParaTest {
+	const property ingredientes = []
+	const property onzas = []
+	
+	method agregarIngredientes(ingrediente) {
+		if(ingredientes.size() < 8){ 
+			ingredientes.add(ingrediente)
+			const onza = ingrediente.onza()
+			self.onzas().add(onza)
+		}
+		else{ self.limpiar() }
+	}
+	
+	method limpiar() {
+		ingredientes.clear()
+		self.onzas().clear()
+	}
+
+	method preparado() = new Trago(ingredientes = self.ingredientes() )
+	
+}
+
