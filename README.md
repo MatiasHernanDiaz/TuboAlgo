@@ -20,12 +20,12 @@
 los tragos que los clientes pedirán al sentarse en la barra.
 
   El juego cuenta con tres niveles de dificultad y cada uno de ellos con su propio objetivo final de 
-  propina que deberas cumplir antes que se termine el tiempo de sesión!
+  propina que deberás cumplir antes que se termine el tiempo de la sesión!
 
 ![imagen de niveles de dificultad](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/menu_seleccion_dificultad.png)
 
-  Pero !Cuidado¡, esto no será tan fácil, ya que los clientes tienen su propio método
-de exigencia y su propio nivel de satisfaccón el cual irá bajando en la medida que transcurra el tiempo...
+  Pero ¡Cuidado!, esto no será tan fácil, ya que los clientes tienen sus propios métodos
+de exigencia y nivel de satisfaccón, el cual irá bajando en la medida que transcurra el tiempo...
   
   Un cliente no te esperará por siempre, transcurrido un tiempo de espera se cansará y desidirá
 dejar el lugar ya que su pedido no fue satisfecho. Cuanto más rápido sea atendido el cliente
@@ -35,14 +35,14 @@ más alta sera su satisfacción y por ende dejará una propina mas jugosa!
 
 ## CARACTERISTICAS:
 
-* Tiempo límite de sesion de 2 min
+* Tiempo límite de sesion de 100 segundos.
 * 3 tipos de cliente: Conformista, Medio y Exigente.
-  - Conformista: Se conforma con que en su vaso esten los mismo ingredientes que lleva el trago.. y por supuesto, este lleno
-                Tiene tiempo para esperar (45 seg)
-  - Medio: Acepta que te puedas equivocar en las proporciones, pero no abuses que podría darse cuenta
-                Tiempo de espera (30 seg)
-  - Exigente: Como su nombre lo indica, es exigente, el trago debe ser perfecto
-                Él sí que no te espera (16 seg)
+  - Conformista: Se conforma con que en su vaso esten los mismo ingredientes que forman el trago, y por supuesto, que este lleno.
+                Tiempo de espera 45 seg.
+  - Medio: Acepta que te puedas equivocar en las proporciones, pero no abuses que podría darse cuenta.
+                Tiempo de espera 30 seg.
+  - Exigente: Como su nombre lo indica, es exigente, el trago debe ser perfecto.
+                Él sí que no tiene paciencia. Tiempo de espera 16 seg.
 * El juego termina o bien al finalizar el tiempo (perdiendo) o al llegar a la propina objetivo (ganando)
 
 # TUTORIAL:
@@ -52,16 +52,16 @@ en el juego.
 
 ![imagen del tutorial](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/menu_tutorial.png)
 
-Como sabemos que todavia no eres un bartender profesional te facilitamos una carta de tragos donde podras
+Como sabemos que todavia no eres un bartender profesional te facilitamos una carta de tragos donde podrás
 ver todos los tragos diponibles y sobre todo como prepararlos!!
-Ten en cuenta que cuanto más tiempo pases revisando la carta menos tiempo tendras para preparar el trago
-y sobretodo, si apareciera un cliente no podrías ver que pide!
+Ten en cuenta que cuanto más tiempo pases revisando la carta menos tiempo tendrás para prepararlos
+y sobre todo, si apareciese un cliente no sabrías que pidió!
 
 ![imagen de la carta](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/juego_carta.png)
 
-Si no llegaste a ver que pidio el cliente o simplemente no lo recuerdas, un buen truco es que le
-entregues a este un trago cual quiera, así desocupará la silla y tienes oportunidad de que ingrese un nuevo 
-cliente, pero esta ves sí, presta atención en el trago que pida :)
+Consejo: Si no llegaste a ver que pidió el cliente o simplemente no lo recuerdas, un buen truco es que le
+entregues a este un trago vacío, así desocupará la silla dando la oportunidad de que ingrese un nuevo 
+cliente, pero esta ves presta atención en el trago que pida :)
 
 
 ## Otros
