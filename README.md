@@ -17,7 +17,7 @@
 ## Reglas de Juego / Instrucciones
 
   En Turbo Algo te meterás en la piel de un verdadero bartender pudiendo crear
-los tragos los clientes pedirán al sentarse en la barra.
+los tragos que los clientes pedirán al sentarse en la barra.
 
   El juego cuenta con tres niveles de dificultad y cada uno de ellos con su propio objetivo final de 
   propina que deberas cumplir antes que se termine el tiempo de sesión!
