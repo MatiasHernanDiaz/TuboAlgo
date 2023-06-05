@@ -49,8 +49,8 @@ object config{
 object configSonido{
 	//Agrupa todos los efectos de sonido
 	
-	const musicaDeFondo = game.sound("audio/fondo1.mp3")
-	const musicaDeMenu = game.sound("audio/menu.mp3")
+	const musicaDeFondo = soundProducer.sound("audio/fondo1.mp3")
+	const musicaDeMenu = soundProducer.sound("audio/menu.mp3")
 	
 	method cargarAudio() {
 		self.musicaMenu()
@@ -82,24 +82,42 @@ object configSonido{
 		game.schedule(500, { musicaDeMenu.play()} )
 	}
 	
-	method efectoBotella(){game.sound("audio/botellas.mp3").play()}
+	method efectoBotella(){	soundProducer.sound("audio/botellas.mp3").play()}
 	
-	method efectoPropina(){game.sound("audio/propina1.mp3").play()}
+	method efectoPropina(){	soundProducer.sound("audio/propina1.mp3").play()}
 
-	method entrega(){game.sound("audio/entregaTrago1.mp3").play()}
+	method entrega(){soundProducer.sound("audio/entregaTrago1.mp3").play()}
 	
-	method win(){game.sound("audio/win.mp3").play()}
+	method win(){soundProducer.sound("audio/win.mp3").play()}
 	
-	method loser(){game.sound("audio/loser.mp3").play()}
+	method loser(){soundProducer.sound("audio/loser.mp3").play()}
 	
-	method limpiar(){game.sound("audio/limpiar.mp3").play()}
+	method limpiar(){soundProducer.sound("audio/limpiar.mp3").play()}
 	
-	method servir(){game.sound("audio/servir.mp3").play()}
+	method servir(){soundProducer.sound("audio/servir.mp3").play()}
 	
-	method seleccionOpcionMenu(){game.sound("audio/seleccion_opcion_menu1.mp3").play()}
+	method seleccionOpcionMenu(){soundProducer.sound("audio/seleccion_opcion_menu1.mp3").play()}
 	
-	method seleccionMenu(){game.sound("audio/selector_menu1.mp3").play()}
+	method seleccionMenu(){ soundProducer.sound("audio/selector_menu1.mp3").play() }
 				
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////   SOUND PRODUCER. LEER 'Explicacion de conceptops' DE WOLLOK GAME
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+object soundProducer {
+	
+	var provider = game
+	
+	method provider(_provider){provider = _provider}
+	
+	method sound(audioFile) = provider.sound(audioFile)
+	
+}
+
+object soundProviderMock {
+	
+	method sound(audioFile) = "mock"
+	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////   DIALOGOS
@@ -145,6 +163,7 @@ object dialogo{
 	
 	method dameUn(c){game.say(c, 'Dame ' + c.tragoPedido().toString())}
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////   COLORES => Red,Green,Blue,Intensity => Cada value con rango (00-FF)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
