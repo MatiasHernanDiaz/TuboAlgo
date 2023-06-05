@@ -122,9 +122,16 @@ class SesionParaTest inherits Sesion {
 	
 	override method propinaObjetivo() = 22000
 	
+	override method iniciar(){
+		super()
+		game.removeVisual(barman)
+		game.removeVisual(coctelera)
+		game.addVisual(barmanParaTest)
+		game.addVisual(cocteleraParaTest)
+	}
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaParaTest(position = game.at(16, 20)),
+			new SillaParaTest(position = game.at(0, 0)),
 			new SillaParaTest(position = game.at(30, 20)),
 			new SillaParaTest(position = game.at(44, 20)),
 			new SillaParaTest(position = game.at(58, 20))
@@ -155,4 +162,3 @@ object textoFinal {
 	
 	method textoResultado() = if (config.sesion().propinaObjetivo() <= propinero.dinero()) '¡Ganaste!' else '¡Perdiste!'
 }
-
