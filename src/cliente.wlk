@@ -13,10 +13,17 @@ class Cliente{
 	var property tragoPedido = null	
 	var property recibioTrago = false
 	const property position = silla.position().right(2) 
-	var tiempoRestante = self.tiempoEspera() 
+	var tiempoRestante = self.tiempoEspera()
 	
+	method nombre()  
 	
-	method cambiarImagen()
+	method image(){
+		 return 
+			if(self.satisfaccion()==3) self.nombre() + "1.png" 
+			else if(self.satisfaccion()==2) self.nombre() + "2.png" 
+			else self.nombre() + "3.png"
+			
+	}
 	
 /*METODOS DE INICIO Y TERMINAR */
 	method iniciar() {
@@ -68,12 +75,12 @@ class Cliente{
 		//modifico satisfaccion de a tercios
 		if(((self.tiempoRestante()) - (self.tiempoEspera()*(1/3))).abs() <= 1){
 			satisfaccion = 1
-			self.cambiarImagen()
+			self.image()
 			dialogo.faltaMucho(self)
 		}
 		else if(((self.tiempoRestante()) - (self.tiempoEspera()*(2/3))).abs() <= 1) {
 			satisfaccion = 2
-			self.cambiarImagen()
+			self.image()
 		}
 	}
 
@@ -143,6 +150,8 @@ class ClienteExigente inherits Cliente {
 	
 	var property image = "exigente1.png"
 	
+	var property nombre =  "exigente"
+	
 	override method tiempoEspera(){return 16}
 	
 	override method verificarTrago(tragoQueRecibio){
@@ -162,20 +171,14 @@ class ClienteExigente inherits Cliente {
 		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
 		return self.tragoPedido().ingredientes()
 	}
-	
-	override method cambiarImagen(){
-		self.image(
-			if(self.satisfaccion()==3) "exigente1.png" 
-			else if(self.satisfaccion()==2) "exigente2.png" 
-			else "exigente3.png") 
-	}
-	
 }
 
 class ClienteMedio inherits Cliente{
 	//tiempo de espera 30 segundos
 	
 	var property image = "medio1.png"
+	
+	var property nombre = "medio"
 	
 	override method tiempoEspera() {return 30}
 	
@@ -195,19 +198,14 @@ class ClienteMedio inherits Cliente{
 					).abs() <= 1
 				})
 	}
-
-	override method cambiarImagen(){
-		self.image(
-			if(self.satisfaccion()==3) "medio1.png" 
-			else if(self.satisfaccion()==2) "medio2.png" 
-			else "medio3.png") 
-	}
 }
 
 class ClienteConformista inherits Cliente{
 	//tiempo de espera 45 segundos
 	
 	var property image = "conformista1.png" 
+	
+	var property nombre = "conformista"
 
 	override method tiempoEspera(){return 45}
 	
@@ -220,11 +218,4 @@ class ClienteConformista inherits Cliente{
 		//Retorna True si el vaso esta lleno
 		return unTrago.ingredientes().size() >= 7
 	}	
-	
-	override method cambiarImagen(){
-		self.image(
-			if(self.satisfaccion()==3) "conformista1.png" 
-			else if(self.satisfaccion()==2) "conformista2.png" 
-			else "conformista3.png")
-	}
 }
