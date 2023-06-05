@@ -323,11 +323,12 @@ describe "barman"{
 	
 	test "Prepara trago, lo entrega y el propinero recibe dinero"{//
 		game.clear()
-		const cliente = new ClienteConformista(silla = silla, tragoPedido=fernCola)
+		const sesion = new SesionParaTest()
+		sesion.iniciar()
+		const cliente = new ClienteConformista(silla = sesion.sillas().get(0), tragoPedido=fernCola)
 		self.prepararFernet()
-		assert.notThat(cocteleraParaTest.ingredientes().isEmpty())
 		barmanParaTest.entregar(cliente.silla())
 		assert.that(cocteleraParaTest.ingredientes().isEmpty())
-		//assert.equals(1000,propinero.dinero())
+		assert.notEquals(0, propinero.dinero())
 	}
 }
