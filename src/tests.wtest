@@ -17,7 +17,7 @@ const clienteMedio = new ClienteMedio(silla = silla)
 const clienteExigente = new ClienteExigente(silla = silla)
 
 // Comienzan los tests sobre las Sillas
-describe "Pruebas para la clase Silla y sus herederas" {
+describe "Sillas" {
 	
 	test "evaluarEstado() sin cliente y con 100% de probabilidades, debe generar cliente" {
 		assert.notThat(silla.estaOcupada())
@@ -38,20 +38,11 @@ describe "Pruebas para la clase Silla y sus herederas" {
 		assert.that(silla.cliente() === cliente)
 	}
 	
-	test "retirarCliente()" {
-		
-		console.println(silla.cliente())
-		
-		silla.evaluarEstado()
-		
-		console.println(silla.cliente())
-		
+	test "retirarCliente()" {		
+		silla.evaluarEstado()	
 		assert.that(silla.cliente().toString().contains("un/a  Cliente"))
 		
-		silla.retirarCliente()
-		
-		console.println(silla.cliente())
-		
+		silla.retirarCliente()		
 		assert.notThat(silla.estaOcupada())
 	}
 }
@@ -63,12 +54,27 @@ describe "Sesion" {
 		sesion.iniciar()
 		
 		assert.equals(sesion.sillas().size(), 4)
+	}
+	
+	test "Las sesiones deben comenzar siempre con el objetivo no cumplido" {
+		const sesion = new SesionParaTest()
+		sesion.iniciar()
 		
-		game.schedule(1100, {
-			sesion.sillas().forEach({ 
-				silla => assert.that(silla.cliente().toString().contains("un/a  Cliente"))
-			})
-		})
+		assert.notThat(sesion.objetivoCumplido())
+	}
+	
+	test "Control del reloj: debe restar un segundo y remover al barman cuando se cumple el objetivo" {
+		const sesion = new SesionParaTest()
+		sesion.iniciar()
+		sesion.controlReloj()
+		
+		assert.equals(sesion.tiempoRestante(), sesion.tiempoInicial() - 1)
+		assert.that(game.allVisuals().contains(barmanParaTest))
+		
+		propinero.dinero(sesion.propinaObjetivo())
+		sesion.controlReloj()
+		
+		assert.notThat(game.allVisuals().contains(barmanParaTest))
 	}
 }
 

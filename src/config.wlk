@@ -44,6 +44,10 @@ object config{
 		keyboard.enter().onPressDo({selector.seleccionado().aceptar()})
 		keyboard.backspace().onPressDo({volverMenuPrincipal.aceptar()})
 	}
+	
+	method tecladoFinal() {	
+		keyboard.backspace().onPressDo({volverMenuPrincipal.aceptar()})
+	}
 }
 
 object configSonido{
