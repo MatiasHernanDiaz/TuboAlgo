@@ -27,9 +27,9 @@ los tragos que los clientes pedirán al sentarse en la barra.
   Pero ¡Cuidado!, esto no será tan fácil, ya que los clientes tienen sus propios métodos
 de exigencia y nivel de satisfaccón, el cual irá bajando en la medida que transcurra el tiempo...
   
-  Un cliente no te esperará por siempre, transcurrido un tiempo de espera se cansará y desidirá
+  Un cliente no te esperará por siempre, transcurrido un tiempo de espera se cansará y decidirá
 dejar el lugar ya que su pedido no fue satisfecho. Cuanto más rápido sea atendido el cliente
-más alta sera su satisfacción y por ende dejará una propina mas jugosa!
+más alta sera su satisfacción y por ende dejará una propina más jugosa!
 
 ![imagen del cliente a punto de irse](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/juego_cliente_no_espera.png)
 
@@ -37,7 +37,7 @@ más alta sera su satisfacción y por ende dejará una propina mas jugosa!
 
 * Tiempo límite de sesion de 100 segundos.
 * 3 tipos de cliente: Conformista, Medio y Exigente.
-  - Conformista: Se conforma con que en su vaso esten los mismo ingredientes que forman el trago, y por supuesto, que este lleno.
+  - Conformista: Se conforma con que en su vaso estén los mismo ingredientes que forman el trago, y por supuesto, que esté lleno.
                 Tiempo de espera 45 seg.
   - Medio: Acepta que te puedas equivocar en las proporciones, pero no abuses que podría darse cuenta.
                 Tiempo de espera 30 seg.
@@ -52,20 +52,21 @@ en el juego.
 
 ![imagen del tutorial](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/menu_tutorial.png)
 
-Como sabemos que todavia no eres un bartender profesional te facilitamos una carta de tragos donde podrás
-ver todos los tragos diponibles y sobre todo como prepararlos!!
+Como sabemos que todavia no eres un bartender profesional, te facilitamos una carta de tragos donde podrás
+ver todos los tragos diponibles y sobre todo cómo prepararlos!!
 Ten en cuenta que cuanto más tiempo pases revisando la carta menos tiempo tendrás para prepararlos
 y sobre todo, si apareciese un cliente no sabrías que pidió!
 
 ![imagen de la carta](https://github.com/algo1unsam/tpgame_2023s1-turbo_algo/blob/dev/imagenes_readme/juego_carta.png)
 
-Consejo: Si no llegaste a ver que pidió el cliente o simplemente no lo recuerdas, un buen truco es que le
+Consejo: Si no llegaste a ver qué pidió el cliente o simplemente no lo recuerdas, un buen truco es que le
 entregues a este un trago vacío, así desocupará la silla dando la oportunidad de que ingrese un nuevo 
 cliente, pero esta ves presta atención en el trago que pida :)
 
 
 ## Otros
 
-- Curso/Facultad: Algoritmos I Universidad Nacional de San Martín - UNSAM
-- Versión de wollok REVISAR ESTO
+- Trabajo Práctico sobre POO para la materia "Algoritmos I" de la Escuela de Ciencia y Técnica - Universidad Nacional de San Martín (UNSAM)
+- Versión de wollok: 3.0.0
+- Los desarrolladores de este producto conceden el permiso para hacer público este repositorio
 
