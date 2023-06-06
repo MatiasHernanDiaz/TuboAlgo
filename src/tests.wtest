@@ -56,6 +56,7 @@ describe "Menu" {
 	}
 	
 	test "Verificar el selector hacia INTERCALADO" {
+		//Similar ARRIBA/ABAJO
 		self.initialize()
 		assert.equals(selector.seleccionado(), comenzar)
 		
@@ -322,16 +323,16 @@ describe "barman"{
 		
 		soundProducer.provider(soundProviderMock)
 	}
-	method prepararFernet(){
-		barmanParaTest.izquierda()
-		barmanParaTest.izquierda()
+	method prepararFernet(){//comienza en limon
+		barmanParaTest.izquierda()//Se mueve a ron
+		barmanParaTest.izquierda()//Se mueve a fernulo
+		barmanParaTest.seleccionar()//SIRVE 3
 		barmanParaTest.seleccionar()
 		barmanParaTest.seleccionar()
-		barmanParaTest.seleccionar()
-		barmanParaTest.izquierda()
-		barmanParaTest.izquierda()
-		barmanParaTest.izquierda()
-		barmanParaTest.seleccionar()
+		barmanParaTest.izquierda()//Se mueve a vodka
+		barmanParaTest.izquierda()//Se mueve a whisky
+		barmanParaTest.izquierda()//Se mueve a cola
+		barmanParaTest.seleccionar()//SIRVE 5
 		barmanParaTest.seleccionar()
 		barmanParaTest.seleccionar()
 		barmanParaTest.seleccionar()
@@ -341,7 +342,9 @@ describe "barman"{
 	//RECORDAR: 
 	//En sesion=> const property ingredientes = [limon, naranja, tomate, cola, whisky, vodka, fernulo, ron]
 	//barman comienza seleccionando limon por default
-	test "Seleccion de barman a derecha. Si se pasa, vuelve al principio"{
+	test "Seleccion de barman a DERECHA. Si se pasa, vuelve al principio"{
+		//Verifica que barman puede seleccionar bien los ingredientes
+		//chequeando su posicion y la del ingrediente
 		self.initialize()
 		assert.equals(limon.position(), barmanParaTest.position())
 		barmanParaTest.derecha()
@@ -362,7 +365,8 @@ describe "barman"{
 		assert.equals(limon.position(), barmanParaTest.position())
 	}
 	
-	test "Seleccion de barman a izquierda"{
+	test "Seleccion de barman a IZQUIERDA"{
+		//Idem DERECHA
 		self.initialize()
 		assert.equals(limon.position(), barmanParaTest.position())
 		barmanParaTest.izquierda()
@@ -384,6 +388,7 @@ describe "barman"{
 	}
 	
 	test "Seleccion de barman intercalada"{
+		//Similar DERECHA/IZQUIERDA
 		self.initialize()
 		assert.equals(limon.position(), barmanParaTest.position())
 		barmanParaTest.izquierda()
@@ -396,7 +401,9 @@ describe "barman"{
 		assert.equals(limon.position(), barmanParaTest.position())
 	}
 	
-	test "Barman sirve en la coctelera"{//
+	test "Barman sirve en la coctelera"{
+		//Verifica que barman.seleccionar() sobre el ingrediente seleccionado,
+		//modifica los ingredientes de la coctelera
 		self.initialize()
 		assert.equals(limon.position(), barmanParaTest.position())
 		barmanParaTest.seleccionar()
@@ -404,7 +411,7 @@ describe "barman"{
 	}
 	
 	test "Barman prepara trago, se pasa y se vacia la coctelera"{//
-	//ingredientes del fernet => [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]
+		//ingredientes del fernet => [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]
 		self.initialize()
 		self.prepararFernet()
 		assert.equals([fernulo, fernulo, fernulo, cola, cola, cola, cola, cola], cocteleraParaTest.ingredientes())
@@ -413,14 +420,15 @@ describe "barman"{
 	}
 	
 	test "Prepara trago, lo entrega y el propinero recibe dinero"{
-
+		//Verifica que cuando entrega un trago correcto, el cliente da dinero
+		//El valor del propinero cambia y la coctelera se limpia.
 		game.addVisual(silla)
 		silla.recibirCliente()
 		
 		cocteleraParaTest.ingredientes().addAll(silla.cliente().tragoPedido().ingredientes())
 		
 		barmanParaTest.entregar(silla)
-		assert.notEquals(0, propinero.dinero())//DEBERIA TENER DINERO :CC
-		assert.that(cocteleraParaTest.ingredientes().isEmpty())//DEBERIA ESTAR VACIO :CX
+		assert.notEquals(0, propinero.dinero()) 
+		assert.that(cocteleraParaTest.ingredientes().isEmpty()) 
 	}
 }
