@@ -85,6 +85,7 @@ describe "Coctelera" {
 		sesion.iniciar()
 	}
  	test "Agregar Ingredientes - 8 maximo" {//para mas de 8 OTRO TEST
+ 		self.initialize()
  		assert.equals(0, cocteleraParaTest.ingredientes().size())
  		cocteleraParaTest.agregarIngredientes(naranja)
  		assert.equals(1, cocteleraParaTest.ingredientes().size())
@@ -105,6 +106,7 @@ describe "Coctelera" {
  	}
  	
  	test "Exceso de ingredientes. Se limpia al agregar el 9no ingrediente"{
+ 		self.initialize()
  		cocteleraParaTest.agregarIngredientes(naranja)
  		cocteleraParaTest.agregarIngredientes(limon)
  		cocteleraParaTest.agregarIngredientes(cola)
@@ -119,6 +121,7 @@ describe "Coctelera" {
  	}
  	
  	test "Limpiar manualmente" {
+ 		self.initialize()
  		cocteleraParaTest.agregarIngredientes(naranja)
  		cocteleraParaTest.agregarIngredientes(limon)
  		assert.equals(2, cocteleraParaTest.ingredientes().size())
@@ -127,6 +130,7 @@ describe "Coctelera" {
  	}
  	
  	test "Verificar ingredientes agregados" {
+ 		self.initialize()
  		cocteleraParaTest.agregarIngredientes(naranja)
  		cocteleraParaTest.agregarIngredientes(limon)
  		assert.equals([naranja, limon], cocteleraParaTest.ingredientes())
@@ -317,24 +321,29 @@ describe "barman"{
 		assert.equals([limon], cocteleraParaTest.ingredientes())
 	}
 	
-	test "Barman prepara trago.Se llena y vacia la coctelera"{//
+	test "Barman prepara trago, se pasa y se vacia la coctelera"{//
+	//ingredientes del fernet => [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]
 		self.initialize()
 		self.prepararFernet()
 		assert.equals([fernulo, fernulo, fernulo, cola, cola, cola, cola, cola], cocteleraParaTest.ingredientes())
-		const tragoTest = cocteleraParaTest.preparado()
-		assert.equals(tragoTest.ingredientes(), cocteleraParaTest.ingredientes())
 		barmanParaTest.seleccionar()//llena uno de mas, se revalsa y vacia la coctelera
 		assert.that(cocteleraParaTest.ingredientes().isEmpty())
 	}
 	
-	test "Prepara trago, lo entrega y el propinero recibe dinero"{//
-		game.clear()
-		const sesion = new SesionParaTest()
-		sesion.iniciar()
-		const cliente = new ClienteConformista(silla = sesion.sillas().get(0), tragoPedido=fernCola)
+	test "Prepara trago,lo verifica, lo entrega y el propinero recibe dinero"{//
+		//self.initialize()
+		//agrego silla
+		const silla = new SillaParaTest(position = game.origin())
+		game.addVisual(silla)
+		//cliente pide fernCola
+		const cliente = new ClienteConformista(silla = silla, tragoPedido=fernCola)
+		//Se prepara y verifica
 		self.prepararFernet()
+		const tragoTest = cocteleraParaTest.preparado()
+		assert.equals(tragoTest.ingredientes(), cliente.tragoPedido().ingredientes())
+		
 		barmanParaTest.entregar(cliente.silla())
-		assert.that(cocteleraParaTest.ingredientes().isEmpty())
-		assert.notEquals(0, propinero.dinero())
+		assert.notEquals(0, propinero.dinero())//DEBERIA TENER DINERO :CC
+		assert.that(cocteleraParaTest.ingredientes().isEmpty())//DEBERIA ESTAR VACIO :CX
 	}
 }

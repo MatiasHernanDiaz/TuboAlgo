@@ -14,9 +14,9 @@ object barman{
 	const property image = 'selector.png'
 	const property minPosition = limon.position()
 	const property maxPosition = ron.position()
-	var property position = minPosition
+	var property position = minPosition//Cada 7 posiciones es un objeto
 	
-	method derecha(){
+	method derecha(){//
 		if(self.position().x() < maxPosition.x()){ self.position(self.position().right(7)) }
 		else{ self.position(minPosition) }
 		configSonido.efectoBotella()

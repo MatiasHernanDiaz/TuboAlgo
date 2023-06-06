@@ -8,30 +8,38 @@ import sesion.*
 object coctelera{
 	const property ingredientes = []
 	const property onzas = []
-	
 	const property position = game.at(84, 20)
 	const property image = 'coctelera.png'
-
+	
+	method agregarOnzas(ingrediente){
+		const onza = ingrediente.onza()
+		self.onzas().add(onza)
+		game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
+	}
 	method agregarIngredientes(ingrediente) {
-		if(ingredientes.size() < 8){ 
+		if(ingredientes.size() < 8){ 	
 			ingredientes.add(ingrediente)
-			const onza = ingrediente.onza()
-			self.onzas().add(onza)
-			game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
+			self.agregarOnzas(ingrediente)
 		}
 		else{ self.limpiarConSonido() }
 	}
 	
-	method limpiar() {
-		ingredientes.clear()
+	method quitarOnzas(){
 		self.onzas().forEach({ onza => game.removeVisual(onza) })
 		self.onzas().clear()
 	}
+	method limpiar() {
+		ingredientes.clear()
+		self.quitarOnzas()
+	}
 	
-	method limpiarConSonido(){
+	method sonidosYDialogos(){
 		dialogo.contelera(self) 
-		self.limpiar()
 		configSonido.limpiar()
+	}
+	method limpiarConSonido(){
+		self.limpiar()
+		self.sonidosYDialogos()
 	}
 	
 	method preparado() = new Trago(ingredientes = self.ingredientes() )
@@ -49,21 +57,27 @@ object coctelera{
 object cocteleraParaTest {
 	const property ingredientes = []
 	const property onzas = []
-	
 	const property position = game.at(84, 20)
 	const property image = 'coctelera.png'
+	
+	method agregarOnzas(ingrediente){
+		const onza = ingrediente.onza()
+		self.onzas().add(onza)
+	}
 	method agregarIngredientes(ingrediente) {
 		if(ingredientes.size() < 8){ 
 			ingredientes.add(ingrediente)
-			const onza = ingrediente.onza()
-			self.onzas().add(onza)
+			self.agregarOnzas(ingrediente)
 		}
 		else{ self.limpiar() }
 	}
 	
+	method quitarOnzas(){
+		self.onzas().clear()
+	}
 	method limpiar() {
 		ingredientes.clear()
-		self.onzas().clear()
+		self.quitarOnzas()
 	}
 
 	method preparado() = new Trago(ingredientes = self.ingredientes() )

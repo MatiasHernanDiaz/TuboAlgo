@@ -21,8 +21,7 @@ class Cliente{
 		 return 
 			if(self.satisfaccion()==3) self.nombre() + "1.png" 
 			else if(self.satisfaccion()==2) self.nombre() + "2.png" 
-			else self.nombre() + "3.png"
-			
+			else self.nombre() + "3.png"	
 	}
 	
 /*METODOS DE INICIO Y TERMINAR */
