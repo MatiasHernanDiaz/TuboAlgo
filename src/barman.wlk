@@ -17,17 +17,13 @@ object barman{
 	var property position = minPosition
 	
 	method derecha(){
-		if(self.position().x() < maxPosition.x()){
-			self.position(self.position().right(7))
-		}
+		if(self.position().x() < maxPosition.x()){ self.position(self.position().right(7)) }
 		else{ self.position(minPosition) }
 		configSonido.efectoBotella()
 		
 	}
 	method izquierda(){
-		if(self.position().x() > minPosition.x()){
-			self.position(self.position().left(7))
-		}
+		if(self.position().x() > minPosition.x()){ self.position(self.position().left(7)) }
 		else{ self.position(maxPosition) }
 		configSonido.efectoBotella()
 	}
@@ -37,18 +33,18 @@ object barman{
 			coctelera.agregarIngredientes(game.uniqueCollider(self))
 			configSonido.servir()
 	}	
-	
+	method entregarTragoLimpiarCoctelera(silla){
+				silla.cliente().recibirTrago(coctelera.preparado())
+				coctelera.limpiar()
+				configSonido.entrega()
+	}
 	method entregar(silla){
 		if(game.allVisuals().contains(self)) {
-			if( silla.cliente() != null ) {
-				silla.cliente().recibirTrago(coctelera.preparado())
-				configSonido.entrega()
-				coctelera.limpiar()
-			} else {dialogo.sillaVacia(silla) }			
+			if( silla.cliente() != null ) {self.entregarTragoLimpiarCoctelera(silla)} 
+			else {dialogo.sillaVacia(silla) }			
 		}
 	}
-	
-	
+
 }
 
 object propinero{
@@ -75,16 +71,12 @@ object barmanParaTest{
 	var property position = minPosition
 	
 	method derecha(){
-		if(self.position().x() < maxPosition.x()){
-			self.position(self.position().right(7))
-		}
+		if(self.position().x() < maxPosition.x()){ self.position(self.position().right(7)) }
 		else{ self.position(minPosition) }
 		
 	}
 	method izquierda(){
-		if(self.position().x() > minPosition.x()){
-			self.position(self.position().left(7))
-		}
+		if(self.position().x() > minPosition.x()){ self.position(self.position().left(7)) }
 		else{ self.position(maxPosition) }
 	}
 	
@@ -93,12 +85,16 @@ object barmanParaTest{
 			cocteleraParaTest.agregarIngredientes(game.uniqueCollider(self))
 	}	
 	
+	method entregarTragoLimpiarCoctelera(silla){
+		silla.cliente().recibirTrago(cocteleraParaTest.preparado())
+		cocteleraParaTest.limpiar()
+	}
+	
 	method entregar(silla){
 		if(game.allVisuals().contains(self)) {
-			if( silla.cliente() != null ) {
-				silla.cliente().recibirTrago(cocteleraParaTest.preparado())
-				cocteleraParaTest.limpiar()
-			} else {dialogo.sillaVacia(silla) }			
+			if( silla.cliente() != null ) {self.entregarTragoLimpiarCoctelera(silla)} 
+			else {dialogo.sillaVacia(silla) }			
 		}
 	}
+	
 }
