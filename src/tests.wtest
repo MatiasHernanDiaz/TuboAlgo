@@ -6,6 +6,7 @@ import cliente.*
 import barman.*
 import tragos.*
 import config.*
+import menu.*
 
 import wollok.game.*
 
@@ -16,7 +17,87 @@ const clienteConformista = new ClienteConformista(silla = silla)
 const clienteMedio = new ClienteMedio(silla = silla)
 const clienteExigente = new ClienteExigente(silla = silla)
 
-// Comienzan los tests sobre las Sillas
+//TESTS
+describe "Menu" {
+	//CON   selector.arriba()   o   selector.abajo()   SE ROMPE CON LOS SONIDOS
+	method initialize(){ menuPrincipal.iniciar() }
+	
+	test "Verificar el selector hacia ABAJO.Llega a la ultima opciones y vuelve" {
+		//OPCIONES DE MENU=>1)COMENZAR,  2)TUTORIAL, 3)CARTEL, 4)SALIR
+		//POR DEFAULT ESTA SELECCIONADO COMENZAR
+		self.initialize()
+		assert.equals(selector.seleccionado(), comenzar)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), tutorial)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), cartel)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), salir)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), comenzar)
+	}
+	
+	test "Verificar el selector hacia ARRIBA.Llega a la ultima opciones y vuelve" {
+		//Idem test "selector hacia ABAJO"#
+		self.initialize()
+		assert.equals(selector.seleccionado(), comenzar)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), salir)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), cartel)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), tutorial)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), comenzar)
+	}
+	
+	test "Verificar el selector hacia INTERCALADO" {
+		self.initialize()
+		assert.equals(selector.seleccionado(), comenzar)
+		
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), tutorial)
+		
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), cartel)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), tutorial)
+		
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), comenzar)
+	}
+	
+	test "Verificar el selector en DIFICULTAD" {
+		//OPCIONES DE DIFICULTAD=>1)FACIL,  2)NORMAL, 3)DIFICIL
+		//SE SELECCIONADO NORMAL DE FORMA MANUAL POR CONFLICTO DE SONIDO
+		self.initialize()
+		assert.equals(selector.seleccionado(), comenzar)
+		selector.seleccionado(normal)
+		assert.equals(normal, selector.seleccionado())
+		//HACIA ARRIBA
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), facil)
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), dificil)
+		selector.seleccionado(selector.seleccionado().siguiente())
+		assert.equals(selector.seleccionado(), normal)
+		//HACIA ABAJO
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), dificil)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), facil)
+		selector.seleccionado(selector.seleccionado().anterior())
+		assert.equals(selector.seleccionado(), normal)
+		
+	}
+	
+}
+
 describe "Sillas" {
 	
 	test "evaluarEstado() sin cliente y con 100% de probabilidades, debe generar cliente" {
@@ -277,7 +358,6 @@ describe "barman"{
 		assert.equals(ron.position(), barmanParaTest.position())
 		barmanParaTest.derecha()
 		assert.equals(limon.position(), barmanParaTest.position())
-		barmanParaTest.derecha()
 	}
 	
 	test "Seleccion de barman a izquierda"{
