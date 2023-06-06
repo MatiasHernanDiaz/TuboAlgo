@@ -2,15 +2,12 @@ import ingredientes.*
 
 import wollok.game.*
 
-//####   Tragos creados por la coctelera    #####
-//###############################################
 class Trago{
 	const property ingredientes
-	//const property cantidadShakes = 0
 }
 
-//####   Tragos    #####, cantidad maxima total 8 onzas de ingredientes
-//######################, estas son las recetas a seguir a la hora de preparar los tragos solicitados
+//Recetas a seguir a la hora de preparar los tragos solicitados
+//Cantidad maxima de ingredientes = 8
 object fernCola inherits Trago(ingredientes = [fernulo, fernulo, fernulo, cola, cola, cola, cola, cola]) {}
 
 object fernCordobes inherits Trago(ingredientes = [fernulo, fernulo, fernulo, fernulo, cola, cola, cola, cola]) {}
@@ -31,10 +28,10 @@ object bloodyMary inherits Trago(ingredientes = [tomate, tomate, tomate, limon, 
 
 object deadAwaker inherits Trago(ingredientes = [whisky, whisky, ron, ron, vodka, vodka, fernulo, fernulo]) {}
 
-//####  Carta #####, 1 carta por cada cliente, se elije un randon de la "const property carta"
-//#################
 
-object carta {	
+object carta {
+	
+	//lista con todos los tragos disponibles	
 	const property carta = [
 			fernCola, fernCordobes, manhattan, destorni, vodkaFizz, sexBeach,
 			johnCollins, cubaLibre, bloodyMary, deadAwaker
@@ -43,9 +40,12 @@ object carta {
 	const property position = game.at(3, 3)
 	const property image = 'carta.png'
 	
+	//retorna un trago al azar de la lista carta
 	method elegirTrago() = carta.anyOne()
 	
 	method toggle() {
+		//Si la carta este visualizada la remueve
+		//si no lo está, la visualiza
 		if(game.allVisuals().contains(self))
 			game.removeVisual(self)
 		else
