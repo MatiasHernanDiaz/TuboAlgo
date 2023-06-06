@@ -120,8 +120,11 @@ object soundProducer {
 
 object soundProviderMock {
 	
-	method sound(audioFile) = "mock"
-	
+	method sound(audioFile) = mock	
+}
+
+object mock {
+	method play() = 0
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////   DIALOGOS

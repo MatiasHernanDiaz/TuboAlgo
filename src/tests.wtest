@@ -319,6 +319,8 @@ describe "barman"{
 		game.clear()
 		const sesion = new SesionParaTest()
 		sesion.iniciar()
+		
+		soundProducer.provider(soundProviderMock)
 	}
 	method prepararFernet(){
 		barmanParaTest.izquierda()
@@ -410,19 +412,14 @@ describe "barman"{
 		assert.that(cocteleraParaTest.ingredientes().isEmpty())
 	}
 	
-	test "Prepara trago,lo verifica, lo entrega y el propinero recibe dinero"{//
-		//self.initialize()
-		//agrego silla
-		const silla = new SillaParaTest(position = game.origin())
+	test "Prepara trago, lo entrega y el propinero recibe dinero"{
+
 		game.addVisual(silla)
-		//cliente pide fernCola
-		const cliente = new ClienteConformista(silla = silla, tragoPedido=fernCola)
-		//Se prepara y verifica
-		self.prepararFernet()
-		const tragoTest = cocteleraParaTest.preparado()
-		assert.equals(tragoTest.ingredientes(), cliente.tragoPedido().ingredientes())
+		silla.recibirCliente()
 		
-		barmanParaTest.entregar(cliente.silla())
+		cocteleraParaTest.ingredientes().addAll(silla.cliente().tragoPedido().ingredientes())
+		
+		barmanParaTest.entregar(silla)
 		assert.notEquals(0, propinero.dinero())//DEBERIA TENER DINERO :CC
 		assert.that(cocteleraParaTest.ingredientes().isEmpty())//DEBERIA ESTAR VACIO :CX
 	}

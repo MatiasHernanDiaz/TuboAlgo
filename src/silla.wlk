@@ -35,7 +35,7 @@ class Silla {
 		if (not self.estaOcupada()) {
 			const dado = new Range(start = 1, end = 100).anyOne()
 			
-			if (dado < self.probabilidadCliente()) {
+			if (dado <= self.probabilidadCliente()) {
 				self.recibirCliente()
 			}
 		}

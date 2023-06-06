@@ -44,11 +44,6 @@ object coctelera{
 	
 	method preparado() = new Trago(ingredientes = self.ingredientes() )
 	
-	/*
-	 * Autor: Any
-	 * Instancia un objeto de la clase Trago
-	 * TODO: Importar clase Trago
-	 */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
