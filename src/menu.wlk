@@ -7,11 +7,14 @@ import coctelera.*
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 object menuPrincipal {
 	method cargarOpciones(){
+		// Carga de visuales
 		game.addVisual(comenzar)
 		game.addVisual(tutorial)
 		game.addVisual(cartel)
 		game.addVisual(salir)
 	}
+	
+	/* MÉTODO DE INICIO */
 	method iniciar(){
 		game.clear()
 		self.cargarOpciones()
@@ -31,6 +34,7 @@ class OpcionMenu {
 	const property nombre
 	
 	method aceptar() {
+		// Ejecuta las acciones requeridas al presionar un botón.
 		game.clear()
 		configSonido.seleccionOpcionMenu()
 		visuales.forEach({ visual => game.addVisual(visual) })
@@ -38,10 +42,14 @@ class OpcionMenu {
 		config.tecladoMenu()
 	}
 	
+	// El botón se autosetea como seleccionado por el selector
 	method seleccionado() = selector.seleccionado() === self
+	
+	// Elije la imagen correspondiente a su estado
 	method image() = if(!self.seleccionado()) self.nombre() + '.png' else self.nombre() + 'Seleccionado.png'
 }
 
+/* Opciones del menú inicial */
 object comenzar inherits OpcionMenu(
 	position = game.at(65, 32), 
 	visuales = [facil, normal, dificil, volverMenuPrincipal],
@@ -63,11 +71,6 @@ object tutorial inherits OpcionMenu(
 	nombre = 'tutorial'
 ) {}
 
-object tutorialDescripcion{
-	var property position = game.at(3,3)
-	method image() = "tutorial-descripcion.png"
-}
-
 object cartel inherits OpcionMenu(
 	position = game.at(65, 16), 
 	visuales = [volverMenuPrincipal,creditos],
@@ -76,11 +79,6 @@ object cartel inherits OpcionMenu(
 	nombre = 'cartel'
 	
 ) {}
-
-object creditos{
-	var property position = game.at(53, 4)
-	method image() = "creditos-nombres.png"
-}
 
 object salir inherits OpcionMenu(
 	position = game.at(65, 8), 
@@ -93,11 +91,12 @@ object salir inherits OpcionMenu(
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////   comenzar.aceptar() ===>>> OPCIONES DE DIFICULTAD
+//////   OPCIONES DE DIFICULTAD
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OpcionNivelSesion inherits OpcionMenu {
 	method nuevaSesion()
 	override method aceptar(){
+		// Asegura el reinicio del tablero y la configuración antes de una nueva sesión
 		game.clear()
 		coctelera.ingredientes().clear()
 		coctelera.onzas().clear()
@@ -150,6 +149,7 @@ object selector{
 	var property seleccionado = comenzar
 	var property ultimaSeleccion = null
 	
+	/* Movimientos del selector y selección de la opción correspondiente */
 	method arriba(){ 
 		seleccionado = seleccionado.siguiente()
 		configSonido.seleccionMenu()
@@ -161,6 +161,7 @@ object selector{
 	}
 }
 
+/* Opción de retorno de todas las pantallas secundarias */
 object volverMenuPrincipal{
 	const property position = game.at(16, 7)
 	
@@ -174,3 +175,15 @@ object volverMenuPrincipal{
 	method image() = "backspace.png"
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+///////////// PANTALLAS SECUNDARIAS
+////////////////////////////////////////////////////////////////////////////////////
+object tutorialDescripcion{
+	var property position = game.at(3,3)
+	method image() = "tutorial-descripcion.png"
+}
+
+object creditos{
+	var property position = game.at(53, 4)
+	method image() = "creditos-nombres.png"
+}

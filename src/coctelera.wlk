@@ -2,6 +2,7 @@ import wollok.game.*
 import config.*
 import tragos.*
 import sesion.*
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////// COCTELERA
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -11,12 +12,9 @@ object coctelera{
 	const property position = game.at(84, 20)
 	const property image = 'coctelera.png'
 	
-	method agregarOnzas(ingrediente){
-		const onza = ingrediente.onza()
-		self.onzas().add(onza)
-		game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
-	}
+	/* Métodos para gestionar los ingredientes a nivel lógico */
 	method agregarIngredientes(ingrediente) {
+		// Valida que los ingredientes agregados no superen la capacidad máxima de la coctelera
 		if(ingredientes.size() < 8){ 	
 			ingredientes.add(ingrediente)
 			self.agregarOnzas(ingrediente)
@@ -24,15 +22,24 @@ object coctelera{
 		else{ self.limpiarConSonido() }
 	}
 	
-	method quitarOnzas(){
-		self.onzas().forEach({ onza => game.removeVisual(onza) })
-		self.onzas().clear()
-	}
 	method limpiar() {
 		ingredientes.clear()
 		self.quitarOnzas()
 	}
 	
+	/* Métodos para gestionar los ingredientes a nivel visual */
+	method agregarOnzas(ingrediente){
+		const onza = ingrediente.onza()
+		self.onzas().add(onza)
+		game.addVisualIn(onza, self.position().up(self.ingredientes().size() - 1))
+	}
+	
+	method quitarOnzas(){
+		self.onzas().forEach({ onza => game.removeVisual(onza) })
+		self.onzas().clear()
+	}
+	
+	/* Gestión de los sonidos de la coctelera */
 	method sonidosYDialogos(){
 		dialogo.contelera(self) 
 		configSonido.limpiar()
@@ -42,6 +49,7 @@ object coctelera{
 		self.sonidosYDialogos()
 	}
 	
+	// Devuelve el trago elaborado hasta el momento de su llamada
 	method preparado() = new Trago(ingredientes = self.ingredientes() )
 	
 }
@@ -75,6 +83,5 @@ object cocteleraParaTest {
 		self.quitarOnzas()
 	}
 
-	method preparado() = new Trago(ingredientes = self.ingredientes() )
-	
+	method preparado() = new Trago(ingredientes = self.ingredientes())
 } 
