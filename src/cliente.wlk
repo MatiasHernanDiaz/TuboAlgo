@@ -14,6 +14,9 @@ class Cliente{
 	var property recibioTrago = false
 	const property position = silla.position().right(2) 
 	var tiempoRestante = self.tiempoEspera()
+	const propinaSatisfaccion1 = 250
+	const propinaSatisfaccion2 = 500
+	const propinaSatisfaccion3 = 1000
 	
 	method nombre()  
 	
@@ -84,7 +87,7 @@ class Cliente{
 	}
 
 /*METODOS PARA EL ANALISIS DE LOS TRAGOS */ 
-	method verificarTrago(unTrago)
+	method verificarTrago(tragoQueRecibio) = self.compararTragosSet(tragoQueRecibio)
 	
 	method generarTrago(){
 		self.tragoPedido(carta.elegirTrago())
@@ -126,20 +129,22 @@ class Cliente{
 	//modifica el contador del propinero
 		if(self.satisfaccion() == 1){
 			dialogo.satisfaccion1(self)
-			propinero.entregarPropina(250)
-			configSonido.efectoPropina()
+			self.propinaMasSonido(propinaSatisfaccion1)
 		} else if(self.satisfaccion() == 2) {
 			dialogo.satisfaccion2(self)
-			propinero.entregarPropina(500)
-			configSonido.efectoPropina()
+			self.propinaMasSonido(propinaSatisfaccion2)
 		} else if(self.satisfaccion() >= 3) {
 			dialogo.satisfaccion3(self)
-			propinero.entregarPropina(1000) 
-			configSonido.efectoPropina()
+			self.propinaMasSonido(propinaSatisfaccion3) 
 		} else {
 			dialogo.tragoMal(self)
 			self.desalojar()
 		}
+	}
+	
+	method propinaMasSonido(dinero){
+		propinero.entregarPropina(dinero)
+			configSonido.efectoPropina()
 	}
 }
 
@@ -156,6 +161,7 @@ class ClienteExigente inherits Cliente {
 	override method verificarTrago(tragoQueRecibio){
 		//Se deben ordenar los tragos, y luego devolver la comparación.
 		//Tiene que ser identicos
+		//el no compara set, por eso no va super()
 		return self.ordenarTragoRecibido(tragoQueRecibio) == self.ordenarTragoPedido()
 	}
 	
@@ -184,7 +190,7 @@ class ClienteMedio inherits Cliente{
 	override method verificarTrago(tragoQueRecibio){
 		//Compara los set de tragos y se verifica la direrencia de cantidades
 		
-		return self.compararTragosSet(tragoQueRecibio) and 
+		return super(tragoQueRecibio) and 
 			self.verificarToleranciaUnaDif(tragoQueRecibio)
 	}
 	
@@ -210,7 +216,7 @@ class ClienteConformista inherits Cliente{
 	
 	override method verificarTrago(tragoQueRecibio){
 		//compara set tragos y pide que el vaso este lleno
-		return self.compararTragosSet(tragoQueRecibio) and self.vasoLleno(tragoQueRecibio)
+		return super(tragoQueRecibio) and self.vasoLleno(tragoQueRecibio)
 		}
 	
 	method vasoLleno(unTrago){

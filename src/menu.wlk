@@ -28,7 +28,7 @@ object menuPrincipal {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OpcionMenu {
 	const property position
-	const property visuales
+	const property visuales = []
 	const property siguiente
 	const property anterior
 	const property nombre
@@ -46,7 +46,7 @@ class OpcionMenu {
 	method seleccionado() = selector.seleccionado() === self
 	
 	// Elije la imagen correspondiente a su estado
-	method image() = if(!self.seleccionado()) self.nombre() + '.png' else self.nombre() + 'Seleccionado.png'
+	method image() = if(!self.seleccionado()) self.toString() + '.png' else self.toString() + 'Seleccionado.png'
 }
 
 /* Opciones del menú inicial */
@@ -94,6 +94,7 @@ object salir inherits OpcionMenu(
 //////   OPCIONES DE DIFICULTAD
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OpcionNivelSesion inherits OpcionMenu {
+	override method visuales() = []
 	method nuevaSesion()
 	override method aceptar(){
 		// Asegura el reinicio del tablero y la configuración antes de una nueva sesión
@@ -103,12 +104,12 @@ class OpcionNivelSesion inherits OpcionMenu {
 		selector.ultimaSeleccion(comenzar)
 		config.iniciarJuego(self.nuevaSesion()) // Debe ser una Sesión
 		configSonido.iniciarMusicaFondo()
+			
 	}
 }
 
 object facil inherits OpcionNivelSesion(
 	position = game.at(65, 32),
-	visuales = [], 
 	siguiente = dificil, 
 	anterior = normal,
 	nombre = 'facil'
@@ -119,8 +120,7 @@ object facil inherits OpcionNivelSesion(
 }
 
 object normal inherits OpcionNivelSesion(
-	position = game.at(65, 24),
-	visuales = [], 
+	position = game.at(65, 24), 
 	siguiente = facil, 
 	anterior = dificil,
 	nombre = 'normal'
@@ -132,7 +132,6 @@ object normal inherits OpcionNivelSesion(
 
 object dificil inherits OpcionNivelSesion(
 	position = game.at(65, 16),
-	visuales = [], 
 	siguiente = normal, 
 	anterior = facil,
 	nombre = 'dificil'

@@ -231,7 +231,7 @@ describe "cliente"{
  		clienteConformista.generarTrago(fernCola)
  		assert.equals(fernCola, clienteConformista.tragoPedido())
  		
- 		//recibe fernet y lo verigica 
+ 		//recibe fernet y lo verifica 
  		assert.that(clienteConformista.verificarTrago(fernCola))
  		//recibe fernetCordobes
  		assert.that(clienteConformista.verificarTrago(fernCordobes))
