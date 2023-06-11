@@ -27,11 +27,11 @@ object menuPrincipal {
 //////  OPCIONES DEL MENU PRINCIPAL
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OpcionMenu {
-	const property position
+	const property position_y
+	const property position = game.at(65, self.position_y())
 	const property visuales = []
 	const property siguiente
 	const property anterior
-	const property nombre
 	
 	method aceptar() {
 		// Ejecuta las acciones requeridas al presionar un botón.
@@ -51,11 +51,10 @@ class OpcionMenu {
 
 /* Opciones del menú inicial */
 object comenzar inherits OpcionMenu(
-	position = game.at(65, 32), 
+	position_y = 32, 
 	visuales = [facil, normal, dificil, volverMenuPrincipal],
 	siguiente = salir, 
-	anterior = tutorial,
-	nombre = 'comenzar'
+	anterior = tutorial
 ) {
 	override method aceptar() {
 		super()
@@ -64,28 +63,24 @@ object comenzar inherits OpcionMenu(
 }
 
 object tutorial inherits OpcionMenu(
-	position = game.at(65, 24), 
+	position_y = 24, 
 	visuales = [volverMenuPrincipal,tutorialDescripcion],
 	siguiente = comenzar, 
-	anterior = cartel,
-	nombre = 'tutorial'
+	anterior = cartel
 ) {}
 
 object cartel inherits OpcionMenu(
-	position = game.at(65, 16), 
+	position_y = 16, 
 	visuales = [volverMenuPrincipal,creditos],
 	siguiente = tutorial, 
-	anterior = salir,
-	nombre = 'cartel'
-	
+	anterior = salir
 ) {}
 
 object salir inherits OpcionMenu(
-	position = game.at(65, 8), 
+	position_y = 8, 
 	visuales = null,
 	siguiente = cartel, 
-	anterior = comenzar,
-	nombre = 'salir'
+	anterior = comenzar
 ) {
 	override method aceptar() { game.stop() }
 }
@@ -109,10 +104,9 @@ class OpcionNivelSesion inherits OpcionMenu {
 }
 
 object facil inherits OpcionNivelSesion(
-	position = game.at(65, 32),
+	position_y = 32,
 	siguiente = dificil, 
-	anterior = normal,
-	nombre = 'facil'
+	anterior = normal
 ) {
 	override method nuevaSesion(){
 		return new SesionFacil()
@@ -120,10 +114,9 @@ object facil inherits OpcionNivelSesion(
 }
 
 object normal inherits OpcionNivelSesion(
-	position = game.at(65, 24), 
+	position_y = 24, 
 	siguiente = facil, 
-	anterior = dificil,
-	nombre = 'normal'
+	anterior = dificil
 ) {
 	override method nuevaSesion(){
 		return new SesionNormal()
@@ -131,10 +124,9 @@ object normal inherits OpcionNivelSesion(
 }
 
 object dificil inherits OpcionNivelSesion(
-	position = game.at(65, 16),
+	position_y = 16,
 	siguiente = normal, 
-	anterior = facil,
-	nombre = 'dificil'
+	anterior = facil
 ) {
 	override method nuevaSesion(){
 		return new SesionDificil()
