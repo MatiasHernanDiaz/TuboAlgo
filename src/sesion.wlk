@@ -13,6 +13,7 @@ import wollok.game.*
 class Sesion {
 	var property tiempoRestante = self.tiempoInicial()
 	const property sillas = []
+	const property position_y_sillas = 20
 	const property ingredientes = [limon, naranja, tomate, cola, whisky, vodka, fernulo, ron]
 	
 	const property position = game.origin()
@@ -101,10 +102,10 @@ class SesionFacil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 20)),
-			new SillaTibia(position = game.at(32, 20)),
-			new SillaTibia(position = game.at(48, 20)),
-			new SillaCaliente(position = game.at(64, 20))
+			new SillaFria(position = game.at(16, position_y_sillas)),
+			new SillaTibia(position = game.at(32, position_y_sillas)),
+			new SillaTibia(position = game.at(48, position_y_sillas)),
+			new SillaCaliente(position = game.at(64, position_y_sillas))
 		])
 	}
 }
@@ -115,10 +116,10 @@ class SesionNormal inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaFria(position = game.at(16, 20)),
-			new SillaCaliente(position = game.at(30, 20)),
-			new SillaTibia(position = game.at(44, 20)),
-			new SillaCaliente(position = game.at(58, 20))
+			new SillaFria(position = game.at(16, position_y_sillas)),
+			new SillaCaliente(position = game.at(30, position_y_sillas)),
+			new SillaTibia(position = game.at(44, position_y_sillas)),
+			new SillaCaliente(position = game.at(58, position_y_sillas))
 		])
 	}
 }
@@ -129,10 +130,10 @@ class SesionDificil inherits Sesion {
 	
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaTibia(position = game.at(16, 20)),
-			new SillaCaliente(position = game.at(30, 20)),
-			new SillaTibia(position = game.at(44, 20)),
-			new SillaCaliente(position = game.at(58, 20))
+			new SillaTibia(position = game.at(16, position_y_sillas)),
+			new SillaCaliente(position = game.at(30, position_y_sillas)),
+			new SillaTibia(position = game.at(44, position_y_sillas)),
+			new SillaCaliente(position = game.at(58, position_y_sillas))
 		])
 	}
 }
@@ -162,10 +163,10 @@ class SesionParaTest inherits Sesion {
 	}
 	override method crearSillas() {
 		self.sillas().addAll([
-			new SillaParaTest(position = game.at(0, 0)),
-			new SillaParaTest(position = game.at(30, 20)),
-			new SillaParaTest(position = game.at(44, 20)),
-			new SillaParaTest(position = game.at(58, 20))
+			new SillaParaTest(position = game.at(16, position_y_sillas)),
+			new SillaParaTest(position = game.at(30, position_y_sillas)),
+			new SillaParaTest(position = game.at(44, position_y_sillas)),
+			new SillaParaTest(position = game.at(58, position_y_sillas))
 		])
 	}
 	override method controlReloj() {
