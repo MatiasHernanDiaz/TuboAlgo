@@ -3,7 +3,6 @@ import wollok.game.*
 ////// 			ELEMENTO DE INGREDIENTE
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Onza {
-	//var property position = game.origin()
 	const property image 
 }
 
@@ -11,29 +10,28 @@ class Onza {
 ////// 			CLASE INGREDIENTE
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Ingrediente {
-	const property nombre
 	const property posicionX
 	const property position = game.at(posicionX, 5)
-	const property image = 'botella' + self.nombre() + '.png'
+	const property image = 'botella_' + self.toString() + '.png'
 	
-	method onza() = new Onza(image = 'onza' + self.nombre() + '.png')
+	method onza() = new Onza(image = 'onza_' + self.toString() + '.png')
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////// INGREDIENTES DEL JUEGO
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const limon = new Ingrediente(nombre = 'Limon', posicionX = 4 )
+object limon inherits Ingrediente(posicionX = 4 ) {}
 
-const naranja = new Ingrediente(nombre = 'Naranja', posicionX = 11)
+object naranja inherits Ingrediente(posicionX = 11) {}
 
-const tomate = new Ingrediente(nombre = 'Tomate', posicionX = 18)
+object tomate inherits Ingrediente(posicionX = 18) {}
 
-const cola = new Ingrediente(nombre = 'Cola', posicionX = 25)
+object cola inherits Ingrediente(posicionX = 25) {}
 
-const whisky = new Ingrediente(nombre = 'Whisky', posicionX = 32)
+object whisky inherits Ingrediente(posicionX = 32) {}
 
-const vodka = new Ingrediente(nombre = 'Vodka', posicionX = 39)
+object vodka inherits Ingrediente(posicionX = 39) {}
 
-const fernulo = new Ingrediente(nombre = 'Fernulo', posicionX = 46)
+object fernulo inherits Ingrediente(posicionX = 46) {}
 
-const ron = new Ingrediente(nombre = 'Ron', posicionX = 53)
+object ron inherits Ingrediente(posicionX = 53) {}
