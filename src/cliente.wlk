@@ -167,13 +167,13 @@ class ClienteExigente inherits Cliente {
 	
 	method ordenarTragoRecibido(tragoQueRecibio){
 		//retorna lista del trago que recibio ordenado
-		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
+		tragoQueRecibio.ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
 		return tragoQueRecibio.ingredientes()
 	}
 	
 	method ordenarTragoPedido(){
 		//retorna lista del trago pedido ordenado
-		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.nombre() < e2.nombre()})
+		self.tragoPedido().ingredientes().sortBy({ e1, e2 => e1.toString() < e2.toString()})
 		return self.tragoPedido().ingredientes()
 	}
 }
